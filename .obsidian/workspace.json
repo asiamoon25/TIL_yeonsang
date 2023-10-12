@@ -20,27 +20,15 @@
             }
           },
           {
-            "id": "2f5ba3b159151921",
+            "id": "c2a8dc5e1f0ca38f",
             "type": "leaf",
             "state": {
               "type": "full-calendar-view",
               "state": {}
             }
-          },
-          {
-            "id": "c57d4bb0bbd95ff7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "TIL/Container/Container.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -178,11 +166,21 @@
       "obsidian-full-calendar:Open Full Calendar": false
     }
   },
-  "active": "c57d4bb0bbd95ff7",
+  "active": "c2a8dc5e1f0ca38f",
   "lastOpenFiles": [
-    "Pasted image 20231012143505.png",
-    "Pasted image 20231005164049.png.md",
+    "일정 - 2. 회사/2023-11-09 광군제.md",
     "TIL/Container/Container.md",
+    "일정 - 2. 회사/2023-11-08 TW 유그드라 서비스 런칭.md",
+    "일정 - 2. 회사/2023-10-21 필리핀 워크샵.md",
+    "일정 - 2. 회사/2023-10-18 XA Launcher Design Cut.md",
+    "일정 - 2. 회사/(Every F,R,W,T,M) XA Launcher Design Cut.md",
+    "일정 - 2. 회사/(Every ) XA Launcher Desigin Cut.md",
+    "일정 - 2. 회사/2023-10-18 XA HomePage 제작 시작.md",
+    "일정 - 2. 회사/2023-10-17 Mobile DA 쿼리 전달일.md",
+    "일정 - 2. 회사/2023-10-12 JP 유그드라 오픈.md",
+    "Pasted image 20231012143505.png",
+    "MicrosoftTeams-image (6).png",
+    "Pasted image 20231005164049.png.md",
     "일정 - 4.미완료",
     "일정 - 3.완료",
     "일정 - 1. 개인 일정",
