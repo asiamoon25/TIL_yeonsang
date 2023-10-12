@@ -18,8 +18,17 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "2f5ba3b159151921",
+            "type": "leaf",
+            "state": {
+              "type": "full-calendar-view",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -73,8 +82,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
@@ -152,11 +160,18 @@
       "canvas:새 캔버스 만들기": false,
       "daily-notes:오늘의 데일리 노트 열기": false,
       "templates:템플릿 삽입": false,
-      "command-palette:명령어 팔레트 열기": false
+      "command-palette:명령어 팔레트 열기": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "obsidian-full-calendar:Open Full Calendar": false
     }
   },
-  "active": "745b1e4cbb860556",
+  "active": "2f5ba3b159151921",
   "lastOpenFiles": [
+    "일정 - 4.미완료",
+    "일정 - 3.완료",
+    "일정 - 1. 개인 일정",
+    "일정 - 2. 회사",
     "Context/spacesLastSync.log",
     "Context",
     "TIL/무제 파일.md",

@@ -1,0 +1,31 @@
+{
+  "calendarSources": [
+    {
+      "type": "local",
+      "color": "#54ff0a",
+      "directory": "일정 - 2. 회사"
+    },
+    {
+      "type": "local",
+      "color": "#8f06ea",
+      "directory": "일정 - 1. 개인 일정"
+    },
+    {
+      "type": "local",
+      "color": "#1c00a8",
+      "directory": "일정 - 3.완료"
+    },
+    {
+      "type": "local",
+      "color": "#f00000",
+      "directory": "일정 - 4.미완료"
+    }
+  ],
+  "defaultCalendar": 0,
+  "firstDay": 0,
+  "initialView": {
+    "desktop": "timeGridWeek",
+    "mobile": "timeGrid3Days"
+  },
+  "timeFormat24h": false
+}
