@@ -16,7 +16,28 @@
   "optionalNotePrefix": "",
   "eventNoteNameFormat": "{{prefix}}{{event-title}}",
   "defaultCalendar": "",
-  "calendarBlackList": [],
+  "calendarBlackList": [
+    [
+      "wjddustkd45@gmail.com",
+      "wjddustkd45@gmail.com"
+    ],
+    [
+      "qsbpcq72713f3utvjir9rii31g@group.calendar.google.com",
+      "lj-operation"
+    ],
+    [
+      "family13331843698850284392@group.calendar.google.com",
+      "가족"
+    ],
+    [
+      "addressbook#contacts@group.v.calendar.google.com",
+      "생일"
+    ],
+    [
+      "ko.japanese#holiday@group.v.calendar.google.com",
+      "일본의 휴일"
+    ]
+  ],
   "insertTemplates": [],
   "useDefaultTemplate": false,
   "defaultTemplate": "",

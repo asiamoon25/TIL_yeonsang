@@ -18,17 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "46148419cddfdc71",
-            "type": "leaf",
-            "state": {
-              "type": "full-calendar-view",
-              "state": {}
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -102,7 +93,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TIL/Container/Container.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +109,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "TIL/Container/Container.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,8 +131,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TIL/Container/Container.md"
+                "file": ".gitignore.md"
               }
+            }
+          },
+          {
+            "id": "9044bea7a96fe193",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {}
             }
           }
         ]
@@ -162,14 +159,14 @@
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
-      "obsidian-full-calendar:Open Full Calendar": false
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "46148419cddfdc71",
+  "active": "f06a700ead7a518d",
   "lastOpenFiles": [
-    "일정 - 2. 회사/2023-10-21 필리핀 워크샵.md",
+    ".gitignore.md",
     "TIL/Container/Container.md",
+    "일정 - 2. 회사/2023-10-21 필리핀 워크샵.md",
     "일정 - 2. 회사/2023-11-09 광군제.md",
     "일정 - 2. 회사/2023-11-08 TW 유그드라 서비스 런칭.md",
     "일정 - 2. 회사/2023-10-18 XA Launcher Design Cut.md",
@@ -189,7 +186,6 @@
     "Context",
     "TIL/무제 파일.md",
     "TIL/Container",
-    "무제 파일.md",
     "TIL"
   ]
 }
