@@ -34,8 +34,8 @@
   "defaultCalendar": 0,
   "firstDay": 1,
   "initialView": {
-    "desktop": "timeGridWeek",
-    "mobile": "timeGrid3Days"
+    "desktop": "dayGridMonth",
+    "mobile": "timeGridDay"
   },
   "timeFormat24h": false
 }
