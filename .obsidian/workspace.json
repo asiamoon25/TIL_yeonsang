@@ -144,13 +144,21 @@
               "type": "calendar",
               "state": {}
             }
+          },
+          {
+            "id": "2f5ffd4d3a5261cf",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -164,11 +172,13 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "f06a700ead7a518d",
+  "active": "745b1e4cbb860556",
   "lastOpenFiles": [
+    "Excalidraw/Drawing 2023-10-12 15.36.00.excalidraw.md",
+    "TIL/Container/Container.md",
+    "Excalidraw",
     "gitignore",
     ".gitignore.md",
-    "TIL/Container/Container.md",
     "일정 - 2. 회사/2023-10-21 필리핀 워크샵.md",
     "일정 - 2. 회사/2023-11-09 광군제.md",
     "일정 - 2. 회사/2023-11-08 TW 유그드라 서비스 런칭.md",

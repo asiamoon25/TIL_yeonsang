@@ -37,7 +37,9 @@
   "expandedFolders": {},
   "expandedSpaces": [
     "/",
-    null
+    null,
+    null,
+    "TIL_yeonsang"
   ],
   "expandFolderOnClick": true,
   "openFolders": [],
@@ -68,7 +70,7 @@
   "spacesSyncTimeoutSeconds": 10,
   "spacesAutoBackup": true,
   "spacesAutoBackupInterval": 10,
-  "spacesAutoBackupLast": 1697092302224,
+  "spacesAutoBackupLast": 1697092561988,
   "spacesUseAlias": false,
   "precreateVaultSpace": true,
   "fmKeyAlias": "aliases",
