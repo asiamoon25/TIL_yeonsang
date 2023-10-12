@@ -1,3 +1,7 @@
 {
-  "accentColor": ""
+  "accentColor": "",
+  "interfaceFontFamily": "Yeongdeok Sea",
+  "textFontFamily": "Yeongdeok Sea",
+  "monospaceFontFamily": "Yeongdeok Sea",
+  "baseFontSize": 18
 }
