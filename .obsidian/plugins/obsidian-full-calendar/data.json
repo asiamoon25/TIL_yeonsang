@@ -19,6 +19,16 @@
       "type": "local",
       "color": "#f00000",
       "directory": "일정 - 4.미완료"
+    },
+    {
+      "type": "ical",
+      "color": "#61079d",
+      "url": "https://calendar.google.com/calendar/ical/997e07101787ea77ade186e30d022394131c2c7f9f76bf6b69b29343082b9c25%40group.calendar.google.com/private-c6cd798f2ac8f350aaeac3b0e9692fc3/basic.ics"
+    },
+    {
+      "type": "ical",
+      "color": "#4dff00",
+      "url": "https://calendar.google.com/calendar/ical/3d1610d626c7f53bdf07e216d763f2fce15146110bfa097488b738480fc61f6d%40group.calendar.google.com/private-47b15f3ed26434825680416e83aa0a04/basic.ics"
     }
   ],
   "defaultCalendar": 0,
