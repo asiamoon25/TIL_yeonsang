@@ -34,10 +34,9 @@ _온라인 쇼핑몰이 고객 혜택을 제공하는 것은 아니며 규모가
 
 ex) 주문 도메인의 경우 상품 개수 선택, 배송지 입력, 금액 계산, 결제 수단 선택 등 다양한 기능이 있음. 이를 객체 모델로 구성하면 다음과 같다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2c28fe0b-80dd-45ba-ab65-c38e14b030bb/71926365-7ff6-4e9a-bd06-872ed6364318/Untitled.png)
+![[Pasted image 20231015170014.png]]
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2c28fe0b-80dd-45ba-ab65-c38e14b030bb/6bc60e7d-ef41-4c62-953b-f2aa47202204/Untitled.png)
-
+![[Pasted image 20231015170033.png]]
 도메인 모델은 기본적으로 도메인 자체를 이해하기 위한 개념 모델임.
 
 개념 모델을 이용해서 바로 코드를 작성할 수 있는 건 아님. 구현 기술에 맞는 구현 모델이 따로 필요함.
