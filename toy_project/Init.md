@@ -6,6 +6,8 @@ Host : Cafe24(Linux)
 VCS : Git(Git Lab)
 주제 : 등산로 커뮤니티 와 클라이밍
 
-IDE : 인텔리제이
+IDE : intelliJ
 
 
+Dependancy
+![[Pasted image 20231113172105.png]]
