@@ -53,13 +53,7 @@
 		* 파티션의 개수, 파티셔너(Hash,Range) 등을 선택 가능하다.
 
 
-* Operation
-	* Transformation
-		* 기존의 RDD를 변경하여 새로운 RDD 를 생성
-		-> return 이 RDD가 됨.
-	
-	* Action
-		* RDD 값을 기반으로
+
 
 * ***Lineage(혈통)**
 	![[Pasted image 20231124140736.png]]
@@ -70,8 +64,23 @@
 			![[Pasted image 20231124140043.png]]
 		2. 노드 간의 순환이 없고, 일정한 방향성을 가짐.
 			DAG 형태이기 때문에 장애 발생 시 그래프를 다시 복기하여 다시 계산하고, 자동으로 복구 할 수 있음.
-
-
-* RDD 동작원리
-	![[Pasted image 20231124140830.png]]
+* Operation
+	* Transformation
+		* 기존의 RDD를 변경하여 새로운 RDD 를 생성
+		-> return 이 RDD가 됨.
 	
+	* Action
+		* RDD 값을 기반으로 계산하여 결과를 생성하는 것
+		-> return 값이 데이터 또는 실행 결과
+		* collect, count, top, reduce 등
+*  RDD 동작 원리 핵심
+	* Lazy Evaluation(느긋한 연산)
+		* task 를 정의할 때는 연산을 하지 않다가 결과가 필요할 때 연산하는 것을 말함.
+			즉, RDD 는 Action 연산자를 만나기 전까지는, Transformation 연산자가 아무리 쌓여도 처리하지 않음.
+* DAG (Directed Acyclic Graph)
+	* RDD 를 변형하는 순서를 Lineage 라고 하며, Lineage 는 DAG(Directed Acylic Graph) 의 형태를 가짐.
+	* DAG 의 형태
+		![[Pasted image 20231124140043.png]]
+		node 간의 순환이 없으며, 일정한 방향성을 가지기 때문에 각 노드간에는 의존성이 있고, 노드간의 순서가 중요함.
+		따라서 RDD 연산과정에서 특정 RDD 관련 정보가 **메모리에서 유실됐을 경우**, DAG 그래프를 복기하여 다시 계산하고 복구할 수 있음.
+		Spark 는 이러한 특성 때문에 Fault-tolerant(장애 허용)을 잘 보장함.
