@@ -61,8 +61,10 @@ Apache Spark SQL
 		3. 트리
 			Catalyst의 메인 데이터 타입은 node 객체로 구성된 tree 임.
 			각 노드는 노드 타입과 0개 또는 그 이상의 children 을 가짐. 새로운 node 타입은 Scala 에서 TreeNode 클래스의 서브타입으로 정의되게 됨. 이러한 객체들은 immutable 하고 이후에 나올 함수형 transformation을 통해 조작될 수 있음.
-		4. Rule
-			트리는 룰을 사용해서 조작될 수 있음.
+		4. Rules
+			하나의 트리에서 다른 트리로의 함수.
+			rule 이 input 트리에 대해 임의적인 코드를 실행할 수 있지만, 가장 일반적인 접근은 패턴매칭 세트를 사용하여 서브트리의 일부분을 찾고 특정 구조로 바꾸는 것임.
+			
 		
 
 
