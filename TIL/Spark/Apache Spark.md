@@ -22,3 +22,29 @@
 
 ## Spark EcoSystem
 ![[Pasted image 20231127180541.png]]
+
+* Apache Spark Core
+	스파크가 제공하는 모든 기능은 Spark Core 위에 구축되어 있음.
+	스파크 코어는 인메모리 연산 기능을 제공하여 빠른 속도를 제공함.
+	Spark Core는 대규모 데이터 세트의 병렬 및 분산 처리의 기반이됨.
+	* 주요기능 
+		* 필수 입출력 기능담당
+		* Spark Cluster의 역할을 프로그래밍하고 관찰함
+		* 작업 디스패치
+		* 장애 복구
+		* In-Memory 를 사용하여 MapReduce의 문제점을 극복
+	Spark Core 에서는 RDD 라는 특수 컬렉션이 포함되어 있음.([작성한 글](obsidian://open?vault=TIL_yeonsang&file=TIL%2FSpark%2FRDD))
+
+Apache Spark SQL
+	정형 데이터 처리를 위한 스파크 모듈. RDD API 와 다르게, Spark SQL 인터페이스는 데이터와 수행되는 컴퓨팅과 관련한 구조에 대한 정보를 제공함.
+	Spark SQL 은 2가지 주요 기능을 가지고 있음.
+		1. Spark SQL Programming Interface
+			Spark Core 에 기반한 라이브러리 형태로 실행됨. Spark SQL
+		2. Catalyst Optimizer
+		
+
+
+
+
+
+
