@@ -39,8 +39,17 @@ Apache Spark SQL
 	정형 데이터 처리를 위한 스파크 모듈. RDD API 와 다르게, Spark SQL 인터페이스는 데이터와 수행되는 컴퓨팅과 관련한 구조에 대한 정보를 제공함.
 	Spark SQL 은 2가지 주요 기능을 가지고 있음.
 		1. Spark SQL Programming Interface
-			Spark Core 에 기반한 라이브러리 형태로 실행됨. Spark SQL
-		2. Catalyst Optimizer
+			Spark Core 에 기반한 라이브러리 형태로 실행됨. Spark SQL 인터페이스를 제공.
+			JDBCC/ODBC , CommandLine Console, Spark 가 지원하는 언어의 DataFrame API 3가지를 통해 접근할 수 있음.
+				1. DataFrame API
+					동일한 스키마를 가진 rows 들의 분산 콜렉션
+				2. 데이터프레임 연산
+					DSL 를 통해 데이터프레임 연산을 수행할 수 있음.
+					projection(select), filter(where), join, aggregations(group By) 와 같은 일반적인 관계형 연산을 모두 지원.
+					이러한 연산자는 limited DSL 상의 expression 객체를 취하여 Spark 가 expression의 구조를 감지하도록 함.
+					`exployees.join(dep`
+					
+		1. Catalyst Optimizer
 		
 
 
