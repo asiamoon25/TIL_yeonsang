@@ -64,6 +64,7 @@
 			![[Pasted image 20231124140043.png]]
 		2. 노드 간의 순환이 없고, 일정한 방향성을 가짐.
 			DAG 형태이기 때문에 장애 발생 시 그래프를 다시 복기하여 다시 계산하고, 자동으로 복구 할 수 있음.
+
 * Operation
 	* Transformation
 		* 기존의 RDD를 변경하여 새로운 RDD 를 생성
@@ -73,10 +74,12 @@
 		* RDD 값을 기반으로 계산하여 결과를 생성하는 것
 		-> return 값이 데이터 또는 실행 결과
 		* collect, count, top, reduce 등
+
 *  RDD 동작 원리 핵심
 	* Lazy Evaluation(느긋한 연산)
 		* task 를 정의할 때는 연산을 하지 않다가 결과가 필요할 때 연산하는 것을 말함.
 			즉, RDD 는 Action 연산자를 만나기 전까지는, Transformation 연산자가 아무리 쌓여도 처리하지 않음.
+
 * DAG (Directed Acyclic Graph)
 	* RDD 를 변형하는 순서를 Lineage 라고 하며, Lineage 는 DAG(Directed Acylic Graph) 의 형태를 가짐.
 	* DAG 의 형태
