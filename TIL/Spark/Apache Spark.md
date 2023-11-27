@@ -58,6 +58,11 @@ Apache Spark SQL
 			Scala의 함수형 프로그래밍 constructs 에 기반하여 2가지 목적을 위해 디자인 되었음.
 			1. Spark SQL 에 새로운 최적화 테크닉과 기능을 쉽게 더할 수 있도록
 			2. 외부 개발자가 옵티마이저를 확장할 수 있도록.
+		3. 트리
+			Catalyst의 메인 데이터 타입은 node 객체로 구성된 tree 임.
+			각 노드는 노드 타입과 0개 또는 그 이상의 children 을 가짐. 새로운 node 타입은 Scala 에서 TreeNode 클래스의 서브타입으로 정의되게 됨. 이러한 객체들은 immutable 하고 이후에 나올 함수형 transformation을 통해 조작될 수 있음.
+		4. Rule
+			트리는 룰을 사용해서 조작될 수 있음.
 		
 
 
