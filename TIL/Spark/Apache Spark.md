@@ -47,9 +47,17 @@ Apache Spark SQL
 					DSL 를 통해 데이터프레임 연산을 수행할 수 있음.
 					projection(select), filter(where), join, aggregations(group By) 와 같은 일반적인 관계형 연산을 모두 지원.
 					이러한 연산자는 limited DSL 상의 expression 객체를 취하여 Spark 가 expression의 구조를 감지하도록 함.
-					`exployees.join(dep`
-					
-		1. Catalyst Optimizer
+				3. 데이터프레임 vs 관계형 쿼리 언어
+					Spark SQL 은 절차형 및 관계형 인터페이스를 통합하여 제공하기에 사용자가 매우 편리하게 작업을 진행할 수 있도록 함.
+					사용자는 Scala,Java, Python 으로 된 함수로 데이터프레임을 전달하여 논리적 플랜을 만들고, 최종적으로 전체 플랜에 있어 최적화의 이점도 누릴 수 있음.
+				4. In-Memory Caching
+					Spark SQL 은 이전의 Shark 와 같이 자주 사용되는 데이터를 컬럼형 스토리지를 사용해 메모리에 materilize(cache) 할 수 있음. Spark 의 Native 캐시는 데이터를 단순히 JVM 객체로 저장하는 반면에, 컬럼형 캐시는 dictionary encoding 과 run-length 인코딩과 같은 컬럼 압축 방식을 적용하기에 메모리 소비량이 매우 적습니다.
+				5. User-Defined Functions
+		2. Catalyst Optimizer
+			쿼리 최적화 도구
+			Scala의 함수형 프로그래밍 constructs 에 기반하여 2가지 목적을 위해 디자인 되었음.
+			1. Spark SQL 에 새로운 최적화 테크닉과 기능을 쉽게 더할 수 있도록
+			2. 외부 개발자가 옵티마이저를 확장할 수 있도록.
 		
 
 
