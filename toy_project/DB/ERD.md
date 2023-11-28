@@ -29,5 +29,30 @@ create table board_article
 
 comment
 ```sql
+-- auto-generated definition  
+create table comment  
+(  
+    id         bigint auto_increment  
+        primary key,    content_no bigint       null,  
+    content    text         null,  
+    author     varchar(100) null,  
+    user_tag   varchar(100) null,  
+    constraint comment_FK  
+        foreign key (content_no) references board_article (id)  
+);
+```
 
+reply_comment
+```sql
+-- auto-generated definition  
+create table reply_comment  
+(  
+    id           bigint auto_increment  
+        primary key,    comment_id   bigint       null,  
+    content      text         null,  
+    reply_author varchar(100) null,  
+    user_tag     varchar(100) null,  
+    constraint reply_comment_FK  
+        foreign key (comment_id) references comment (id)  
+);
 ```
