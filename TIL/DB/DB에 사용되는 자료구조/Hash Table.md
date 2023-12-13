@@ -13,3 +13,6 @@
 * Multiplication Method
 	* 숫자로 된 Key 값 K 와 0과 1 사이의 실수 A, 보통 2의 제곱수인 m 을 사용하여 계산함
 		h(k) = (kAmod1) x m
+		mod = % (나머지)
+		kAmod1 => k x A % 1 => kA 의 소수점 이하 자리
+* Univeral Hashing
