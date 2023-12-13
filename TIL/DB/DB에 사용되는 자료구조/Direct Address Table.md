@@ -14,4 +14,10 @@
 		1, 30 ,509 에 데이터가 들어갔지만 그 외에 남은 공간이 있기 때문에 공간차지가 많이 됨.
 
 * Direct Address Table 주요 함수
-	*
+	DIRECT-ADDRESS-SEARCH(T,k)
+		return T[k]
+	DIRECT-ADDRESS-INSERT(T,x)
+		T[x.key] = x
+	DIRECT-ADDRESS-DELETE(T,x)
+		T[x.key] = NIL
+	
