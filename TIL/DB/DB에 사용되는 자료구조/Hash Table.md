@@ -55,17 +55,31 @@
 	
 	Hash 테이블에서 자주 사용하게 되는 데이터를 Cache에 적용하면 효율을 높일 수 있음.
 
-## Java HashMap 과 Hash Table 의 차이점
+## Java에서 HashMap 과 Hash Table 의 차이점
 * 동기화 지원 차이
 
-**JAVA**
-
+**JAVA의 Hashtable**
 ```java
-public synchronized V put(K key, V value) {
-	
+public synchronized V get(Object key) {  
+	Entry<?,?> tab[] = table;  
+	int hash = key.hashCode();  
+	int index = (hash & 0x7FFFFFFF) % tab.length;  
+	for (Entry<?,?> e = tab[index] ; e != null ; e = e.next) {  
+		if ((e.hash == hash) && e.key.equals(key)) {  
+		return (V)e.value;  
+		}  
+	}  
+	return null;  
 }
 ```
 
+**JAVA의 HashMap**
+```java
+public V put(K key, V value) {  
+return putVal(hash(key), key, value, false, true);  
+}
+```
 
+동기화 처리 -> 병렬처리에 사용, 대신 함수 처리에 시간이 좀 걸린다.
 
-
+병렬 처리 하면서 자원의 동기화를 고려하는 상황이라면 HashTable 아니면 HashMap
