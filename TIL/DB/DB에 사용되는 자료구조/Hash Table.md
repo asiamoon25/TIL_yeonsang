@@ -15,4 +15,10 @@
 		h(k) = (kAmod1) x m
 		mod = % (나머지)
 		kAmod1 => k x A % 1 => kA 의 소수점 이하 자리
-* Univeral Hashing
+* Universal Hashing
+	* 다수의 해시 함수를 만들어 집합 H 에 넣얻두고, 무작위로 해시함수를 선택해 해시값을 만드는 기법
+
+
+## 충돌
+
+* 
