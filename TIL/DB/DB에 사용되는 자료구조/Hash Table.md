@@ -56,3 +56,16 @@
 	Hash 테이블에서 자주 사용하게 되는 데이터를 Cache에 적용하면 효율을 높일 수 있음.
 
 ## Java HashMap 과 Hash Table 의 차이점
+* 동기화 지원 차이
+
+**JAVA**
+
+```java
+public synchronized V put(K key, V value) {
+	
+}
+```
+
+
+
+
