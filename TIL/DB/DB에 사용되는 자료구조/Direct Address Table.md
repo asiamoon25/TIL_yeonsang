@@ -21,3 +21,9 @@
 	DIRECT-ADDRESS-DELETE(T,x)
 		T[x.key] = NIL
 	
+	각각의 수행 시간은 O(T)   [시간 복잡도](obsidian://open?vault=TIL_yeonsang&file=TIL%2F%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%2F%EB%B3%B5%EC%9E%A1%EB%8F%84)
+	
+* Direct Address Table 의 공간 복잡도
+	* O([U])
+	* 실제 공간 사용을 전체 공간으로 나눈 [K]/[U] 를 적재율이라고 함.
+	* 적재율이 낮다면 실제로 대부분의 공간은 낭비
