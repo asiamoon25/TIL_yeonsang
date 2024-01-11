@@ -28,9 +28,19 @@ Jupyter 노트북은 프로토 타이핑, 탐색 및 결과 전달에 탁월하�
 
 유용한 템플릿은 단 게가 순서 지정 메커니즘으로 사용되는 것은 다음과 같다.
 
-**"<step>-<user>-<descriotion>.ipnyb" (01-kpy-eda.ipynb)**
+```shell
+<step>-<user>-<descriotion>.ipnyb" (01-kpy-eda.ipynb)
+```
 
-### 
+### src
+--data
+  이 디렉터리에는 데이터가 생성되는 모든 위치에서 데이터를 수집하고 추가 기능 엔지니어링이 발생할 수 있는 상태가되도록 데이터를 변환하는 script 있음.  
+  
+--feature
+  이 디렉토리에는 데이터를 조작하고 기계 학습 모델에서 사용할 수있는 형식으로 저장하는 script있다.  
+  
+--models
+  모델을 빌드하고 훈련하는 데 사용되는 script 포함되어 있다.
 
 
 
