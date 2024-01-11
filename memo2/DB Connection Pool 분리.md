@@ -45,3 +45,5 @@ CPU 차이
 ![[Pasted image 20240111173735.png]]
 
 DB 서버
+![[Pasted image 20240111173857.png]]
+DB IO, CPU 차이
