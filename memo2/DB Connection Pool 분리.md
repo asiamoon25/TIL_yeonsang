@@ -47,3 +47,15 @@ CPU 차이
 DB 서버
 ![[Pasted image 20240111173857.png]]
 DB IO, CPU 차이
+
+
+-----
+01-12
+정상
+![[Pasted image 20240112095026.png]]
+
+![[Pasted image 20240112095207.png]]
+
+
+GS DB Connection 제거
+09:54 시작 ~
