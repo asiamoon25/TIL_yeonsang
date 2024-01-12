@@ -75,3 +75,11 @@ VM 가용 메모리
 
 
 GS DB Connection 연결된 상태
+시작 시간 10:11 ~ 
+
+DB 
+![[Pasted image 20240112101850.png]]
+
+IO
+![[Pasted image 20240112101929.png]]
+
