@@ -80,6 +80,15 @@ GS DB Connection 연결된 상태
 DB 
 ![[Pasted image 20240112101850.png]]
 
-IO
-![[Pasted image 20240112101929.png]]
 
+qa server CPU
+평균 1.6 % -> 33% 증가
+![[Pasted image 20240112102231.png]]
+
+
+qa server IO
+![[Pasted image 20240112102024.png]]
+
+qa server 가용 메모리
+392MB -> 324.5MB 감소
+![[Pasted image 20240112102432.png]]
