@@ -58,4 +58,20 @@ DB IO, CPU 차이
 
 
 GS DB Connection 제거
-09:54 시작 ~
+09:54 시작 ~ 10:01
+sql-happycode  CPU
+![[Pasted image 20240112100225.png]]
+
+qa server 
+![[Pasted image 20240112100325.png]]
+평균 : 5% -> 26% 증가
+
+IO 평균 813kb -> 18mb 증가
+![[Pasted image 20240112100443.png]]
+
+VM 가용 메모리
+평균 190MB -> 169MB 하락
+![[Pasted image 20240112100551.png]]
+
+
+GS DB Connection 연결된 상태
