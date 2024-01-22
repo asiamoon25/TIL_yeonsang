@@ -23,21 +23,14 @@ SHOW STATUS LIKE 'Threads_connected';
 
 ------
 
-TEST 전
-현재 Connection 수
-![[Pasted image 20240122111635.png]]
-![[Pasted image 20240122113356.png]]
+TEST (DB Connection qn)
+현재 Connection 수 (QA Audition DB)
+![[Pasted image 20240122163214.png]]
+
 
 
 -----
-TEST 후
+TEST (DBConnection 분리 적용)
 ![[Pasted image 20240122112603.png]]
 748 ~ 749 Connection 수
 
-
-
-
-
-@Jeseung
-안녕하세요.
-GS DB Connection 분리 중에
