@@ -16,7 +16,10 @@ EXEC @return_value = [dbo].[JOY_CheckOnlyID]
 SELECT @result as N'result'
 ```
 
-
+Connection 확인 한 쿼리
+```sql
+SHOW STATUS LIKE 'Threads_connected';
+```
 
 ------
 
@@ -28,3 +31,5 @@ TEST 전
 
 -----
 TEST 후
+![[Pasted image 20240122112603.png]]
+748 ~ 749 Connection 수
