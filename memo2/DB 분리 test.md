@@ -23,7 +23,7 @@ SHOW STATUS LIKE 'Threads_connected';
 
 ------
 
-TEST (DB Connection qn)
+TEST (DB Connection 분리 미적용)
 현재 Connection 수 (QA Audition DB)
 ![[Pasted image 20240122163214.png]]
 
@@ -31,6 +31,5 @@ TEST (DB Connection qn)
 
 -----
 TEST (DBConnection 분리 적용)
-![[Pasted image 20240122112603.png]]
-748 ~ 749 Connection 수
+
 
