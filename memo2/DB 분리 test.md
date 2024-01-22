@@ -26,7 +26,7 @@ SHOW STATUS LIKE 'Threads_connected';
 TEST 전
 현재 Connection 수
 ![[Pasted image 20240122111635.png]]
-
+![[Pasted image 20240122113356.png]]
 
 
 -----
