@@ -33,3 +33,11 @@ TEST 전
 TEST 후
 ![[Pasted image 20240122112603.png]]
 748 ~ 749 Connection 수
+
+
+
+
+
+@Jeseung
+안녕하세요.
+GS DB Connection 분리 중에
