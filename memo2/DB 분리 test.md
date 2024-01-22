@@ -16,3 +16,15 @@ EXEC @return_value = [dbo].[JOY_CheckOnlyID]
 SELECT @result as N'result'
 ```
 
+
+
+------
+
+TEST 전
+현재 Connection 수
+![[Pasted image 20240122111635.png]]
+
+
+
+-----
+TEST 후
