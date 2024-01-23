@@ -29,7 +29,7 @@ TEST (DB Connection 분리 미적용)
 1만건 요청 시
 ![[Pasted image 20240123111313.png]]
 
-
+시간 : 1분
 
 -----
 TEST (DBConnection 분리 적용)
@@ -38,3 +38,5 @@ TEST (DBConnection 분리 적용)
 
 1만건 요청 시
 ![[Pasted image 20240123112355.png]]
+
+6분
