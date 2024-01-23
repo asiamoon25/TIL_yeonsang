@@ -25,8 +25,9 @@ SHOW STATUS LIKE 'Threads_connected';
 
 TEST (DB Connection 분리 미적용)
 현재 Connection 수 (QA Audition DB)
-![[Pasted image 20240122163214.png]]
-
+![[Pasted image 20240123111301.png]]
+1만건 요청 시
+![[Pasted image 20240123111313.png]]
 
 
 -----
