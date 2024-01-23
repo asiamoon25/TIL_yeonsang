@@ -40,3 +40,14 @@ TEST (DBConnection 분리 적용)
 ![[Pasted image 20240123112355.png]]
 
 6분
+
+
+-----
+
+
+DB Connection Pool 을 startup 완료 후 잡을 때
+![[Pasted image 20240123170729.png]]
+
+
+![[Pasted image 20240123170939.png]]
+1분 16초
