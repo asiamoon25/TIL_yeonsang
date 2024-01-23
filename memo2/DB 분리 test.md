@@ -30,11 +30,11 @@ TEST (DB Connection 분리 미적용)
 ![[Pasted image 20240123111313.png]]
 
 
+
 -----
 TEST (DBConnection 분리 적용)
 
+![[Pasted image 20240123111558.png]]
 
-
-
-
-reward point use history
+1만건 요청 시
+![[Pasted image 20240123112355.png]]
