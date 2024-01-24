@@ -30,5 +30,23 @@ def destroy = {
 ```
 
 
-DynamicConnectionPoolManager.groovy
-
+#### DynamicConnectionPoolManager.groovy
+1. isConnectionValid
+```groovy
+private static boolean isConnectionValid(DataSource dataSource, String dbType) {  
+	String query = "SELECT 1"  
+	if(dbType && dbType == 'oracle'){  
+		query = "SELECT 1 FROM DUAL"  
+	}  
+	try {  
+		Connection conn = dataSource.getConnection()  
+		Statement stmt = conn.createStatement()  
+		stmt.executeQuery(query)  
+		conn.close()  
+		return true  
+	} catch (SQLException e) {  
+		return false  
+	}  
+}
+```
+validateQuery 를 날려 Connection Pool 을 잡는 곳
