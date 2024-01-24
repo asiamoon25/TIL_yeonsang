@@ -50,3 +50,11 @@ private static boolean isConnectionValid(DataSource dataSource, String dbType) {
 }
 ```
 validateQuery 를 날려 Connection Pool 을 잡는 곳
+
+2. addDbProperties
+```groovy
+static void addDbProperties(String dataSourceName, Properties dbProps) {  
+	dbPropertiesMap.put(dataSourceName, dbProps)  
+}
+```
+BootStrap.groovy 에서 grails 시작 시 initialize 하기 위한 메서드
