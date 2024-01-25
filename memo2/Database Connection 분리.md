@@ -72,3 +72,5 @@ DynamicConnectionPoolManager --> BootStrap: void
 deactivate DynamicConnectionPoolManager
 deactivate BootStrap
 ```
+
+init 시 DataSourceHelper 에 있는 getGname
