@@ -73,4 +73,4 @@ deactivate DynamicConnectionPoolManager
 deactivate BootStrap
 ```
 
-init 시 DataSourceHelper 에 있는 getGname
+![[Pasted image 20240125112108.png]]
