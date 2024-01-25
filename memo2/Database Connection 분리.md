@@ -54,7 +54,6 @@ deactivate gameQueryExecuteRowConnectionPool
 ```
 
 
-
 ```plantuml
 participant BootStrap
 participant DataSourceHelper
