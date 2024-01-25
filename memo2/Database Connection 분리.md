@@ -55,3 +55,20 @@ deactivate gameQueryExecuteRowConnectionPool
 
 
 
+```plantuml
+participant BootStrap
+participant DataSourceHelper
+participant DynamicConnectionPoolManager
+== Initialization ==
+GrailsApplication -> BootStrap: init()
+activate BootStrap
+BootStrap -> DataSourceHelper: metaClass.methods.each
+activate DataSourceHelper
+DataSourceHelper --> BootStrap: [Properties for each dataSource]
+deactivate DataSourceHelper
+BootStrap -> DynamicConnectionPoolManager: addDbProperties(dbName, dbProps)
+activate DynamicConnectionPoolManager
+DynamicConnectionPoolManager --> BootStrap: void
+deactivate DynamicConnectionPoolManager
+deactivate BootStrap
+```
