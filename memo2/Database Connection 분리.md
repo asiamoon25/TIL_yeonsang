@@ -1,23 +1,32 @@
 ```plantuml
+@startuml
+
 actor GrailsApplication
+
 participant BootStrap
+
 participant DataSourceHelper
+
 participant DynamicConnectionPoolManager
+
 participant gameQueryExecuteRowConnectionPool
+
 participant DataSource
+
+  
+
 == Initialization ==
+
 GrailsApplication -> BootStrap: init()
+
 activate BootStrap
-BootStrap -> DataSourceHelper: getAuditionConnectionInfo()
+
+BootStrap -> DataSourceHelper: metaClass.methods.each
 activate DataSourceHelper
-DataSourceHelper --> BootStrap: dbProperties
+DataSourceHelper --> BootStrap: [Properties for each dataSource]
 deactivate DataSourceHelper
-BootStrap -> DynamicConnectionPoolManager: addDbProperties(dbName, dbProperties)
+BootStrap -> DynamicConnectionPoolManager: addDbProperties(dbName, dbProps)
 activate DynamicConnectionPoolManager
-DynamicConnectionPoolManager -> DataSource: new DataSource(dbProperties)
-activate DataSource
-DataSource --> DynamicConnectionPoolManager: dataSourceInstance
-deactivate DataSource
 DynamicConnectionPoolManager --> BootStrap: void
 deactivate DynamicConnectionPoolManager
 deactivate BootStrap
@@ -26,6 +35,10 @@ GrailsApplication -> gameQueryExecuteRowConnectionPool: executeQuery(dbName, que
 activate gameQueryExecuteRowConnectionPool
 gameQueryExecuteRowConnectionPool -> DynamicConnectionPoolManager: getDataSource(dbName)
 activate DynamicConnectionPoolManager
+DynamicConnectionPoolManager -> DataSource: new DataSource(PoolProperties)
+activate DataSource
+DataSource --> DynamicConnectionPoolManager: dataSourceInstance
+deactivate DataSource
 DynamicConnectionPoolManager --> gameQueryExecuteRowConnectionPool: dataSourceInstance
 deactivate DynamicConnectionPoolManager
 gameQueryExecuteRowConnectionPool -> DataSource: getConnection()
@@ -37,7 +50,10 @@ activate connection
 connection --> gameQueryExecuteRowConnectionPool: queryResult
 deactivate connection
 gameQueryExecuteRowConnectionPool --> GrailsApplication: queryResult
+
 deactivate gameQueryExecuteRowConnectionPool
+
+@enduml
 ```
 
 
