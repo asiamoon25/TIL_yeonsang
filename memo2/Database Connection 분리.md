@@ -58,3 +58,42 @@ static void addDbProperties(String dataSourceName, Properties dbProps) {
 }
 ```
 BootStrap.groovy 에서 grails 시작 시 initialize 하기 위한 메서드
+
+```java
+ static DataSource getDataSource(String dataSourceName) {
+        if (!dataSources.containsKey(dataSourceName) || dataSources.get(dataSourceName) == null) {
+            Properties dbProps = dbPropertiesMap.get(dataSourceName)
+            if (dbProps != null) {
+                try {
+                    DataSource dataSource = createDataSource(dbProps)
+                    dataSources.put(dataSourceName, dataSource)
+                } catch (Exception e) {
+                    dataSources.put(dataSourceName, null) // 실패 시 null로 설정
+                    throw new RuntimeException("Failed to create DataSource for $dataSourceName: ${e.message}", e)
+                }
+            } else {
+                throw new IllegalStateException("No database properties found for: $dataSourceName")
+            }
+        }else {
+            Properties dbProps = dbPropertiesMap.get(dataSourceName)
+            DataSource dataSource = dataSources.get(dataSourceName)
+            String dbType = dbProps.get("dbType").toString()
+
+            if (!isConnectionValid(dataSource,dbType)) {
+
+                try {
+                    dataSource = createDataSource(dbProps)
+                    dataSources.put(dataSourceName, dataSource)
+                } catch (Exception e) {
+                    dataSources.remove(dataSourceName) // 실패 시 DataSource 제거
+                    throw new RuntimeException("Failed to recreate DataSource for $dataSourceName: ${e.message}", e)
+                }
+            }
+
+        }
+
+        return dataSources.get(dataSourceName)
+
+    }
+
+```
