@@ -20,7 +20,6 @@ participant DataSource
 GrailsApplication -> BootStrap: init()
 
 activate BootStrap
-
 BootStrap -> DataSourceHelper: metaClass.methods.each
 activate DataSourceHelper
 DataSourceHelper --> BootStrap: [Properties for each dataSource]
@@ -50,10 +49,9 @@ activate connection
 connection --> gameQueryExecuteRowConnectionPool: queryResult
 deactivate connection
 gameQueryExecuteRowConnectionPool --> GrailsApplication: queryResult
-
 deactivate gameQueryExecuteRowConnectionPool
-
 @enduml
 ```
+
 
 
