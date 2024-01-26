@@ -207,3 +207,61 @@ DynamicConnectionPoolManager.groovy
         return dataSources.get(dataSourceName)
     }
 ```
+
+---
+해당 게임 DB 의 Connection Pool 이 없을 때
+
+DynamicConnectionPoolManager
+createDataSource
+```groovy
+private static DataSource createDataSource(Properties dbProps) {
+        PoolProperties p = new PoolProperties()
+        String dataSourceName = dbProps.get("dataSourceName") // 실제 사용되는 db 이름
+        String dbType = dbProps.get("dbType") // mysql, oracle, postgresql, mssql
+        p.setUrl(dbProps.get("url").toString())
+        p.setDriverClassName(dbProps.get("dbDriver").toString())
+        p.setUsername(dbProps.get("username").toString())
+        p.setPassword(dbProps.get("password").toString())
+        def connectionProperty =[:]
+        if(Environment.current.name == 'test'){
+            connectionProperty = dbType == 'oracle'? DataSourceConfig.dbPropertiesForTestOracle.call() : DataSourceConfig.dbPropertiesForTest.call()
+        }else if (Environment.current.name == 'production') {
+            connectionProperty = dbType == 'oracle'? DataSourceConfig.dbPropertiesForLiveOracle.call() : DataSourceConfig.dbPropertiesForLive.call()
+        }
+        if(!connectionProperty.isEmpty()){
+            p.setJmxEnabled((Boolean)connectionProperty.get("jmxEnabled"))
+            p.setInitialSize(connectionProperty.get("initialSize").toString().toInteger())
+            p.setMaxActive(connectionProperty.get("maxActive").toString().toInteger())
+            p.setMinIdle(connectionProperty.get("minIdle").toString().toInteger())
+            p.setMaxIdle(connectionProperty.get("maxIdle").toString().toInteger())
+            p.setMaxWait(connectionProperty.get("maxWait").toString().toInteger())
+            p.setMaxAge(connectionProperty.get("maxAge").toString().toInteger())
+          p.setTimeBetweenEvictionRunsMillis(connectionProperty.get("timeBetweenEvictionRunsMillis").toString().toInteger())
+           p.setMinEvictableIdleTimeMillis(connectionProperty.get("minEvictableIdleTimeMillis").toString().toInteger())
+            p.setValidationQuery(connectionProperty.get("validationQuery").toString())
+           p.setValidationQueryTimeout(connectionProperty.get("validationQueryTimeout").toString().toInteger())
+            p.setValidationInterval(connectionProperty.get("validationInterval").toString().toInteger())
+            p.setTestOnBorrow((Boolean)connectionProperty.get("testOnBorrow"))
+            p.setTestWhileIdle((Boolean)connectionProperty.get("testWhileIdle"))
+            p.setTestOnReturn((Boolean)connectionProperty.get("testOnReturn"))
+            p.setJdbcInterceptors(connectionProperty.get("jdbcInterceptors").toString())
+       p.setDefaultTransactionIsolation(connectionProperty.get("defaultTransactionIsolation").toString().toInteger())
+        }
+        return new DataSource(p)
+    }
+```
+
+-----
+
+순서
+BootStrap.groovy 에서 DB Connection Pool 생성 시 필요한 DB Properties 를 
+```groovy
+private static final Map<String, Properties> dbPropertiesMap = [:]
+```
+에 저장? 함.
+
+왜 why final 인데 변수가 변하는가?
+
+static final 키워드는 해당 필드가 클래스의 인스턴스 간에 공유되며, 한번 초기화 되면 그 값이 변경 되지 않음을 의미함....
+즉 변수 자체의 참조가 변경되지 않는다는 것이고, 변수가 참조하는 객체의 내부 상태는 변경될 수 있음.
+
