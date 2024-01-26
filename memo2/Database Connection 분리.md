@@ -325,3 +325,51 @@ PoolProperties p = new PoolProperties()
 그렇게 다시 DB 연결이 되서 재시도 하게 되면 이미 닫힌 Connection 에 연결을 넣는다는 error 가 나오게 된다.
 
 그러므로 getDataSource 를 할때 
+```groovy
+}else {
+            // 이미 생성된 DataSource에 대한 유효성 검사
+            Properties dbProps = dbPropertiesMap.get(dataSourceName)
+            DataSource dataSource = dataSources.get(dataSourceName)
+            String dbType = dbProps.get("dbType").toString()
+            /*
+            Connection 이 있다가 네트워크 문제로 끊겼다가 재연결 될때 Exception 이 나옴.
+            create 하다가 터졌을 때 dataSource Map 에서 삭제
+            valid 통과 시에는 그냥 넘김
+             */
+            if (!isConnectionValid(dataSource,dbType)) {
+                // 유효하지 않은 경우, DataSource 재생성
+                try {
+                    dataSource = createDataSource(dbProps)
+                    dataSources.put(dataSourceName, dataSource)
+                } catch (Exception e) {
+                    dataSources.remove(dataSourceName) // 실패 시 DataSource 제거
+                    throw new RuntimeException("Failed to recreate DataSource for $dataSourceName: ${e.message}", e)
+                }
+            }
+        }
+```
+이 부분에서 isConnectionValid 를 호출해서 Connection Pool 이 맛탱이가 안가있는지 확인하게 된다.
+
+
+isConnectionValid 에서는
+```groovy
+private static boolean isConnectionValid(DataSource dataSource, String dbType) {
+        String query = "SELECT 1"
+        if(dbType && dbType == 'oracle'){
+            query = "SELECT 1 FROM DUAL"
+        }
+        try {
+            Connection conn = dataSource.getConnection()
+            Statement stmt = conn.createStatement()
+            stmt.executeQuery(query)
+            conn.close()
+            return true
+        } catch (SQLException e) {
+            return false
+        }
+    }
+```
+MySQL 의 경우에는 SELECT 1 , Oracle 에 경우에는 SELECT 1 FROM DUAL 이라는 validation query 를 날려서 Connection 을 확인하게 된다. 좀 더 높은 버전에서는 isValid() 라는 녀석이 있지만
+버전이 낮아서 SELECT 1 이라는 기인 열전을 하게 되었다 
+
+SELECT 1 을 했을 때 안되면 다시 createDataSource 를 하게 된다.
