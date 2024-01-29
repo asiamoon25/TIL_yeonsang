@@ -288,7 +288,9 @@ if(!dataSources.containsKey(dataSourceName) || dataSource == null) { // 첫번�
             }
 ```
 이 if 절에서 걸려서 createDataSource 로 Connection Pool 을 생성하게 됨.
-synchronized 한 이유는 멀티 쓰레드에서 
+synchronized 한 이유는 멀티 쓰레드에서 해당 getDataSource 를 실행할 때 둘다 null 로 나와서 createDataSource 를 실행시킬 수 있기 때문. 
+
+그래서 getDataSource 부분은 Double-Checked Lock 패턴으로 동기화 블록에 들어가기 전에 null 체크 , 임계영역에 들어간 후 null 체크를 2번하게 끔 되있다.
 
 createDataSource 는
 ```groovy
@@ -335,30 +337,46 @@ PoolProperties p = new PoolProperties()
 
 그러므로 getDataSource 를 할때 
 ```groovy
-}else {
+else {
             // 이미 생성된 DataSource에 대한 유효성 검사
             Properties dbProps = dbPropertiesMap.get(dataSourceName)
-            DataSource dataSource = dataSources.get(dataSourceName)
+            DataSource createdDataSource = dataSources.get(dataSourceName)
             String dbType = dbProps.get("dbType").toString()
             /*
             Connection 이 있다가 네트워크 문제로 끊겼다가 재연결 될때 Exception 이 나옴.
             create 하다가 터졌을 때 dataSource Map 에서 삭제
             valid 통과 시에는 그냥 넘김
              */
-            if (!isConnectionValid(dataSource,dbType)) {
-                // 유효하지 않은 경우, DataSource 재생성
-                try {
-                    dataSource = createDataSource(dbProps)
-                    dataSources.put(dataSourceName, dataSource)
-                } catch (Exception e) {
-                    dataSources.remove(dataSourceName) // 실패 시 DataSource 제거
+            if(!isConnectionValid(createdDataSource,dbType)) {
+                // 유요하지 않은 경우, dataSource 재 생성
+                try{
+                    closeConnectionPool(dataSourceName)
+                    createdDataSource = createDataSource(dbProps)
+                    dataSources.put(dataSourceName, createdDataSource)
+                }catch(Exception e ){
+                    closeConnectionPool(dataSourceName)
+                    dataSources.remove(dataSourceName)
                     throw new RuntimeException("Failed to recreate DataSource for $dataSourceName: ${e.message}", e)
                 }
             }
         }
 ```
-이 부분에서 isConnectionValid 를 호출해서 Connection Pool 이 맛탱이가 안가있는지 확인하게 된다.
+else 조건에 걸려서 dataSource 가 유효한지 validationQuery 를 날린다.
 
+검증 실패 시에는 closeConnectionPool 을 호출해서 검증 실패한 ConnectionPool 의 연결을 해제한다.
+```groovy
+private static void closeConnectionPool(String dataSourceName) {
+        DataSource dataSource = dataSources.get(dataSourceName)
+        if(dataSource != null){
+            try{
+                dataSource.close()
+            }catch(Exception e){
+                // log 남기기
+                e.printStackTrace()
+            }
+        }
+    }
+```
 
 isConnectionValid 에서는
 ```groovy
