@@ -56,36 +56,19 @@ DB Connection Pool 을 startup 완료 후 잡을 때
 ----------------
 
 기존 QA
+2분
+![[Pasted image 20240129115434.png]]
 
-
-
-
-
-
-
-
-
-
+![[Pasted image 20240129115638.png]]
 
 
 
 
 동시성 해결 후 Conneciton Pool 분리한 소스
 1분 30초
+![[Pasted image 20240129115653.png]]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+![[Pasted image 20240129115638.png]]
 
 
 
