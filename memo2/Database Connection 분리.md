@@ -165,41 +165,46 @@ def gameQueryExecuteRowConnectionPool(String dataSourceName, String query, Strin
 DynamicConnectionPoolManager.groovy
 ```groovy
     static DataSource getDataSource(String dataSourceName) {
+        DataSource dataSource = dataSources.get(dataSourceName)
         /*
-         dataSource Map 에 db이름에 맞는 datasource 가 있는지 없는지
-         또는 dataSource Map 에서 DB 이름에 맞는 dataSource 가 null 로 들어가 있지 않은지
-         create 하다가 터지면 dataSource Map 에 null 로 들어감
-        */
-        if (!dataSources.containsKey(dataSourceName) || dataSources.get(dataSourceName) == null) {
-            Properties dbProps = dbPropertiesMap.get(dataSourceName)
-            if (dbProps != null) {
-                try {
-                    DataSource dataSource = createDataSource(dbProps)
-                    dataSources.put(dataSourceName, dataSource)
-                } catch (Exception e) {
-                    dataSources.put(dataSourceName, null) // 실패 시 null로 설정
-                    throw new RuntimeException("Failed to create DataSource for $dataSourceName: ${e.message}", e)
+        DataSource 가 생성되지 않고 get한 DataSource 가 null 일 때
+         */
+        if(!dataSources.containsKey(dataSourceName) || dataSource == null) { // 첫번째 null 체크 동기화전
+            synchronized (DynamicConnectionPoolManager.class) { // 동기화 내부로 진입 -> 임계영역으로 진입.( 멀티 프로세스 내에서 동시에 실행 되면 안되는 코드 영역)
+                dataSource = dataSources.get(dataSourceName)
+                /*
+                동기화 내부에서의 null 체크 => 이미 다른 쓰레드가 동기화로 들어오기 전에 DataSource 리소스를 초기화 했을 수도 있어서
+              */
+                if(dataSource == null){
+                    Properties dbProps = dbPropertiesMap.get(dataSourceName)
+                    if(dbProps != null && !dbProps.isEmpty()){
+                        // dataSource 가 여전히 null 이라면 dataSource 초기화
+                        dataSource = createDataSource(dbProps)
+                        dataSources.put(dataSourceName, dataSource)
+                    }else {
+                        throw new IllegalStateException("No database Properties: " + dataSourceName)
+                    }
                 }
-            } else {
-                throw new IllegalStateException("No database properties found for: $dataSourceName")
             }
         }else {
             // 이미 생성된 DataSource에 대한 유효성 검사
             Properties dbProps = dbPropertiesMap.get(dataSourceName)
-            DataSource dataSource = dataSources.get(dataSourceName)
+            DataSource createdDataSource = dataSources.get(dataSourceName)
             String dbType = dbProps.get("dbType").toString()
             /*
             Connection 이 있다가 네트워크 문제로 끊겼다가 재연결 될때 Exception 이 나옴.
             create 하다가 터졌을 때 dataSource Map 에서 삭제
             valid 통과 시에는 그냥 넘김
              */
-            if (!isConnectionValid(dataSource,dbType)) {
-                // 유효하지 않은 경우, DataSource 재생성
-                try {
-                    dataSource = createDataSource(dbProps)
-                    dataSources.put(dataSourceName, dataSource)
-                } catch (Exception e) {
-                    dataSources.remove(dataSourceName) // 실패 시 DataSource 제거
+            if(!isConnectionValid(createdDataSource,dbType)) {
+                // 유요하지 않은 경우, dataSource 재 생성
+                try{
+                    closeConnectionPool(dataSourceName)
+                    createdDataSource = createDataSource(dbProps)
+                    dataSources.put(dataSourceName, createdDataSource)
+                }catch(Exception e ){
+                    closeConnectionPool(dataSourceName)
+                    dataSources.remove(dataSourceName)
                     throw new RuntimeException("Failed to recreate DataSource for $dataSourceName: ${e.message}", e)
                 }
             }
@@ -214,7 +219,7 @@ DynamicConnectionPoolManager.groovy
 DynamicConnectionPoolManager
 createDataSource
 ```groovy
-private static DataSource createDataSource(Properties dbProps) {
+private static synchronized DataSource createDataSource(Properties dbProps) {
         PoolProperties p = new PoolProperties()
         String dataSourceName = dbProps.get("dataSourceName") // 실제 사용되는 db 이름
         String dbType = dbProps.get("dbType") // mysql, oracle, postgresql, mssql
@@ -264,22 +269,26 @@ private static final Map<String, Properties> dbPropertiesMap = [:]
 
 그 후에 Connection Pool 을 생성하고 있지 않다가 TwelveSky2OriService 같은 곳에서 DynamicConnectionPoolManager 에 있는 getDataSource 호출 시 
 ```groovy
-if (!dataSources.containsKey(dataSourceName) || dataSources.get(dataSourceName) == null) {
-            Properties dbProps = dbPropertiesMap.get(dataSourceName)
-            if (dbProps != null) {
-                try {
-                    DataSource dataSource = createDataSource(dbProps)
-                    dataSources.put(dataSourceName, dataSource)
-                } catch (Exception e) {
-                    dataSources.put(dataSourceName, null) // 실패 시 null로 설정
-                    throw new RuntimeException("Failed to create DataSource for $dataSourceName: ${e.message}", e)
+if(!dataSources.containsKey(dataSourceName) || dataSource == null) { // 첫번째 null 체크 동기화전
+            synchronized (DynamicConnectionPoolManager.class) { // 동기화 내부로 진입 -> 임계영역으로 진입.( 멀티 프로세스 내에서 동시에 실행 되면 안되는 코드 영역)
+                dataSource = dataSources.get(dataSourceName)
+                /*
+                동기화 내부에서의 null 체크 => 이미 다른 쓰레드가 동기화로 들어오기 전에 DataSource 리소스를 초기화 했을 수도 있어서
+              */
+                if(dataSource == null){
+                    Properties dbProps = dbPropertiesMap.get(dataSourceName)
+                    if(dbProps != null && !dbProps.isEmpty()){
+                        // dataSource 가 여전히 null 이라면 dataSource 초기화
+                        dataSource = createDataSource(dbProps)
+                        dataSources.put(dataSourceName, dataSource)
+                    }else {
+                        throw new IllegalStateException("No database Properties: " + dataSourceName)
+                    }
                 }
-            } else {
-                throw new IllegalStateException("No database properties found for: $dataSourceName")
             }
-        }else {
 ```
 이 if 절에서 걸려서 createDataSource 로 Connection Pool 을 생성하게 됨.
+synchronized 한 이유는 멀티 쓰레드에서 
 
 createDataSource 는
 ```groovy
