@@ -51,3 +51,42 @@ DB Connection Pool 을 startup 완료 후 잡을 때
 
 ![[Pasted image 20240123170939.png]]
 1분 16초
+
+
+----------------
+
+기존 QA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+동시성 해결 후 Conneciton Pool 분리한 소스
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
