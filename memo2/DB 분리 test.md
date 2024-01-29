@@ -64,7 +64,7 @@ DB Connection Pool 을 startup 완료 후 잡을 때
 
 
 
-동시성 해결 후 Conneciton Pool 분리한 소스
+Conneciton Pool 분리한 소스
 1분 30초
 ![[Pasted image 20240129115653.png]]
 
