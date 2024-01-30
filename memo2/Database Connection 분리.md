@@ -164,7 +164,7 @@ def gameQueryExecuteRowConnectionPool(String dataSourceName, String query, Strin
 
 DynamicConnectionPoolManager.groovy
 ```groovy
-    static DataSource getDataSource(String dataSourceName) {
+ static DataSource getDataSource(String dataSourceName) {
         DataSource dataSource = dataSources.get(dataSourceName)
         /*
         DataSource 가 생성되지 않고 get한 DataSource 가 null 일 때
@@ -172,44 +172,65 @@ DynamicConnectionPoolManager.groovy
         if(!dataSources.containsKey(dataSourceName) || dataSource == null) { // 첫번째 null 체크 동기화전
             synchronized (DynamicConnectionPoolManager.class) { // 동기화 내부로 진입 -> 임계영역으로 진입.( 멀티 프로세스 내에서 동시에 실행 되면 안되는 코드 영역)
                 dataSource = dataSources.get(dataSourceName)
-                /*
-                동기화 내부에서의 null 체크 => 이미 다른 쓰레드가 동기화로 들어오기 전에 DataSource 리소스를 초기화 했을 수도 있어서
-              */
-                if(dataSource == null){
-                    Properties dbProps = dbPropertiesMap.get(dataSourceName)
-                    if(dbProps != null && !dbProps.isEmpty()){
-                        // dataSource 가 여전히 null 이라면 dataSource 초기화
-                        dataSource = createDataSource(dbProps)
-                        dataSources.put(dataSourceName, dataSource)
-                    }else {
-                        throw new IllegalStateException("No database Properties: " + dataSourceName)
-                    }
+                if(dataSource == null){ // 여기서 null 체크를 다시 해서 멀티쓰레드 환경에서 동시에 initializeDataSource 가 실행되는걸 막아줌
+                    dataSource = initializeDataSource(dataSourceName)
                 }
             }
         }else {
-            // 이미 생성된 DataSource에 대한 유효성 검사
-            Properties dbProps = dbPropertiesMap.get(dataSourceName)
-            DataSource createdDataSource = dataSources.get(dataSourceName)
-            String dbType = dbProps.get("dbType").toString()
-            /*
+            // 검증을 통해서 Connection Pool 의 상태를 확인하고 재 설정 해주는 메서드
+            validateAndRefreshDataSource(dataSource, dataSourceName)
+        }
+        return dataSource
+    }
+    private static DataSource initializeDataSource(String dataSourceName) {
+        Properties dbProps = dbPropertiesMap.get(dataSourceName)
+        if(dbProps != null && !dbProps.isEmpty()) {
+            String msg = ""
+            try{
+                DataSource newDataSource = createDataSource(dbProps)
+                // putIfAbsent 는 thread-safe 값이 없을 때만 넣음
+                dataSources.putIfAbsent(dataSourceName, newDataSource)
+                return newDataSource
+            }catch(Exception e){
+                msg = "[initializeDataSource] dataSourceName : ${dataSourceName}. Error: DataSource initialization failed for dataSourceName : ${dataSourceName}"
+                saveErrorLogToDB(msg,'initializeDataSource')
+                Logger.log3(msg, 'DynamicConnectionPoolManager')
+                e.printStackTrace()
+            }
+        }else {
+            String msg = "[initializeDataSource] dataSourceName : ${dataSourceName}. Error: No database Properties: ${dataSourceName}"
+            Logger.log3(msg, 'DynamicConnectionPoolManager')
+            saveErrorLogToDB(msg,'initializeDataSource')
+            throw new IllegalStateException("No database Properties: ${dataSourceName}")
+        }
+    }
+    private static void validateAndRefreshDataSource(DataSource dataSource, String dataSourceName) {
+        Properties dbProps = dbPropertiesMap.get(dataSourceName)
+        String dbType = dbProps.get("dbType").toString()
+        String msg =""
+        /*
             Connection 이 있다가 네트워크 문제로 끊겼다가 재연결 될때 Exception 이 나옴.
-            create 하다가 터졌을 때 dataSource Map 에서 삭제
+            create 하다가 예외 발생 시 dataSource Map 에서 삭제
             valid 통과 시에는 그냥 넘김
              */
-            if(!isConnectionValid(createdDataSource,dbType)) {
-                // 유요하지 않은 경우, dataSource 재 생성
-                try{
-                    closeConnectionPool(dataSourceName)
-                    createdDataSource = createDataSource(dbProps)
-                    dataSources.put(dataSourceName, createdDataSource)
-                }catch(Exception e ){
-                    closeConnectionPool(dataSourceName)
-                    dataSources.remove(dataSourceName)
-                    throw new RuntimeException("Failed to recreate DataSource for $dataSourceName: ${e.message}", e)
-                }
+        if(!isConnectionValid(dataSource, dbType, dataSourceName)) {
+            try {
+                closeConnectionPool(dataSourceName);
+                DataSource newDataSource = createDataSource(dbProps);
+                /*
+                validateAndRefreshDataSource 가 호출 되는 조건이 데이터 소스가 이미 dataSources 맵에 존재하는 경우이다.
+                 */
+                dataSources.replace(dataSourceName, newDataSource);
+            } catch (Exception e) {
+                closeConnectionPool(dataSourceName);
+                dataSources.remove(dataSourceName);
+                // 로깅 및 예외 처리
+                msg = "[validateAndRefreshDataSource] dataSourceName : ${dataSourceName}. Error: Failed to recreate DataSource for ${dataSourceName}"
+                saveErrorLogToDB(msg,'validateAndRefreshDataSource')
+                Logger.log3(msg, 'DynamicConnectionPoolManager')
+                throw new RuntimeException("Failed to recreate DataSource for " + dataSourceName, e);
             }
         }
-        return dataSources.get(dataSourceName)
     }
 ```
 
@@ -396,7 +417,42 @@ private static boolean isConnectionValid(DataSource dataSource, String dbType) {
         }
     }
 ```
-MySQL 의 경우에는 SELECT 1 , Oracle 에 경우에는 SELECT 1 FROM DUAL 이라는 validation query 를 날려서 Connection 을 확인하게 된다. 좀 더 높은 버전에서는 isValid() 라는 녀석이 있지만
-버전이 낮아서 SELECT 1 이라는 기인 열전을 하게 되었다 
+MySQL 의 경우에는 SELECT 1 , Oracle 에 경우에는 SELECT 1 FROM DUAL 이라는 validation query 를 날려서 Connection 을 확인하게 된다. 
 
 SELECT 1 을 했을 때 안되면 다시 createDataSource 를 하게 된다.
+
+---
+
+Error Log 저장 방법
+```groovy
+private static void saveErrorLogToDB(String msg, String methodName) {
+
+        def commonLog = new CommonLog()
+
+        commonLog.fromInfo = methodName
+
+        commonLog.log = msg
+
+        commonLog.description = methodName
+
+        commonLog.logLevel = 'ERROR'
+
+  
+
+        try{
+
+         commonLog.save(flush:true, failOnError: true)
+
+        }catch(Exception e) {
+
+            Logger.log3("[saveErrorLogToDB] Fail to save log to DB.", 'DynamicConnectionPoolManager')
+
+            e.printStackTrace()
+
+        }
+
+    }
+
+```
+
+
