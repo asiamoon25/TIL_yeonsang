@@ -426,33 +426,25 @@ SELECT 1 을 했을 때 안되면 다시 createDataSource 를 하게 된다.
 Error Log 저장 방법
 ```groovy
 private static void saveErrorLogToDB(String msg, String methodName) {
-
         def commonLog = new CommonLog()
-
         commonLog.fromInfo = methodName
-
         commonLog.log = msg
-
         commonLog.description = methodName
-
         commonLog.logLevel = 'ERROR'
-
-  
-
         try{
-
          commonLog.save(flush:true, failOnError: true)
-
         }catch(Exception e) {
-
             Logger.log3("[saveErrorLogToDB] Fail to save log to DB.", 'DynamicConnectionPoolManager')
-
             e.printStackTrace()
-
         }
-
     }
-
 ```
 
+/var/log/happycode/check/DynamicConnectionPoolManager 에 로그가 쌓이고
+happycode DB 에 common_log 테이블에 쌓인다.
+LOG_LEVEL 은 ERROR 로 쌓이게 된다.
 
+| ID   | version | date_created           | description     | from_info      | log                                                                      | Error Level |
+|------|-------|---------------------|----------------|------------------|----------------------------------------------------------------------------------|-------------|
+| 3506 | 0     | 2024-01-30 15:42:45 | isConnectionValid | isConnectionValid | [isConnectionValid] dataSourceName : dataSource_audition. Error: Connection validation failed for dataSourceName: dataSource_audition | ERROR       |
+| 3505 | 0     | 2024-01-30 15:33:35 | isConnectionValid | isConnectionValid | [isConnectionValid] dataSourceName : dataSource_audition. Error: Connection validation failed for dataSourceName: dataSource_audition | ERROR       |
