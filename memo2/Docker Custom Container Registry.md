@@ -44,4 +44,4 @@ curl -X GET http://localhost:5000/v2/hellp-world/tags/list
 ```
 
 
-*  
+* Local 이 아니면 Docker Private Registry 는 https 만 지원함.
