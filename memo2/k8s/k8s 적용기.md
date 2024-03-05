@@ -61,3 +61,7 @@ kubectl autoscale deployment your-backend-app --min=2 --max=10 --cpu-percent=80
 - **보안 및 환경 설정**: 쿠버네티스에서 애플리케이션을 실행할 때 보안, 환경 변수, 비밀번호 등의 설정을 고려해야 한다.
 - **로그 및 모니터링**: 쿠버네티스에서는 애플리케이션 로그 및 모니터링을 위한 다양한 도구와 통합 옵션을 제공한다.
 
+
+
+Azure 에서 제공하는 AKS (Azure Kubernetes)
+
