@@ -17,5 +17,12 @@ EXPOSE 8080
 1. Jenkins 에 Docker 플러그인 설치: Jenkins 관리 페이지에서 플러그인 관리를 통해 Docker Plugin 을 설치
 2. 빌드 스크립트 작성
 ```sh
-# 
+# 이미지 빌드
+docker build -t HAPPYCODE:test .
+
+# Docker 이미지를 Docker hub 나 다른 registry 에 push -> Azure Registry
+docker push HAPPYCODE:test
+
+# 추가적인 배포 스크립트(k8s 클러스터에 배포)
+kubectl set image deployment/your-app-deployment
 ```
