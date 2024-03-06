@@ -91,4 +91,61 @@
 * 스테이트풀셋(StatefulSet)
 	1. 상태를 유지해야 하는 분산 애플리케이션과 데이터베이스를 관리하기 위해 사용됨. 
 	2. 스테이트풀셋은 파드에 안정적인 고유 식별자와 순서대로 배포 및 스케일링을 보장
-	3. 각 인스턴스는 안정적인 네트워크 식별자와 영구적인 스토리지를 가짐. 이를 통해 파드가 재스케줄링되거나 재시작될 때도 애플리케이션의 상탱
+	3. 각 인스턴스는 안정적인 네트워크 식별자와 영구적인 스토리지를 가짐. 이를 통해 파드가 재스케줄링되거나 재시작될 때도 애플리케이션의 상태와 데이터를 유지할 수 있음.
+	4. 스테이트풀셋은 복제본(Replica) 간에 순서를 보장하며, 하나의 인스턴스가 안정적으로 종료되고 정리된 후에 다음 인스턴스가 생성되도록 한다.
+
+
+```plantuml
+@startuml kubernetes-components
+
+package Kubernetes Cluster {
+  node Node {
+    rectangle "Pod 1" {
+      component [Container 1]
+      component [Container 2]
+    }
+    rectangle "Pod 2" {
+      component [Container 3]
+    }
+
+    Pod1 -[hidden]down-> Pod2 : contains
+    Pod1 -right-> Volume : uses
+    Pod1 .down.> ConfigMap : reads >
+    Pod1 .down.> Secret : accesses >
+  }
+
+  node "Node 2" {
+    rectangle "Pod 3" {
+      component [Container 4]
+    }
+  }
+
+  Cloud "Service" {
+    Pod1 -[hidden]-> Pod2
+    Pod2 -[hidden]-> Pod3
+  }
+
+  database "Volume" {
+  }
+
+  database "ConfigMap" {
+  }
+
+  database "Secret" {
+  }
+
+  Service -[hidden]down-> Volume : exposes
+  Service .down.> Pod1
+  Service .down.> Pod3
+}
+
+class StatefulSet {
+  rectangle "Pod 1" #LightGreen
+  rectangle "Pod 2" #LightGreen
+  rectangle "Pod 3" #LightGreen
+}
+
+@enduml
+
+```
+
