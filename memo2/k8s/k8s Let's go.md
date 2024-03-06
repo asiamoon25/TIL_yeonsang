@@ -12,6 +12,44 @@ COPY /home/happytuk/target/ROOT.war /usr/local/tomcat7/webapps/ROOT.war
 EXPOSE 8080
 ```
 
+### deployment 파일 작성 
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: your-app-deployment
+spec:
+	replicas: 2
+	selector:
+		matchLabels:
+			app: your-app
+	template:
+		metadata:
+			labels:
+				app: your-app
+		spec:
+			containers:
+			- name: your-app
+			   image: your-docker-image
+			   ports:
+			   - containerPort: 8080
+```
+
+### service 파일 작성
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+	name: your-app-service
+spec:
+	type: LoadBalancer
+	ports:
+	- port: 80
+	   targetPort: 8080
+	selector:
+		app: your-app
+```
+
 ### JENKINS 에서 Docker 이미지 빌드 및 배포 자동화
 
 1. Jenkins 에 Docker 플러그인 설치: Jenkins 관리 페이지에서 플러그인 관리를 통해 Docker Plugin 을 설치
