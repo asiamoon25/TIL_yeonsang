@@ -24,5 +24,7 @@ docker build -t HAPPYCODE:test .
 docker push HAPPYCODE:test
 
 # 추가적인 배포 스크립트(k8s 클러스터에 배포)
-kubectl set image deployment/your-app-deployment
+kubectl set image deployment/your-app-deployment#yaml 파일
+your-app-container-name:tag # 올린 이미지
 ```
+
