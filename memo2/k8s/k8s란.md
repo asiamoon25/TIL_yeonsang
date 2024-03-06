@@ -96,33 +96,23 @@
 
 
 ```plantuml
-@startuml kubernetes-components
+@startuml
 
-package Kubernetes Cluster {
-  node Node {
-    rectangle "Pod 1" {
-      component [Container 1]
-      component [Container 2]
+package "Kubernetes Cluster" {
+  node "Node 1" {
+    rectangle "Pod1" {
+      component "Container 1-1"
+      component "Container 1-2"
     }
-    rectangle "Pod 2" {
-      component [Container 3]
-    }
-
-    Pod1 -[hidden]down-> Pod2 : contains
-    Pod1 -right-> Volume : uses
-    Pod1 .down.> ConfigMap : reads >
-    Pod1 .down.> Secret : accesses >
   }
 
   node "Node 2" {
-    rectangle "Pod 3" {
-      component [Container 4]
+    rectangle "Pod2" {
+      component "Container 2-1"
     }
   }
 
   Cloud "Service" {
-    Pod1 -[hidden]-> Pod2
-    Pod2 -[hidden]-> Pod3
   }
 
   database "Volume" {
@@ -134,18 +124,32 @@ package Kubernetes Cluster {
   database "Secret" {
   }
 
-  Service -[hidden]down-> Volume : exposes
-  Service .down.> Pod1
-  Service .down.> Pod3
-}
-
-class StatefulSet {
-  rectangle "Pod 1" #LightGreen
-  rectangle "Pod 2" #LightGreen
-  rectangle "Pod 3" #LightGreen
-}
+  ' 서비스가 파드에 라우팅하는 것을 나타내는 주석
+  Service -down-> Pod1 : routes to
+  Service -down-> Pod2 : routes to
+  
+  Pod1 ..> Volume : uses
+  Pod1 ..> ConfigMap : reads >
+  Pod1 ..> Secret : accesses >
+  
+  Pod2 ..> Volume : uses
+  Pod2 ..> ConfigMap : reads >
+  Pod2 ..> Secret : accesses >
 
 @enduml
 
 ```
 
+1. **클러스터**: 전체 쿠버네티스 시스템을 나타냅니다. 클러스터 안에는 여러 노드와 서비스, 볼륨, 컨피그맵, 시크릿 등의 리소스가 포함됨.
+    
+2. **노드(Node 1, Node 2)**: 클러스터를 구성하는 물리적 또는 가상의 서버. 각 노드는 하나 이상의 파드를 실행할 수 있으며, 파드는 실제로 애플리케이션 컨테이너가 실행되는 곳있다.
+    
+3. **파드(Pod1, Pod2)**: 쿠버네티스에서 컨테이너를 실행하는 기본 단위. 파드는 하나 이상의 컨테이너를 포함할 수 있으며, 이 예시에서는 Pod1이 Container 1-1과 Container 1-2를, Pod2가 Container 2-1을 포함한다.
+    
+4. **서비스(Service)**: 파드 집합에 대한 안정적인 접근 방법을 제공한다. 서비스는 파드들이 동적으로 변경되어도 일관된 접근 포인트를 유지하도록 해준다. 다이어그램에서는 서비스가 Pod1과 Pod2로의 라우팅을 담당한다.
+    
+5. **볼륨(Volume)**: 데이터 저장을 위해 파드에서 사용되는 영구적인 스토리지를 나타낸다. 파드는 볼륨을 통해 데이터를 저장하고, 볼륨은 파드의 생명주기와 독립적으로 존재할 수 있다.
+    
+6. **컨피그맵(ConfigMap) 및 시크릿(Secret)**: 애플리케이션의 설정 정보(ConfigMap)와 민감한 정보(Secret)를 저장하는데 사용된다. 파드는 이러한 정보를 환경 변수나 파일 형태로 사용할 수 있다.
+    
+7. **의존성 관계**: 파드는 볼륨, 컨피그맵, 시크릿과 의존성 관계를 가지고 있다. 이는 파드가 이들 리소스를 사용하여 실행되는 애플리케이션의 설정 정보, 민감한 정보, 데이터 등을 관리할 수 있음을 의미한다. 점선 화살표는 이러한 의존성 관계를 나타낸다.
