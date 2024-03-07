@@ -66,3 +66,12 @@ kubectl set image deployment/your-app-deployment#yaml 파일
 your-app-container-name:tag # 올린 이미지
 ```
 
+
+
+
+
+
+구조 어떻게 할건지....
+
+
+
