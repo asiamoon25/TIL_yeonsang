@@ -82,12 +82,66 @@ your-app-container-name:tag # 올린 이미지
 ----
 #### 1. 기본 Tomcat Dockerfile
 ```dockerfile
-#Tomcat 공식 이미지를 베이스 이미지로 사용
-FROM tomcat:7.0.86
+# Tomcat 공식 이미지를 베이스 이미지로 사용
+FROM tomcat:9.0
 
 # CATALINA_OPTS 환경 변수 설정
-ENV CATALINA_OPTS=""
+ENV CATALINA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:+UseParallelGC"
 
-# war 파일을 Tocmat 의 webapps 디렉토리로 복사
-COPY 
+# 원하는 WAR 파일을 Tomcat의 webapps 디렉토리로 복사
+COPY path/to/your-app.war $CATALINA_HOME/webapps/your-app.war
+
+# 컨테이너에서 노출할 포트 번호
+EXPOSE 8080
+
+# Tomcat 서버 실행
+CMD ["catalina.sh", "run"]
+ 
 ```
+
+
+
+```dockerfile
+FROM tomcat:7.0.86
+
+ENV CATALINA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms4096m -Xmx4096m -XX:ParallelGCThreads=2 -XX:-UseConcMarkSweepGC -XX:NewSize=1024m -XX:MaxNewSize=1024m -XX:PermSize=1G -XX:MaxPermSize=2G -XX:+DisableExplicitGC -Dfile.encoding=UTF8 -Duser.timezone=GMT+8"
+
+COPY ./target/ROOT.war /usr/local/tomcat/webapps/ROOT.war
+
+EXPOSE 8080
+
+CMD ["startup.sh","run"]
+```
+
+JENKINS PIPELINE
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build WAR') {
+            steps {
+                // Maven을 사용하는 경우
+                sh 'mvn clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Docker 이미지 빌드
+                    docker.build("your-app-name:${env.BUILD_ID}")
+                }
+            }
+        }
+        stage('Deploy Container') {
+            steps {
+                script {
+                    // Docker 컨테이너 실행
+                    docker.run("--name your-app-container -d -p 8080:8080 your-app-name:${env.BUILD_ID}")
+                }
+            }
+        }
+    }
+}
+```
+
+
