@@ -75,3 +75,17 @@ your-app-container-name:tag # 올린 이미지
 
 
 
+
+
+
+
+----
+#### 1.세팅이 완료된 tomcat 을 이미지화 시킴.
+```docker
+docker commit tomcat7 tomcat7:latest
+```
+
+#### 2. 새 이미지를 사용하여 컨테이너 실행
+```docker
+docker run -d -p 9900:8080 tomcat7:latest
+```
