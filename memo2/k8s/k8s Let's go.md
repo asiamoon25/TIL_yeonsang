@@ -80,12 +80,14 @@ your-app-container-name:tag # 올린 이미지
 
 
 ----
-#### 1.세팅이 완료된 tomcat 을 이미지화 시킴.
-```docker
-docker commit tomcat7 tomcat7:latest
-```
+#### 1. 기본 Tomcat Dockerfile
+```dockerfile
+#Tomcat 공식 이미지를 베이스 이미지로 사용
+FROM tomcat:7.0.86
 
-#### 2. 새 이미지를 사용하여 컨테이너 실행
-```docker
-docker run -d -p 9900:8080 tomcat7:latest
+# CATALINA_OPTS 환경 변수 설정
+ENV CATALINA_OPTS=""
+
+# war 파일을 Tocmat 의 webapps 디렉토리로 복사
+COPY 
 ```
