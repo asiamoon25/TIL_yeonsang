@@ -10,9 +10,6 @@ sticker: lucide//align-horizontal-justify-center
 아무 곳에서 쓸 수 없음. Grails 에서만 사용 가능
 
 #### 동적 기능
-
-[](https://github.com/asiamoon25/TIL_yeonsang/blob/main/TIL/%EC%A4%80%EB%B9%84/GORM%20%EA%B3%BC%20JPA%20%EC%9D%98%20%EC%B0%A8%EC%9D%B4%EC%A0%90.md#%EB%8F%99%EC%A0%81-%EA%B8%B0%EB%8A%A5)
-
 Groovy 는 JVM 위에서 실행되는 동적언어. Groovy 의 동적 타이핑(dynamic typing) 기능은 런타임에 객체의 타입을 결정하고, 메서드 호출 및 속성 접근과 같은 작업을 동적으로 해석함.
 
 - ***GORM 의 CRUD 메서드 자동 생성** GORM 은 Groovy 의 동적 기능을 사용해서, 엔티티 클래스에 대한 CRUD 작업을 위한 메서드를 런타임에 자동으로 생성함. 예를 들어서 개발자가 엔티티 클래스 Book 을 생성하면 GORM 은 Book 인스턴스를 save, get, findAll, update, delete 하기 위한 메서드를 자동으로 해당 클래스에 추가함. ➡️ 메타클래스를 활용하여 처리함...
@@ -21,22 +18,14 @@ Groovy 는 JVM 위에서 실행되는 동적언어. Groovy 의 동적 타이핑(
     
 
 #### 다양한 백엔드 지원
-
-[](https://github.com/asiamoon25/TIL_yeonsang/blob/main/TIL/%EC%A4%80%EB%B9%84/GORM%20%EA%B3%BC%20JPA%20%EC%9D%98%20%EC%B0%A8%EC%9D%B4%EC%A0%90.md#%EB%8B%A4%EC%96%91%ED%95%9C-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%A7%80%EC%9B%90)
-
 Hibernate를 기반으로 하지만, SQL, NoSQL, REST API 등 다양한 데이터 스토어를 지원함.
 
 ### JPA (Java Persistence API)
-
-[](https://github.com/asiamoon25/TIL_yeonsang/blob/main/TIL/%EC%A4%80%EB%B9%84/GORM%20%EA%B3%BC%20JPA%20%EC%9D%98%20%EC%B0%A8%EC%9D%B4%EC%A0%90.md#jpa-java-persistence-api)
-
 - 자바 표준 : Java EE 의 공식 ORM 기술, 다양한 Java 애플리케이션에서 사용됨. JPA는 ORM 표준 인터페이스를 제공하며, Hibernate, EclipseLink, OpenJPA 등 다양한 구현체를 사용할 수 있음.
 - 포터빌리티 : JPA 는 특정 구현체에 종속되지 않는 표준화된 API 를 제공함. 어플리케이션을 다른 JPA 구현으로 쉽게 이전할 수 있게 함.
 - 정적 타입 : JPA 는 주로 Java 언어의 정적 타입 특성을 활용함. 엔티티 클래스를 정의하여 DB 테이블과 매핑하며, JPQL을 사용하여 쿼리를 작성함.
 
 ### 차이점
-
-[](https://github.com/asiamoon25/TIL_yeonsang/blob/main/TIL/%EC%A4%80%EB%B9%84/GORM%20%EA%B3%BC%20JPA%20%EC%9D%98%20%EC%B0%A8%EC%9D%B4%EC%A0%90.md#%EC%B0%A8%EC%9D%B4%EC%A0%90)
 
 - 프로그래밍 언어와 프레임워크 : GORM 은 grails 와 Groovy 에 특화 되있으며, 동적 프로그래밍 기능을 적극 활용함. JPA 는 Java 표준이며, 다양한 Java 기반 애플리케이션에서 사용됨.
 - 접근 방식 : GORM 은 런타임에 동적으로 메서드를 생성하여 개발자의 작업을 간소화하는 반면에 JPA 는 엔티티 매핑과 JPQL 을 통해 좀 더 전통적인 ORM 접근 방식을 취한다.
