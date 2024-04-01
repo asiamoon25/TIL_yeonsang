@@ -44,3 +44,11 @@ abstract class Pome extends Dog {
 }
 ```
 
+
+
+## 다형성(Polymorphism)
+
+* 형태가 같은데 다른 기능을 하는 것을 의미(같은 동작이지만 다른 결과물이 나올 때 다형이라고 생각하면됨.)
+* 이를 통해 코드의 재사용, 코드 길이 감소가 되어 유지보수가 용이하도록 도와줌.
+
+### Override & Overloading
