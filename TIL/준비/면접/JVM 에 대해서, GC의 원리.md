@@ -26,6 +26,40 @@ JVM 구조에는 크게 Class Loader, Runtime Data Area, Execution Engine, GC �
 
 **Runtime Data Area** : 런타임 시 클래스 데이터와 같은 메타 데이터와 실제 데이터가 저장되는 곳이다. Runtime Data Area 는 Method Area, Heap, PC Registers, Java Stacks, Native Method Stacks 로 나누어진다.
 
+
+
+#### Class Loader
+
+* Loading
+	* 자바 바이트 코드(.class)를 메소드 영역에 저장한다.
+	* 각 자바 bytecode 는 JVM 에 의해 메소드 영역에서 다음 정보들을 저장한다.
+		* 로드된 클래스를 비롯한 그의 부모 클래스의 정보
+		* 클래스 파일과 Class, Interfacem, Enum 의 관련 여부
+		* 변수나 메소드 등의 정보
+* Linking
+	* Verifying(검증)
+		* 읽어 들인 클래스가 자바 언어 명세 및 JVM 명세에 명시된 대로 잘 구성되어 있는지 검사함.
+	* Preparing(준비)
+		* 클래스가 필요로 하는 메모리를 할당하고, 클래스에서 정의된 필드, 메소드, 인터페이스를 나타내는 데이터 구조를 준비한다.
+	* Resolving(분석)
+		* 심볼릭 메모리 레퍼런스를 메소드 영역에 있는 실제 레퍼런스로 교체함.
+* Initialization
+	* 클래스 변수들을 적절한 값으로 초기화 함. 즉, static 필드들이 설정된 값으로 초기화함.
+
+**Class Loader 종류**
+![[Pasted image 20240401150810.png]]
+
+
+1. BootStrap Class Loader
+	* JVM 시작 시 가장 최초로 실행되는 클래스로더
+	* 자바 클래스를 로드하는 것이 아닌, 자바 클래스를 로드할 수 있는 자바 자체의 클래스 로더와 최소한의 자바 클래스(java.lang.Object, Class, ClassLoader) 만을 로
+
+
+
+
+
+#### Runtime Data Area
+
 ![[Pasted image 20240401143301.png]]
 _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공유한다._
 
@@ -60,11 +94,11 @@ _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공�
 		* Type Information
 			* Class 인지 Interface 인지 혹은 Type의 속성, 이름, super class 의 이름 등
 			* Method Area에는 상수 형을 저장하고 중복을 막는 Runtime Constant Pool 이 존재
-			* Runtime Constant Pool
-				* 런타임 상수 풀 클래스, 인터페이스 마다 존재하며 클래스 파일의 constant pool 테이블 영역이 저장되는 공간
-				* 각 클래스, 인터페이스의 전역 변수, 함수, 인스턴스 변수, 함수에 대한 심볼릭 링크가 존재한다.
-				* 전역 변수와 전역 함수는 컴파일 시점에 할당되어 고정된 값으로 존재하며 인스턴스 변수와 인스턴스 함수는 심볼릭 링크로 존재하며 실행 시점에 고정된 주소로 변환된다.
-				* 런타임 상수 풀은 클래스가 생성되어 Heap 에 할당될 때 만들어지며 클래스가 삭제되면 사라짐.
+				* Runtime Constant Pool
+					* 런타임 상수 풀 클래스, 인터페이스 마다 존재하며 클래스 파일의 constant pool 테이블 영역이 저장되는 공간
+					* 각 클래스, 인터페이스의 전역 변수, 함수, 인스턴스 변수, 함수에 대한 심볼릭 링크가 존재한다.
+					* 전역 변수와 전역 함수는 컴파일 시점에 할당되어 고정된 값으로 존재하며 인스턴스 변수와 인스턴스 함수는 심볼릭 링크로 존재하며 실행 시점에 고정된 주소로 변환된다.
+					* 런타임 상수 풀은 클래스가 생성되어 Heap 에 할당될 때 만들어지며 클래스가 삭제되면 사라짐.
 
 
 
