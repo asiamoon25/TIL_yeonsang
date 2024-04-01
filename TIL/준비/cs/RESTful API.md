@@ -34,3 +34,9 @@ sticker: lucide//download
 
 1. URI 는 정보의 자원을 표현해야 한다.
 2. 자원에 대한 행위는 HTTP Method(GET, POST, PUT, DELETE)로 표현한다.
+
+1) REST API 중심 규칙
+	* URI 는 정보의 자원을 표현해야 한다.(리소스명은 동사보다는 명사를 사용)
+		GET /members/delete/1
+		위와 같은 방식은 REST를 제대로 적용하지 않은 URI. URI 는 자원을 표현하는데 중점을 둬야함. delete 와 같은 행위에 대한 표현이 들어가서는 안됨.
+	* 자원에 대한 행위는 HTTP Method(GET, POST, PUT, DELETE 등)
