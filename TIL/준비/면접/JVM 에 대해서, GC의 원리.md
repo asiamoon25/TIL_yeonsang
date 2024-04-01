@@ -87,6 +87,40 @@ Class Loader 는 새로운 Class 를 로드해야할 때, 다음과 같은 방�
 * 가시 범위 원칙
 	* 하위 클래스 로더는 상위 클래스 로더가 로드한 클래스를 볼 수 있지만, 반대로 상위 클래스 로더는 하위 클래스 로더가 로드한 클래스를 알 수 없다.
 * 유일성의 원칙
+	* 하위 클래스 로더가 상위 클래스 로더에게 로드한 클래스를 다시 로드하지 않아야 한다는 원칙
+	* 위임 원칙에 의해서 위쪽으로 책임을 위임하기 때문에 고유한 클래스를 보장할 수 있음.
+
+**동적 클래스 로딩**
+* Class Loading 은 Class 참조 시점에 JVM에 코드가 링크되고, 실제 런타임 시점에 로딩되는 동적 로딩을 거침. 런타임에 동적으로 클래스를 로딩한다는 것은 JVM이 미리 모든 클래스에 대한 정보를 메소드 영역에 로딩하지 않는다는 것을 의미한다.
+1. Load-time Dynamic Loading (로드 타임 동적 로딩)
+```java
+public class HelloWorld {
+	public static void main(String[] args) {
+		System.out.println("안녕하세요!");
+	}
+}
+```
+위 코드의 경우 다음과 같이 동작
+* JVM 이 시작 되고 BootStrap Class Loader 가 생성된 후에 모든 클래스가 상속 받고 있는 Object 클래스를 읽어온다.
+* Class Loader 는 명령 행에서 지정한 HelloWorld 클래스를 로딩하기 위해, HelloWorld.class 파일을 읽음
+* HelloWorld 클래스를 로딩하는 과정에서 필요한 클래스인 java.lang.String 과 java.lang.System 을 로딩한다.
+이처럼 하나의 클래스를 로딩하는 과정에서 동적으로 다른 클래스를 로딩하는 것을 로드 타임 동적 로딩이라고 한다.
+
+2. Run-time Dynamic Loading(런타임 동적 로딩)
+```java
+public class RuntimeLoading {
+	public static void main(String[] args) {
+		try{
+			Class cls = Class.forName(args[0]);
+			Object obj = cls.newInstance();
+			Runnable r = (Runnable) obj;
+			r.run()
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
 
 
 #### Runtime Data Area
