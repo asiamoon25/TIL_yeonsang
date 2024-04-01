@@ -152,7 +152,47 @@ Class.forName(className) 은 파라미터로 받은 className 에 해당하는 �
 	* JLS 에 따르면 JVM 에 클래스가 로딩되고 초기화될 때는 순차적으로 동작함을 보장한다. 멀티 스레드 환경에서 여러 개의 스레드가 동시에 클래스를 로딩하려고 하면 오직 한 개의 클래스만 로딩된다.
 * singleton
 	* Initialization-on-demand holder idiom 방식(hoder 에 의한 초기화 방식) 을 사용하면 클래스 로딩 및 초기화 과정이 스레디 safe 하다는 것을 이용하여 싱글톤 인스턴스를 생성할 수 있음. 이 패턴이 가장 완벽하다고 평가 받음.
-	* 
+```java
+//Holder 에 의한 초기화 방식
+public class HolderSingletom {
+	private HolderSingleton() {
+	}
+	public static HolderSingleton getInstance() {
+		return Holder.instance;
+	}
+	private static class Holder {
+		public static final HolderSingleton instance = new HolderSingleton();
+	}
+}
+```
+	
+```java
+//Eager Initialization (이른 초기화 방식)
+public class Singleton {
+	public static final Signleton instance = new Singleton();
+	
+	private Singleton() {
+	}
+
+	public static Singleton getInstance() {
+		return instance;
+	}
+}
+```
+이 방식은 singleton 클래스가 로딩될 때 사용하지 않을 수도 있는 instance 변수(싱글톤 객체) 가 생성되기 때문에 메모리가 낭비됨.
+
+
+#### Execution Engine
+
+클래스 파일을 실행시키는 방법에 따라 2가지로 분류됨.
+
+* 인터프리터(interpreter)
+* JIT(J)
+
+
+
+
+
 #### Runtime Data Area
 
 ![[Pasted image 20240401143301.png]]
@@ -214,3 +254,16 @@ _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공�
 하지만 자바는 JVM 이라는 가상머신을 통해서 OS에 도달하기 때문에 OS가 인식할 수 있게 기계어로 바로 컴파일 되는게 아니라 JVM 이 인식할 수 있는 java bytecode 즉, .class 파일로 변환됩니다. bytecode 는 기계어가 아니기 때문에 OS에서 바로 실행되지는 않습니다. 이때 JVM 이 OS 가 bytecode 를 이해할 수 있도록 해석해 주기 때문에 bytecode 는 JVM 위에서 OS 상관없이 실행 될 수 있습니다.
 
 **질문 : JVM 의 작동원리를 설명**
+
+
+**질문 : 클래스 로더의 세가지 원칙**
+
+**질문 : 클래스 로더가 어떻게 클래스를 동적으로 로딩하는지?**
+
+**질문 : 클래스 로딩 시점**
+
+**질문 : 클래스 초기화 시점**
+
+**질문 : 싱글톤 패턴과 클래스로더는 어떤 연관이 있는지?**
+
+
