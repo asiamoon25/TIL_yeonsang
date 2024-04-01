@@ -50,12 +50,43 @@ JVM 구조에는 크게 Class Loader, Runtime Data Area, Execution Engine, GC �
 ![[Pasted image 20240401150810.png]]
 
 
-1. BootStrap Class Loader
+1. BootStrap Class Loader(부트스트랩 클래스 로더)
 	* JVM 시작 시 가장 최초로 실행되는 클래스로더
-	* 자바 클래스를 로드하는 것이 아닌, 자바 클래스를 로드할 수 있는 자바 자체의 클래스 로더와 최소한의 자바 클래스(java.lang.Object, Class, ClassLoader) 만을 로
+	* 자바 클래스를 로드하는 것이 아닌, 자바 클래스를 로드할 수 있는 자바 자체의 클래스 로더와 최소한의 자바 클래스(java.lang.Object, Class, ClassLoader) 만을 로드함.
+	  
+	  **JAVA8**
+	  jre/lib/rt.jar 및 기타 핵심 라이브러리와 같은 JDK의 내부 클래스를 로드함.
+	  
+	  **JAVA9 이후**
+	  더 이상 /re.jar 는 존재하지 않으며, /lib 내에 모듈화되어 포함됬음.
+	  이제는 정확하게 ClassLoader 내 최상위 클래스들만 로드함.
+
+2. Extension Class Loader(확장 클래스 로더)
+	* BootStrap Class Loader 를 부모로 갖는 클래스 로더
+	* 확장 자바 클래스들을 로드한다. java.ext.dirs 환경 변수에 설정된 디렉토리의 클래스 파일을 로드하고, 이 값이 설정되어 있지 않은 경우 ${JAVA_HOME}/jre/lib/ext 에 있는 클래스 파일을 로드함.
+
+3. System Class Loader(시스템 클래스 로더)
+	* 자바 프로그램 실행 시 지정한 Classpath 에 있는 클래스 파일 혹은 jar에 속한 클래스들을 로드한다. ➡️ 우리가 만든 .class 확장자 파일 로드
+
+
+**Class Loader 동작 방식**
+
+Class Loader 는 새로운 Class 를 로드해야할 때, 다음과 같은 방식으로 로드를 수행함.
+
+1. JVM 의 메소드 영역에 클래스가 로드되어 있는지 확인한다. 로드되어 있는 경우 해당 클래스를 사용
+2. 메소드 영역에 클래스가 로드되어 있지 않은 경우, System Class Loader 에 Class Load 를 요청한다.
+3. System Class Loader 는 Extension Class Loader에게 요청을 넘김
+4. Extension Class Loader는 확장 Classpath(JDK/JRE/LIB/EXT) 에 해당 클래스가 있는지 확인 후 존재하지 않으면 System Class Loader에게 요청을 넘김
+5. System Class Loader는 시스템 Classpath 에 해당 클래스가 있는지 확인. 클래스가 존재하지 않는 경우 ClassNotFoundException 을 발생.
 
 
 
+**Class Loader가 지켜야할 3가지 원칙**
+* 위임 원칙
+	* 클래스 로더는 클래스 또는 리소스를 찾기 위해 요청을 받았을 때, 상위 클래스 로더에게 책임을 위임하는 위임 모델을 따른다.
+* 가시 범위 원칙
+	* 하위 클래스 로더는 상위 클래스 로더가 로드한 클래스를 볼 수 있지만, 반대로 상위 클래스 로더는 하위 클래스 로더가 로드한 클래스를 알 수 없다.
+* 유일성의 원칙
 
 
 #### Runtime Data Area
