@@ -134,60 +134,6 @@ Class.forName(className) 은 파라미터로 받은 className 에 해당하는 �
 
 이 처럼 클래스를 로딩할 때가 아닌, 코드를 실행하는 순간에 클래스를 로딩하는 것을 런타임 동적 로딩이라고 한다.
 
-
-**클래스의 로딩, 초기화 시점 (싱글톤)** [링크](https://velog.io/@skyepodium/%ED%81%B4%EB%9E%98%EC%8A%A4%EB%8A%94-%EC%96%B8%EC%A0%9C-%EB%A1%9C%EB%94%A9%EB%90%98%EA%B3%A0-%EC%B4%88%EA%B8%B0%ED%99%94%EB%90%98%EB%8A%94%EA%B0%80)
-
-
-* 클래스 로딩 시점
-	* 클래스의 인스턴스 생성
-	* 클래스의 정적변수 사용(final 키워드 x)
-	* 클래스의 정적 메소드 호출
-* 클래스가 로딩 하지 않을 때
-	* 클래스에 접근하지 않을 때
-	* 클래스의 정적 변수 사용(final 키워드 O)
-* 초기화 시점
-	* 클래스의 인스턴스 생성
-	* 클래스의 정적변수 사용(final 키워드 X)
-	* 클래스의 정적 메소드 호출
-* 초기화 진행 순서
-	* 정적 블록
-	* 정적 변수
-	* 생성자
-
-* 한 번만 클래스가 로딩됨을 보장
-	* JLS 에 따르면 JVM 에 클래스가 로딩되고 초기화될 때는 순차적으로 동작함을 보장한다. 멀티 스레드 환경에서 여러 개의 스레드가 동시에 클래스를 로딩하려고 하면 오직 한 개의 클래스만 로딩된다.
-* singleton
-	* Initialization-on-demand holder idiom 방식(holder 에 의한 초기화 방식) 을 사용하면 클래스 로딩 및 초기화 과정이 스레디 safe 하다는 것을 이용하여 싱글톤 인스턴스를 생성할 수 있음. 이 패턴이 가장 완벽하다고 평가 받음.
-```java
-//Holder 에 의한 초기화 방식
-public class HolderSingletom {
-	private HolderSingleton() {
-	}
-	public static HolderSingleton getInstance() {
-		return Holder.instance;
-	}
-	private static class Holder {
-		public static final HolderSingleton instance = new HolderSingleton();
-	}
-}
-```
-	
-```java
-//Eager Initialization (이른 초기화 방식)
-public class Singleton {
-	public static final Signleton instance = new Singleton();
-	
-	private Singleton() {
-	}
-
-	public static Singleton getInstance() {
-		return instance;
-	}
-}
-```
-이 방식은 singleton 클래스가 로딩될 때 사용하지 않을 수도 있는 instance 변수(싱글톤 객체) 가 생성되기 때문에 메모리가 낭비됨.
-
-
 #### Execution Engine
 
 * Class Loader 에 의해 JVM 으로 Load 된 Class 파일(bytecode) 들은 Runtime Data Area의 Method Area 에 배치되는데, JVM 은 Method Area 의 바이트 코드를 Execution Engine 에 제공하여, Class 에 정의된 내용대로 바이트 코드를 실행시킨다. 이때, Load 된 bytecode를 실행하는 Runtime Module 이 Execution Engine 이다.
@@ -282,7 +228,7 @@ _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공�
 하지만 자바는 JVM 이라는 가상머신을 통해서 OS에 도달하기 때문에 OS가 인식할 수 있게 기계어로 바로 컴파일 되는게 아니라 JVM 이 인식할 수 있는 java bytecode 즉, .class 파일로 변환됩니다. bytecode 는 기계어가 아니기 때문에 OS에서 바로 실행되지는 않습니다. 이때 JVM 이 OS 가 bytecode 를 이해할 수 있도록 해석해 주기 때문에 bytecode 는 JVM 위에서 OS 상관없이 실행 될 수 있습니다.
 
 **질문 : JVM 의 작동원리를 설명**
-javac 로 컴파일 된 .java 파일을(.class 파일) Class Loader 가 가져와서 검증, 링크, 초기화를 한 뒤 Execution 
+javac 로 컴파일 된 .java 파일을(.class 파일) Class L, 링크, 초기화를 한 뒤 Execution 
 
 **질문 : 클래스 로더의 세가지 원칙**
 
