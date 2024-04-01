@@ -21,3 +21,26 @@
 * 목적과 관련이 없는 부분을 제거하여 필요한 부분만을 표현하기 위한 개념
 
 공통적인 요소나 특징을 추출하는 과정이라고 생각하면됨.
+
+추상 메서드는 구현부가 없으므로 {} 대신 끝을 표시해주는 의미로 ; 을 적어줌.
+하위 클래스로 상속하여 실행할 수 있는데, 이때 사용하게 되는 것이 @Override 이다. 이것으로 메서드를 완성시키고, 이렇게 완성된 클래스로 해당 인스턴스를 생성할 수 있음.
+
+```java
+abstract class Dog {
+	abstract void sleep(); // 추상 메서드
+	abstract void bark(); // 추상 메서드
+}
+...
+class Poodle extends Dog {
+	void sleep() {
+		Thread.sleep(5000); // 추상 메서드 구현 
+	}
+}
+...
+abstract class Pome extends Dog {
+	void bark() {
+		System.out.println("wal wal");
+	}
+}
+```
+
