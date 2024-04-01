@@ -192,32 +192,12 @@ _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공�
 					* 런타임 상수 풀은 클래스가 생성되어 Heap 에 할당될 때 만들어지며 클래스가 삭제되면 사라짐.
 
 ---
-
-최종적으로 java 파일을 실행 시킬 때
-
-1. 소스 컴파일
-	Java 소스 파일(.java) 는 javac 에 의해 bytecode 로 컴파일 됨.
-	이 bytecode 는 .class 파일에 저장되며, 이 파일은 JVM 이 이해하고 실행할 수 있는 중간 표현 형태
-1. 클래스 로딩
-	실행 시 Class Loader는 .class 파일들을 JVM 내로 로드. Class Loader는 동적으로 필요한 클래스들을 찾아 메모리에 로드하는 역할을 함.
-2. 검증
-	로드된 클래스 파일이 올바른 형식을 가지고 있고, 안전하게 실행될 수 있는지 검증한다. 이 과정은 bytecode 검증기를 통해 수행되며, 메모리 손상, 스택 오버플로우 등의 보안 문제를 예방.
-3. 준비
-4. 해석
-5. 초기화
-6. 실행 (Runtime Data Area 할당)
-7. 실행 (Execution Engine)
-8. 실행 (CPU)
-
-
-
-
-
-
-
-
-
 # GC 란?
+
+Garbage Collector
+
+
+
 
 
 
@@ -228,16 +208,13 @@ _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공�
 하지만 자바는 JVM 이라는 가상머신을 통해서 OS에 도달하기 때문에 OS가 인식할 수 있게 기계어로 바로 컴파일 되는게 아니라 JVM 이 인식할 수 있는 java bytecode 즉, .class 파일로 변환됩니다. bytecode 는 기계어가 아니기 때문에 OS에서 바로 실행되지는 않습니다. 이때 JVM 이 OS 가 bytecode 를 이해할 수 있도록 해석해 주기 때문에 bytecode 는 JVM 위에서 OS 상관없이 실행 될 수 있습니다.
 
 **질문 : JVM 의 작동원리를 설명**
-javac 로 컴파일 된 .java 파일을(.class 파일) Class L, 링크, 초기화를 한 뒤 Execution 
+javac 로 컴파일 된 .java 파일을(.class 파일) Class Loader 가 로딩, 링크, 초기화를 한 뒤 Runtime data area 에 클래스 정보나 메타 데이터 등을 저장.
+.class 파일을 Execution Engine 이 InterPreter 나 JIT Compiler 로 기계어로 번역 후 CPU가 실행
 
 **질문 : 클래스 로더의 세가지 원칙**
+위임, 가시성의 제한, 유일성 
 
-**질문 : 클래스 로더가 어떻게 클래스를 동적으로 로딩하는지?**
 
-**질문 : 클래스 로딩 시점**
 
-**질문 : 클래스 초기화 시점**
-
-**질문 : 싱글톤 패턴과 클래스로더는 어떤 연관이 있는지?**
 
 
