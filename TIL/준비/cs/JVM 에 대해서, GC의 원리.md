@@ -202,11 +202,41 @@ Garbage Collector
 
 ## JVM 메모리 영역
 
-일반적으로 애플리케이션에서 사용되는 객체는 오래 유지되는 객체보다 잠시 사용되는 경우가 많음.
+_일반적으로 애플리케이션에서 사용되는 객체는 오래 유지되는 객체보다 잠시 사용되는 경우가 많음._
+![[Pasted image 20240401181520.png]]
+* Young Generation : 새롭게 생성하는 객체들이 존재하는 곳
+* Old Generation : Young Generation 영역에서 오랫동안 살아남은 객체(가중치) 들이 존재하는 곳
+* Meta Space : 클래스의 메타데이터, 문자열 정보를 저장하는 영역(JAVA 8 부터)
+* YG 와 OG 로 나눈 이유는 애플리케이션에서의 객체의 수명은 대부분 짧기 때문에 효율적으로 관리하기 위함.
+
+## GC 알고리즘
+
+### Reference Counting
+* Root Space 에 접근할 수 있는 방법(참조하는 곳)이 없는 객체는 삭제 대상이 됨.
+* 순환참조에 대해 문제가 발생
+
+### Mark-Sweep-Compact
+![[Pasted image 20240401181705.png]]
+* JVM 에서 사용하는 방식
+* Root Space 에서부터 순환을 하여 방문한 객체에 Mark 를 함.
+  JVM에서 Root Space 는 stack, method stack, method 영역을 뜻함.
+* Mark 가 되지 않은 객체, 즉 방문하지 않은 객체는 삭제(Sweep) 대상이 됨.
+* 남아있는 객체들은 정리(Compact) 한다.
+	Compact 는 필수가 아님. 의도적으로 GC 를 실행시켜야 되기 때문에 Stop The World가 발생한다.
+![[Pasted image 20240401181931.png]]
+
+* Stop The World
+	GC 를 위해 어플리케이션을 일시적으로 멈추는 것
 
 
+## JVM이 메모리를 관리하는 방식
 
+### Minor GC
+![[Pasted image 20240401182215.png]]
 
+New/Young 영역을 Minor GC 라고 부름. New/Young 영역은 다시 Eden / Survivor 라는 영역으로 나뉨.
+
+### Major GC
 
 
 ---
