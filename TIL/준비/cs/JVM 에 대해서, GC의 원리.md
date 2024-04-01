@@ -216,6 +216,7 @@ _일반적으로 애플리케이션에서 사용되는 객체는 오래 유지�
 * 순환참조에 대해 문제가 발생
 
 ### Mark-Sweep-Compact
+_(아래에서 설명...)_
 ![[Pasted image 20240401181705.png]]
 * JVM 에서 사용하는 방식
 * Root Space 에서부터 순환을 하여 방문한 객체에 Mark 를 함.
@@ -236,7 +237,36 @@ _일반적으로 애플리케이션에서 사용되는 객체는 오래 유지�
 
 New/Young 영역을 Minor GC 라고 부름. New/Young 영역은 다시 Eden / Survivor 라는 영역으로 나뉨.
 
-### Major GC
+* Eden
+	* 자바 객체가 생성되자마자 저장되는 곳. 생성된 객체는 Minor GC 가 발생할 때 Survivor 영역으로 이동하게됨.
+* Survivor
+	* 해당 영역은 다시 survivor1, survivor2 로 나뉨.
+
+Minor GC 에 사용되는 알고리즘은 Copy & Scavenge이다.
+**Copy & Scanvenge**
+1. Eden, Survivor1 에 있는 활성 객체를 survivor2 로 옮김
+2. 비활성 객체는 여전히 Eden, survivor1 에 남아 있음.
+3. GC 는 Eden, survivor1 을 비워버림.
+4. 이후에도 동일하게 Eden, survivor2 -> 활성 객체 survivor1 이동 -> 비활성 객체가 있는 Eden, survivor2 비워버림.
+5. 이렇게 하다가 survivor 영역에서 오래 있는 고인물은 Old 영역으로 옮겨짐.
+이러한 방식은 속도가 매우 빠르며 작은 크기의 메모리를 콜렉팅하는데 매우 효과적이다.
+Minor GC 의 경우에는 자주 일어나기 때문에 GC에 걸리는 시간이 짧은 알고리즘들이 적합함.
+
+### Major GC (Old Generation GC, Full GC)
+
+* Old 영역의 GC 를 Full GC 라고 부름. 여기서 사용되는 알고리즘을 Mark & Compact 라고 함.
+* Mark & Compact 알고리즘은 객체들의 참조를 확인하면서 참조가 연결되지 않은 객체를 표시함. 이 작업이 끝나면 사용되지 않는 객체를 모두 표시하고 이 표시된 객체를 삭제함.
+* Full GC 는 속도가 매우 느림. Full GC 가 일어나는 도중에는 순간적으로 자바 애플리케이션이 멈춰버리기 때문에, Full GC 가 일어나는 정도와 시간은 애플리케이션의 성능과 안정성에 아주 큰 영향을 미침.
+
+
+
+## GC 왜 중요함?
+
+Minor GC 의 경우 보통 0.5 이내에 끝나기 때문에 큰 문제가 되지 않지만, Full GC 의 경우에는 자바 애플리케이션이 멈추기 때문에 문제가 될 수 있음.
+
+멈추는 동안 사용자의 요청이 큐에 들어가 있다가, 순간적으로 요청이 한꺼번에 들어오기 때문에 과부하에 의한 여러 장애를 만들 수 있다.
+
+따라서 원활한 서비스를 위해서는 GC가 어떻게 일어나게 하느냐가 시스템의 안정성과 성능에 큰 변수로 작용할 수 있음.
 
 
 ---
