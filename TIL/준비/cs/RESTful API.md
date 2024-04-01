@@ -65,14 +65,59 @@ sticker: lucide//download
 		`http://restapi.example.com/animals/mammals/whales`
 
 	2. URI 마지막 문자로 슬래시(/) 를 포함하지 않는다.
-		URI 에 포함되는 모든 글자는 리소스의 유일한 식별자로 사용되어야 하며 URI 가 다르다는 것은 리소스가 다르다는 것이고, 역으로 리소스가 다르면 URI 도 달라져야함. REST API 는 분명한 URI 를 만들어 통신을 해야하기 때문에 혼동을 주지 않도록 URI 경로의 마지막에는 슬래시(/) 사용하지 않음.
+	   
+		URI 에 포함되는 모든 글자는 리소스의 유일한 식별자로 사용되어야 하며 URI 가 다르다는 것은 리소스가 다르다는 것이고, 역으로 리소스가 다르면 URI 도 달라져야함. 
+		
+		REST API 는 분명한 URI 를 만들어 통신을 해야하기 때문에 혼동을 주지 않도록 URI 경로의 마지막에는 슬래시(/) 사용하지 않음.
+		
 		`http://restapi.example.com/houses/apartments/ (X)`
 		`http://restapi.example.com/houses/apartments (O)`
 
 	3. 하이픈(-) 은 URI 가독성을 높이는데 사용
+		
 		URI 를 쉽게 읽고 해석하기 위해, 불가피하게 긴 URI 경로를 사용하게 된다면 하이픈을 사용해 가독성을 높일 수 있음.
 
 	4. 밑줄(\_)은 URI 에 사용하지 않는다.
-	   글꼴에 따라 다르긴 하지만 밑줄은 보기 어렵거나 밑줄 때문에 문자가 가려지기도함. \_ 보다는 - 을 사용하는게 좋다.
+	   
+		글꼴에 따라 다르긴 하지만 밑줄은 보기 어렵거나 밑줄 때문에 문자가 가려지기도함. 
+		\_ 보다는 - 을 사용하는게 좋다.
+	   
+	   
 	5. URI 경로에는 소문자가 적합하다.
-		URI 경로에 대문자 사용은 피해야함. 대소문자에 따라 다른 리소스로 인식하게 되기 때문. RFC3986(URI 문법 형식) 은 URI 스키마와 호스트를 
+		
+		대소문자에 따라 다른 리소스로 인식하기 쉬움. 
+		
+		RFC3986(URI 문법 형식)은 URI 스키마와 호스트를 제외하고는 대소문자를 구별하도록 규정함.
+		`RFC 3986 is the URI (Unified Resource Identifier) Syntax document`
+		
+	6. 파일 확장자는 URI 에 포함시키지 않는다.
+	   
+		`http://restapi.example.com/members/soccer/photo.jpg (X)`
+		
+		Accept header 를 사용
+		`GET /members/soccer/photo HTTP/1.1 Host: restapi.example.com Accept: image/jpg`
+
+3)  리소스 간의 관계를 표현하는 방법
+	REST 리소스 간에는 연관 관계가 있을 수 있고, 이런 경우 다음과 같은 표현방법으로 사용
+	`/리소스명/리소스 ID/관계가 있는 다른 리소스명`
+	`ex) GET : /users/{userid}/devices (일반적으로 소유 'has'의 관계를 표현할 때`
+	
+	관계명이 복잡하면 서브 리소스에 명시적으로 표현
+	`GET : /users/{userid}/likes/devices (관계명이 애매하거나 구체적 표현이 필요할 때)`
+
+4) 자원을 표현하는 Collection 과 Document
+	이것을 알면 URI 설계가 더 쉬워짐.
+	Document 는 문서로 이해해도 되고, 한 객체라고 이해해도 됨. 
+	
+	Collection 은 문서들의 집합, 객체들의 집합 이라고 생각하면 됨. 
+	
+	Collection 과 Document 는 모두 리소스라고 표현할 수 있으며 URI에 표현됨.
+	`http://restapi.example.com/sports/soccer`
+	
+	sports 라는 컬렉션과 soccer라는 도큐먼트로 표현되고 있다고 생각하면 됨.
+	`http://restapi.example.com/sports/soccer/players/13`
+	
+	sports, players Collection 과 soccer,13(13번인 선수)를 의미하는 Document 로 URI 가 이루어지게 됨. 
+	여기서 보여지는 것은 Collection 이 복수로 사용되고 있다는 점.. s 를 붙이자
+
+### HTTP 응답 상태 코드
