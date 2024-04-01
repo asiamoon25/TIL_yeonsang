@@ -157,7 +157,7 @@ Class.forName(className) 은 파라미터로 받은 className 에 해당하는 �
 * 한 번만 클래스가 로딩됨을 보장
 	* JLS 에 따르면 JVM 에 클래스가 로딩되고 초기화될 때는 순차적으로 동작함을 보장한다. 멀티 스레드 환경에서 여러 개의 스레드가 동시에 클래스를 로딩하려고 하면 오직 한 개의 클래스만 로딩된다.
 * singleton
-	* Initialization-on-demand holder idiom 방식(hoder 에 의한 초기화 방식) 을 사용하면 클래스 로딩 및 초기화 과정이 스레디 safe 하다는 것을 이용하여 싱글톤 인스턴스를 생성할 수 있음. 이 패턴이 가장 완벽하다고 평가 받음.
+	* Initialization-on-demand holder idiom 방식(holder 에 의한 초기화 방식) 을 사용하면 클래스 로딩 및 초기화 과정이 스레디 safe 하다는 것을 이용하여 싱글톤 인스턴스를 생성할 수 있음. 이 패턴이 가장 완벽하다고 평가 받음.
 ```java
 //Holder 에 의한 초기화 방식
 public class HolderSingletom {
@@ -209,7 +209,7 @@ public class Singleton {
 _Java 는 Multi-Thread 환경으로 모든 Thread 는 Heap, Method Area 를 공유한다._
 
 * PC Register
-	* JVM 은 스택 기반의 가상 머신으로, CPU에 직접 접근하지 ㅇ낳고 Stack 에서 주소를 뽑아서 가져온다. 가져온 주소는 PC Register 에 저장된다.
+	* JVM 은 스택 기반의 가상 머신으로, CPU에 직접 접근하지 않고 Stack 에서 주소를 뽑아서 가져온다. 가져온 주소는 PC Register 에 저장된다.
 	* 현재 어떤 명령을 실행하야 할 지에 대한 기록을 담당
 * JVM Stacks
 	* 호출된 메서드의 파라미터, 지역 변수, 리턴 값 및 연산 값 등이 저장되는 영역
