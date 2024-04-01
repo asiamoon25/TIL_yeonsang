@@ -279,22 +279,18 @@ Minor GC 의 경우에는 자주 일어나기 때문에 GC에 걸리는 시간�
 	메모리 관리 로직을 프로그램 코드에서 분리함으로써, 코드가 더 간결하고 읽기 쉬워짐.
 
 
-## 다양한 GC 알고리즘
+## GC 대상
+![[Pasted image 20240401184813.png]]
+_GC가 뭔데 할당된 메모리 회수함?_
 
-* Default Collector
-* Parallel GC for young generator
-* Concurrent GC for old generator
-* Incremental GC(Train GC)
+GC 는 특정 객체가 garbage 인지 아닌지 판단하기 위해서 도달성, 도달 능력(Reachability) 라는 개념을 적용함.
 
+객체에 레퍼런스가 있다면 Reachable 로 구분되고, 객체에 유효한 레퍼런스가 없다면 Unreachable 로 구분하고 수거한다.
 
-1. Default Collector
-	전통적인 GC 방식으로, Minor GC 로 Scavenge 를 사용하고 Full GC 로 Mark & Compact 알고리즘을 사용함.
+* Reachable : 객체가 참조되고 있는 상태
+* Unreachable : 객체가 참조되고 잇지 않은 상태(GC 의 대상)
+![[Pasted image 20240401185230.png]]
 
-2. Parallel GC
-	기술의 발전으로 하나의 CPU 또는 여러개의 CPU 를 동시에 장착한 하드웨어 보급으로 하나의 하드웨어에서 동시에 여러 개의 쓰레드를 수행할 수 있게 되었음.
-	
-	이 녀석은 2가지 옵션이 있음.
-	
 
 ---
 
