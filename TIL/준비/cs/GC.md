@@ -162,7 +162,10 @@ Minor GC 의 경우에는 자주 일어나기 때문에 GC에 걸리는 시간�
 * OG 의 객체들은 처음에는 YG에서 시작되었으나, GC 과정 중에 제거되지 않은 경우 age 임계값이 차게되어 이동된 녀석들
 * Major GC 는 객체들이 계속 Promotion 되어 Old Generation 영역이 가득 차면 발생
 * 느림
-
+* OG 는 넓고 GC 를 돌리면 JAVA application 을 잠시 멈추기 때문에 STOP-THE-WORLD 가 일어난다.
+![[Pasted image 20240401181931.png]]
+* Stop The World
+	GC 를 위해 어플리케이션을 일시적으로 멈추는 것
 
 다음 부분에서 Stop The World 방어전을 위한 Java 개발자들의 노력이 나옴
 
@@ -177,11 +180,22 @@ _설정을 통해서 JAVA 에 적용가능한거 앎?_
 * Compact
 	* heap 영역을 정리하기 위한 단계로 유효한 객체들이 연속되게 쌓이도록 Heap 의 가장 앞 부분부터 채워서 객체가 존재하는 부분과 객체가 존재하지 않는 부분으로 나누는 것
 
+* 옵션 넣는 방법
+```shell
+java -XX:+UseSerialGC -jar Application.java
+```
 
+<span style="color:red">주의 사항</span>
+* Serial GC 는 서버의 CPU 코어가 1개일 때 사용하기 위해 개발되었으며, 모든 GC 일을 처리하기 위해 1개의 쓰레드만을 사용한다. 그렇게 때문에 CPU 코어가 여러개인 운영서버에서 Serial GC 를 사용하는 것은 피해야한다.
 ### Parallel GC
+* Throughput GC 로도 알려져있음.
+* 기본 과정은 Serial GC 와 동일
+* 차이점은 여러 개의 쓰레드를 통해 Parallel 하게 GC 를 수행
+* 옵션
 
 
-### Parallel Old GC (Parallel Compacting Collector)
+
+
 
 
 ### CMS GC(Concurrent Mark Sweep)
