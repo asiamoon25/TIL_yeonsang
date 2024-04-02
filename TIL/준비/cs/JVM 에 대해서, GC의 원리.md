@@ -257,7 +257,8 @@ Heap 영역은 처음 설계될 때 다음의 2가지를 전제로 설계 되었
 * Write Barrier : 위 가설을 실제 시스템에서 구현하기 위해, JVM 은 Write Barrier 를 사용하여 Old Generation의 객체가 Young Generation의 객체를 참조할 때 이를 추적함. 이는 Old Generation 에서 Young Generation 으로의 참조가 생성될 때마다 특정 조치를 취할 수 있게 해주며, 전체 Heap 을 스캔할 필요 없이 효율적으로 GC 를 수행할 수 있음.
   
 * Card Marking
-	* 
+	* Card Table : Old Generation 내 각 부분을 추적하기 위한 바이트 배열
+	  각 원소는 Old Generation 의 512byte 크기 구역을 나타낸다. Card Table 은 Old Generation의 메모리를 작은 블록(카드) 로 나누고, 각 블록이 어떤 상태인지를 기록하는 지도 같은 
 
 
 ### Minor GC
