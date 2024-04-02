@@ -192,13 +192,25 @@ java -XX:+UseSerialGC -jar Application.java
 * 기본 과정은 Serial GC 와 동일
 * 차이점은 여러 개의 쓰레드를 통해 Parallel 하게 GC 를 수행
 * 옵션
+```shell
+java -XX+UserParallelGC -jar Application.jar
+
+//사용할 스레드 갯수
+-XX:ParallelGCThreads=<num>
+
+//최대 지연 시간
+-XX:MaxGCPauseMillis=<num>
+```
+
+* GC의 오버헤드를 상당히 줄여주었고,JAVA 8 까지 기본 GC 로 사용되었음. 그럼에도 불구하고 Application 이 멈추는 것은 피할 수 없었다.
 
 
+#### Parallel Old GC (Parallel Compacting Collector)
 
+* JDK5 update6 부터 제공한 GC
+* Parallel GC 와
 
-
-
-### CMS GC(Concurrent Mark Sweep)
+#### CMS GC(Concurrent Mark Sweep)
 
 
 ### G1 GC(Garbage First)
