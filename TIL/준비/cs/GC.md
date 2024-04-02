@@ -193,7 +193,7 @@ java -XX:+UseSerialGC -jar Application.java
 * 차이점은 여러 개의 쓰레드를 통해 Parallel 하게 GC 를 수행
 * 옵션
 ```shell
-java -XX+UserParallelGC -jar Application.jar
+java -XX:+UserParallelGC -jar Application.jar
 
 //사용할 스레드 갯수
 -XX:ParallelGCThreads=<num>
@@ -225,7 +225,33 @@ java -XX:+UseConcMarkSweepGC -jar Application.java
 <span style="color:red">주의점</span>
 이러한 GC 는 다른 GC 방식 보다 메모리와 CPU 를 더 많이 필요로 하며, Compaction 단계를 수행하지 않는다는 단점이 있음.
 장기적으로 운영되면 조각난 메모리들이 많아 Compaction 단계가 수행되면 오히려 Stop The World 시간이 길어지는 문제가 발생함.
-### G1 GC(Garbage First)
+
+### G1 GC(Garbage First GC)
+
+* JAVA 7 부터 지원되기 시작
+* 기존 GC 알고리즘에서는 Heap 영역을 물리적으로 Young 영역 과 Old 영역으로 나누어 사용했음. 
+  G1 GC 는 Eden 영역에 할당하고, Survivor로 카피하는 등의 과정을 사용하지만 물리적으로 메모리 공간을 나누지는 않음.
+  대신 Region(지역) 이라는 개념을 새로 도입하여 Heap 을 균등하게 여러 개의 지역으로 나누고, 각 지역을 역할과 함께 논리적으로 구분하여 (Eden 인지, Survivor 인지, Old 인지) 객체를 할당함.
+
+![[Pasted image 20240402150720.png]]
+
+G1 GC에서는 Eden, Survivor, Old 역할에 더해 Humonogous와 Availabe/Unused라는 2가지 역할을 추가하였다. 
+
+Humonguous는 Region 크기의 50%를 초과하는 객체를 저장하는 Region을 의미하며, Availabe/Unused는 사용되지 않은 Region을 의미한다. 
+
+G1 GC의 핵심은 Heap을 동일한 크기의 Region으로 나누고, 가비지가 많은 Region에 대해 우선적으로 GC를 수행하는 것이다. 
+
+그리고 G1 GC도 다른 가비지 컬렉션과 마찬가지로 2가지 GC(Minor GC, Major GC)로 나누어 수행됨.
+
+#### Minor GC
+한 지역에 객체를 할당하다가 해당 지역이 꽉 차면 다른 지역에 객체를 할당하고, Minor GC가 실행된다. 
+G1 GC는 각 지역을 추적하고 있기 때문에, 가비지가 가장 많은(Garbage First) 지역을 찾아서 Mark and Sweep를 수행한다.
+
+Eden 지역에서 GC가 수행되면 살아남은 객체를 식별(Mark)하고, 메모리를 회수(Sweep)한다. 
+그리고 살아남은 객체를 다른 지역으로 이동시키게 된다. 
+복제되는 지역이 Available/Unused 지역이면 해당 지역은 이제 Survivor 영역이 되고, Eden 영역은 Available/Unused 지역이 된다.
+
+#### Major GC
 
 
 ### Shenandoah GC
