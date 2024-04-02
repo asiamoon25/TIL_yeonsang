@@ -59,7 +59,7 @@ Heap 영역은 처음 설계될 때 다음의 2가지를 전제로 설계 되었
 다음 부분에서 부터 GC 시작
 
 ---
-# GC
+# GC (Garbage Collector)
 
 ## GC 란?
 
@@ -167,8 +167,33 @@ Minor GC 의 경우에는 자주 일어나기 때문에 GC에 걸리는 시간�
 * Stop The World
 	GC 를 위해 어플리케이션을 일시적으로 멈추는 것
 
-다음 부분에서 Stop The World 방어전을 위한 Java 개발자들의 노오력이 나옴
+다음 부분에서 Stop The World 방어전을 위한 Java 개발자들의 노력이 나옴
 
 ---
 ## GC 알고리즘 종류
+
+_설정을 통해서 JAVA 에 적용가능한거 앎?_
+
+### Serial GC
+
+
+
+### Parallel GC
+
+
+### Parallel Old GC (Parallel Compacting Collector)
+
+
+### CMS GC(Concurrent Mark Sweep)
+
+
+### G1 GC(Garbage First)
+
+
+### Shenandoah GC
+
+### ZGC(Z Garbage Collector)
+
+
+
 
