@@ -256,7 +256,8 @@ Heap 영역은 처음 설계될 때 다음의 2가지를 전제로 설계 되었
 ### 구현과 최적화
 * Write Barrier : 위 가설을 실제 시스템에서 구현하기 위해, JVM 은 Write Barrier 를 사용하여 Old Generation의 객체가 Young Generation의 객체를 참조할 때 이를 추적함. 이는 Old Generation 에서 Young Generation 으로의 참조가 생성될 때마다 특정 조치를 취할 수 있게 해주며, 전체 Heap 을 스캔할 필요 없이 효율적으로 GC 를 수행할 수 있음.
   
-* Card Marking: Write Barrier 의 한 형태, Heap 은 작은 영역인 Card 로 나누고, Old Generation 에서 Young Generation으로의 참조가 수정될 때 해당 Card 를 "더러워진 (Dirty)" 로 표시. GC 시, JVM 은 더러워진 카드만 검사하여 새로운 객체로의 참조를 확인 함으로써, 성능을 최적화 할 수 있음.
+* Card Marking
+	* 
 
 
 ### Minor GC
