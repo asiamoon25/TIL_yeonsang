@@ -232,6 +232,10 @@ java -XX:+UseConcMarkSweepGC -jar Application.java
 * 기존 GC 알고리즘에서는 Heap 영역을 물리적으로 Young 영역 과 Old 영역으로 나누어 사용했음. 
   G1 GC 는 Eden 영역에 할당하고, Survivor로 카피하는 등의 과정을 사용하지만 물리적으로 메모리 공간을 나누지는 않음.
   대신 Region(지역) 이라는 개념을 새로 도입하여 Heap 을 균등하게 여러 개의 지역으로 나누고, 각 지역을 역할과 함께 논리적으로 구분하여 (Eden 인지, Survivor 인지, Old 인지) 객체를 할당함.
+* 옵션
+```shell
+java -XX:+UseG1GC -jar Application.java
+```
 
 ![[Pasted image 20240402150720.png]]
 
@@ -252,12 +256,37 @@ Eden 지역에서 GC가 수행되면 살아남은 객체를 식별(Mark)하고, 
 복제되는 지역이 Available/Unused 지역이면 해당 지역은 이제 Survivor 영역이 되고, Eden 영역은 Available/Unused 지역이 된다.
 
 #### Major GC
+시스템이 계속 운영되다가 객체가 너무 많아 빠르게 메모리를 회수 할 수 없을 때 Major GC(Full GC)가 실행된다. 
+그리고 여기서 G1 GC와 다른 GC의 차이점이 두각을 보인다.
+
+기존의 다른 GC 알고리즘은 모든 Heap의 영역에서 GC가 수행되었으며, 그에 따라 처리 시간이 상당히 오래 걸렸다. 
+하지만 G1 GC는 어느 영역에 가비지가 많은지를 알고 있기 때문에 GC를 수행할 지역을 조합하여 해당 지역에 대해서만 GC를 수행한다. 
+그리고 이러한 작업은 Concurrent하게 수행되기 때문에 애플리케이션의 지연도 최소화할 수 있는 것이다.
+
 
 
 ### Shenandoah GC
 
+* JDK 8, 11, 12
+* G1 GC 를 기반으로 만들어짐.
+* 큰 GC 작업을 적은 횟수로 수행하는 것보다 작은 GC를 여러번 수행하는게 더 좋다는 개념을 적용해 만들어진 GC
+* Concurrency 를 보장
+* GC 가 CPU를 더 사용하는 대신 Pause 시간을 줄이겠다는 의미
+* 옵션
+```shell
+java -XX:+UseShenandoahGC -Xlog:gc -version
+```
+#### 동작과정
+![[Pasted image 20240402151218.png]]
+1. Initial Marking
+2. Concurrent Marking
+3. Final Marking
+4. Concurrernt Compaction
+Pause 후 root set 을 스캔하고 Java 쓰레드와 동시에 Marking 을 수행.
+그 이후 한번 더 pause 를 수행하여 final marking 을 수행하고 압축 마지막 단계에서 marking 된 객체들을 제거.
+전체 흐름은 CMS GC 와 비슷.
+
 ### ZGC(Z Garbage Collector)
-
-
+* jdk 11 이상만 지원
 
 
