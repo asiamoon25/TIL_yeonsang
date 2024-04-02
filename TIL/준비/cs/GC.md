@@ -102,7 +102,7 @@ GC 는 특정 객체가 garbage 인지 아닌지 판단하기 위해서 도달�
 
 _그래서 어떻게?_
 ![[Pasted image 20240401185745.png]]
-#### Mark-Sweep-Compact
+#### Mark-Sweep
 * GC 대상이 될 대상 객체를 식별(Mark) 하고 제거(Sweep) 하며 객체가 제거되어 파편화된 메모리 영역을 앞에서부터 채워나가는 작업(Compaction) 을 수행함.
   
 * Mark : 먼저 Root Space 로 부터 그래프 순회를 통해 연결된 객체들을 찾아내어 각각 어떤 객체를 참조하고 있는지 찾아서 마킹
@@ -162,10 +162,7 @@ Minor GC 의 경우에는 자주 일어나기 때문에 GC에 걸리는 시간�
 * OG 의 객체들은 처음에는 YG에서 시작되었으나, GC 과정 중에 제거되지 않은 경우 age 임계값이 차게되어 이동된 녀석들
 * Major GC 는 객체들이 계속 Promotion 되어 Old Generation 영역이 가득 차면 발생
 * 느림
-* Compact 는 필수가 아님. 의도적으로 GC 를 실행시켜야 되기 때문에 Stop The World가 발생한다.
-![[Pasted image 20240401181931.png]]
-* Stop The World
-	GC 를 위해 어플리케이션을 일시적으로 멈추는 것
+
 
 다음 부분에서 Stop The World 방어전을 위한 Java 개발자들의 노력이 나옴
 
@@ -176,6 +173,9 @@ _설정을 통해서 JAVA 에 적용가능한거 앎?_
 
 ### Serial GC
 
+* YG 영역은 위에 나온 Mark and Sweep 알고리즘대로 수행되지만 OG 에서는 Mark Sweep Compact 알고리즘이 사용되는데, 기존 Mark and Sweep 에 Compact 라는 작업이 추가됨.
+* Compact
+	* heap 영역을 정리하기 위한 단계로 유효한 객체들이 연속되게 쌓이도록 Heap 의 가장 앞 부분부터 채워서 객체가 존재하는 부분과 객체가 존재하지 않는 부분으로 나누는 것
 
 
 ### Parallel GC
