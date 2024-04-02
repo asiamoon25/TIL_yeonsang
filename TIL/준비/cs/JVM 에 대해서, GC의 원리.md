@@ -232,6 +232,33 @@ _(아래에서 설명...)_
 
 ## JVM이 메모리를 관리하는 방식
 
+### Heap 메모리의 구조
+
+Heap 영역은 처음 설계될 때 다음의 2가지를 전제로 설계 되었음.
+1. 대부분의 객체는 금방 접근 불가능한 상태가 된다.(Unreachable)
+2. 오래된 객체에서 새로운 객체로의 참조는 아주 적게 존재한다.
+
+➡️ 객체는 대부분 일회성이며, 메모리에 오래 남아있는 경우는 드물다.
+
+* ***대부분의 객체는 금방 접근 불가능한 상태가 된다.**
+![[Pasted image 20240402113722.png]]
+	해당 이미지를 보면 알 수 있듯이 Young Generation 에서 Old Generation 으로 가는 객체들은 별로 없는것을 알 수 있다.
+	이는 대부분의 객체는 금방 접근 불가능한 상태가 된다 라는 말과 같다.
+
+
+* ***오래된 객체에서 새로운 객체로의 참조가 적다**
+	위 전제는 GC가 효율적으로 메모리를 관리할 수 있도록 도와줌.
+	
+	오래된 객체가 새로운 객체로의 참조를 거의 가지지 않는다고 하면, Young Generation 에서 발생하는 대부분의 GC 는 Old Generation 의 객체들을 검사할 필요가 없다는 것을 의미한다. 이로 인해 GC 성능이 크게 향상됨.
+
+이로 인해 Young Generation 과 Old Generation 으로 구분 된듯 하다.
+
+### 구현과 최적화
+* Write Barrier : 위 가설을 실제 시스템에서 구현하기 위해, JVM 은 Write Barrier 를 사용하여 Old Generation의 객체가 Young Generation의 객체를 참조할 때 이를 추적함. 이는 Old Generation 에서 Young Generation 으로의 참조가 생성될 때마다 특정 조치를 취할 수 있게 해주며, 전체 Heap 을 스캔할 필요 없이 효율적으로 GC 를 수행할 수 있음.
+  
+* Card Marking: Write Barrier 의 한 형태, Heap 은 작은 영역인 Card 로 나누고, Old Generation 에서 Young Generation으로의 참조가 수정될 때 해당 Card 를 "더러워진 (Dirty)" 로 표시. GC 시, JVM 은 더러워진 카드만 검사하여 새로운 객체로의 참조를 확인 함으로써, 성능을 최적화 할 수 있음.
+
+
 ### Minor GC
 ![[Pasted image 20240401182215.png]]
 
@@ -309,24 +336,9 @@ Mark and Sweep 방식은 루트로 부터 해당 객체에 접근이 가능한�
 JVM GC 에서의 Root Space 는 Heap 메모리 영역을 참조하는 method area, static 변수, stack, native method stack 이 되게 됨.
 
 
-## Heap 메모리의 구조
-
-Heap 영역은 처음 설계될 때 다음의 2가지를 전제로 설계 되었음.
-1. 대부분의 객체는 금방 접근 불가능한 상태가 된다.(Unreachable)
-2. 오래된 객체에서 새로운 객체로의 참조는 아주 적게 존재한다.
-
-➡️ 객체는 대부분 일회성이며, 메모리에 오래 남아있는 경우는 드물다.
-
-* ***대부분의 객체는 금방 접근 불가능한 상태가 된다.**
-![[Pasted image 20240402113722.png]]
-	해당 이미지를 보면 알 수 있듯이 Young Generation 에서 Old Generation 으로 가는 객체들은 별로 없는것을 알 수 있다.
-	이는 대부분의 객체는 금방 접근 불가능한 상태가 된다 라는 말과 같다.
 
 
-* ***오래된 객체에서 새로운 객체로의 참조가 적다**
-	위 전제는 GC가 효율적으로 메모리를 관리할 수 있도록 도와줌.
-	
-	오래된 객체가 새로운 객체로의 참조를 거의 가지지 않는다고 하면, Young Generation 에서 발생하는 대부분의 GC 는 Old Generation 의 객체들을 검사할 필요가 없다는 것을 의미한다.
+
 
 
 
