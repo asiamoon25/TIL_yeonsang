@@ -208,11 +208,23 @@ java -XX+UserParallelGC -jar Application.jar
 #### Parallel Old GC (Parallel Compacting Collector)
 
 * JDK5 update6 부터 제공한 GC
-* Parallel GC 와
+* Parallel GC 와 Old 영역의 GC 알고리즘만 다름.
+* Mark Sweep Compact 가 아닌 Mark Summary Compaction 이 사용됨.
+  Summary 단계에서는 앞서 GC를 수행한 영역에 대해서 별도로 살아있는 객체를 색별한다는 점에서 다르고 조금 더 복잡함.
 
 #### CMS GC(Concurrent Mark Sweep)
+* Parallel GC 와 마찬가지로 여러 개의 쓰레드를 이용함.
+* 기존 Serial GC 나 Parallel GC 와 다르게 Mark Sweep 알고리즘을 Concurrent 하게 수행함.
+![[Pasted image 20240402145636.png]]
+* CMS GC는 애플리케이션의 지연 시간을 최소화 하기 위해 고안되었으며, 애플리케이션이 구동중일 때 프로세서의 자원을 공유하여 이용가능해야 한다. CMS GC가 수행될 때에는 자원이 GC를 위해서도 사용되므로 응답이 느려질 순 있지만 응답이 멈추지는 않게 된다.
+* 옵션
+```shell
+java -XX:+UseConcMarkSweepGC -jar Application.java
+```
 
-
+<span style="color:red">주의점</span>
+이러한 GC 는 다른 GC 방식 보다 메모리와 CPU 를 더 많이 필요로 하며, Compaction 단계를 수행하지 않는다는 단점이 있음.
+장기적으로 운영되면 조각난 메모리들이 많아 Compaction 단계가 수행되면 오히려 Stop The World 시간이 길어지는 문제가 발생함.
 ### G1 GC(Garbage First)
 
 
