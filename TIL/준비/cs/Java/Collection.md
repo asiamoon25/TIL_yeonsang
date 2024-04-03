@@ -49,6 +49,9 @@ h.put(1,"");
 	* LinkedHashMap
 	* HashMap
 	* TreeMap
-
-
 ![[Pasted image 20240403145921.png]]
+
+### List
+
+* 순서가 있는 데이터의 집합으로 데이터의 중복을 허용
+* List 인터페이스 구현 클래스는 ArrayList, LinkedList, Vector, Stack이 있음.
