@@ -55,3 +55,10 @@ h.put(1,"");
 
 * 순서가 있는 데이터의 집합으로 데이터의 중복을 허용
 * List 인터페이스 구현 클래스는 ArrayList, LinkedList, Vector, Stack이 있음.
+
+**ArrayList**
+* 크기가 가변적인 선형 리스트, 저장용량이 존재함.
+	저장용량을 넘어서면 자동으로 증가시킴. default 는 10
+	용량 증가 시 기존 용량 + 기존용량/2 만큼 증가시킴
+
+**LinkedList**
