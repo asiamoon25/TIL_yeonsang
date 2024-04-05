@@ -142,4 +142,4 @@ Collections.remove(Entry)  는 항상 Entry 를 지우기 때문에 Key 를 통�
 
 Map 이라는 자료구조의 요소의 구조상 맞지 않는 부분 때문에 Collection 인터페이스를 상속받지 않았음.
 
-비슷하게 Iterator() 는 iterate 할 대상이 Key, Value, Entry 일지 애매학
+비슷하게 Iterator() 는 iterate 할 대상이 Key, Value, Entry 일지 애매하기 때문에 Iterable 인터페이스도 상속받지 않았음.
