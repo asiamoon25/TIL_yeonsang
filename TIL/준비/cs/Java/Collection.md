@@ -85,4 +85,31 @@ h.put(1,"");
 
 * Vector 를 상속하여 사용하는 LIFO(Last In First Out) 방식의 클래스
 * Java 에서는 Stack 대신 Deque 를 사용하여 구현할 것을 권장함.
-	Stack 클래스를 
+	Stack 클래스를 까고 들어가보면
+	![[Pasted image 20240405134349.png]]
+	마지막 줄을 보면 Stack 이 처음 생성되면 항목이 포함되지 않는다고 나와 있음.
+	`보다 완전하고 일관된 LIFO 스택 작업은 Deque 인터페이스와 그 구현에 의해 제공되며, 이 클래스 보다 먼저 사용해야 한다.`
+	라고 나와 있음.
+	
+	* 쓰레드 안전성 및 동기화 오버헤드
+		* Stack 은 Vector 를 상속하기 때문에 Vector 를 까고 들어가보면
+		  ![[Pasted image 20240405134750.png]]
+		  synchronized 를 자주 쓰는 것을 볼 수 있다. 멀티쓰레드 환경에서 데이터의 안정성을 보장하기 위해서 필요하지만 성능저하가 발생함.
+		  하지만 ArrayDeque 는 동기화 메커니즘을 사용하지 않아 동기화에 따른 오버헤드가 발생하지 않음.
+
+**Queue**
+* FIFO 구조를 가진 자료구조
+* 주로 LinkedList 를 이용하여 구현할 수 있음.
+* Queue를 상속받은 구현체로 Deque 와 PriorityQueue 가 있음.
+
+	1. Priority Queue
+		Queue 인터페이스의 상속을 받으며 FIFO 가 아닌, 특정 우선순위에 다라 요소가 먼저 나가는 방식
+		우선순위는 Comparator 를 통해 정의해주거나, Comparable 인터페이스를 상속한 객체를 이용해야함.
+	2. Deque
+		Interface
+		Double-Ended Queue 의 약어로, Queue 의 양쪽 끝에서 추가와 삭제가 일어날 수 있는 자료구조.
+		사용 방식에 따라 Stack 이 될 수도 Queue 가 될 수도 있음.
+		Dequeue 의 구현체로 ArrayDeque 와 LinkedList 가 있음.
+		
+		* **ArraayDeque
+
