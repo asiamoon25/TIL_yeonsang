@@ -111,5 +111,10 @@ h.put(1,"");
 		사용 방식에 따라 Stack 이 될 수도 Queue 가 될 수도 있음.
 		Dequeue 의 구현체로 ArrayDeque 와 LinkedList 가 있음.
 		
-		* **ArraayDeque
+		* **ArraayDeque**
+			사이즈 제한이 없는 가변 배열
+			null 요소는 저장할 수 없음
+			비동기 방식
+			원형 큐 방식으로 구현
+			stack
 
