@@ -75,6 +75,14 @@ h.put(1,"");
 	* 동기방식 : 요청을 보낸 후, 응답을 받아야 다음 과정이 동작하는 방식
 	* 비동기 방식 : 요청을 보낸 후, 응답과는 상관 없이 다음 과정이 동작하는 방식
 	* Thread Safe : 멀티 쓰레드 환경에서 어떤 함수나 변수, 혹은 객체가 여러 쓰레드로 부터 동시에 접근이 이루어져도 프로그램의 실행에 문제가 없음을 뜻함.
-	* 비동기 방식 
-	* 동기방식 
-	
+	* 비동기 방식 : Thread Safe 하지 않다.
+	* 동기방식 : Thread Safe 하다.
+	  
+	ArrayList 는 Collections.synchronizedList() 를 사용해서 동기 방식의 리스트를 만들 수 있음.
+
+
+**Stack**
+
+* Vector 를 상속하여 사용하는 LIFO(Last In First Out) 방식의 클래스
+* Java 에서는 Stack 대신 Deque 를 사용하여 구현할 것을 권장함.
+	Stack 클래스를 
