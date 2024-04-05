@@ -97,6 +97,49 @@ h.put(1,"");
 * 특정 기준에 따라 요소를 정렬할 수 있음.
 * 생성자의 파라미터에 Comparator 를 구현해서 정렬을 정의할 수 있음.
 
-**Map**
 
 
+
+### Map
+
+key, value 쌍으로 저장하는 자료구조
+key -> 중복 불가
+value -> 중복 가능
+
+key 를 통해 value에 바로 접근이 가능하므로 탐색이 빠름.
+하지만 데이터의 순서를 보장하지는 않는다.
+
+**구현 클래스**
+* HashTable
+* LinkedHashMap
+* HashMap
+* TreeMap
+
+
+#### HashTable
+* Map 인터페이스의 구현 클래스, 자바 초기 ㅂ전에 나온 레거시 클래스
+* Vector 처럼 동기화 처리가 되있음.
+
+#### HashMap
+* Map 인터페이스의 구현체, HashTable 을 보완함.
+* HashMap 은 비동기로 동작하며 HashTable 보다 싱글스레드 환경에서 성능이 좋음.
+* 멀티 쓰레드 환경에서는 ConcurrentHashMap 을 사용.
+
+#### LinkedHashMap
+* Map 인터페이스의 구현 클래스인 동시에 HashMap 을 상속받음.
+* 데이터의 순서를 보장함.
+* LinkedList 처럼 Head 와 Tail 에 다한 Entry 를 가지고 있음
+
+#### TreeMap
+* Map 인터페이스의 구현 클래스, Key 를 기준으로 원하는 방식으로 정렬을 할수 있음
+* TreeMap은 향상된 이진 탐색 트리인 레드 블랙 트리로 구현 되어있음.
+
+
+### Map 은 Collection 인터페이스 상속을 받지 않았는가?
+
+Map 의 요소는 Key,Value,Entry 가 있음.
+Collections.remove(Entry)  는 항상 Entry 를 지우기 때문에 Key 를 통해 Value 를 지울 수 없음.
+
+Map 이라는 자료구조의 요소의 구조상 맞지 않는 부분 때문에 Collection 인터페이스를 상속받지 않았음.
+
+비슷하게 Iterator() 는 iterate 할 대상이 Key, Value, Entry 일지 애매학
