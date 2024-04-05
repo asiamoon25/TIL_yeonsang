@@ -112,9 +112,35 @@ h.put(1,"");
 		Dequeue 의 구현체로 ArrayDeque 와 LinkedList 가 있음.
 		
 		* **ArraayDeque**
-			사이즈 제한이 없는 가변 배열
-			null 요소는 저장할 수 없음
-			비동기 방식
-			원형 큐 방식으로 구현
-			stack
+			* 사이즈 제한이 없는 가변 배열
+			* null 요소는 저장할 수 없음
+			* 비동기 방식
+			* 원형 큐 방식으로 구현
+			* Stack 목적으로 구현하였을때 기존의 Stack 보다 빠르고, Queue 목적으로 구현하였을 때 LinkedList 보다 빠름.
+
+**Set**
+* 중복된 요소를 저장하지 않고, 요소의 저장 순서를 유지하지 않는 특징을 가짐.
+* Set 의 구현체로 HashSet, LinkedHashSet, TreeSet 이 있음.
+	**중복된 요소 걸러내는 법**
+	* equals() 와 hashCode() 를 사용
+		1. 객체를 저장하기 전에 해시 코드를 호출해서 해시코드를 얻어냄.
+		2. Set 에 저장되어 있는 요소들의 해시코드와 비교
+		3. 만약 같은 해시코드가 있다면 equals() 메소드로 두 객체를 비교
+		4. equals() 메소드가 true 가 나오면 중복으로 판단하여 저장하지 않음.
+
+**HashSet**
+
+* Set 을 이용하기 위해 가장 많이 사용하는 구현 클래스
+* HashSet 은 해시 알고리즘을 사용하여 검색속도가 빠르다는 장점이 있음.
+	* HashSet 의 인스턴스는 HashMap 의 인스턴스를 통해 생성
+
+**LinkedHashSet**
+* HashSet 과 원리는 같으나, 입력된 순서를 저장한다는 특징이 있음.
+* HashSet 의 상속을 받으며, LinkedHashMap 을 통해 구현되어 있음.
+
+**TreeSet**
+* 특정 기준에 따라 요소를 정렬할 수 있게 해줌
+	* 생성자의 파라미터에 Comparator 를 구현해서 정렬을 정의할 수 있음.
+
+
 
