@@ -60,6 +60,9 @@ sticker: emoji//1f6a1
 ```java
 ArrayList<String> fruits = new ArrayListM<String>();
 fruits.add("Apple");
+fruits.add("Apple1");
+fruits.add("Apple2");
+fruits.add("Apple3");
 ```
 * **add(int index, Object e)** : 지정된 index 에 요소를 추가. 이 위치와 이후의 요소들은 오른쪽으로 한칸 씩 이동함.
 ```java
@@ -145,14 +148,29 @@ while(iter.hasNext()) {
 ```
 * **listIterator(int index)** : 지정된 위치에서 시작하는 리스트의 요소에 대한 리스트 반복자를 반환
 ```java
-ListIterator<String> ite
+ListIterator<String> iter = fruits.listIterator(2); // 2번째 부터 시작함.
+
+while(iter.hasNext()){
+	System.out.println(iterator.next());
+}
+// Apple2 Apple3 ..
 ```
 
 ### 자르기
 
 * **subList(int fromIndex, int toIndex)** : 리스트의 지정된 범위에 대한 뷰를 반환. 반환된 리스트는 원본 리스트의 변경 사항을 반영함.
-
+```java
+List<String> subList = fruits.subList(1,3); // 1 <=  인덱스 <=2
+Syste.out.println(subList);
+//Apple1, Apple2
+```
 ### 배열전환
 
 * **toArray()** : 리스트의 모든 요소를 포함하는 배열을 반환
+```java
+Object[] fruitsArray = fruits.toArray();
+```
 * **toArray(T\[\] a)** : 리스트의 모든 요소를 포함하는 배열을 반환. 지정된 배열이 충분히 크면 그 배열에 요소가 저장됨. 그렇지 않으면, 동일한 런타임 타입의 새 배열이 할당
+```java
+String[] fruitsArray = fruits.toArray(new String[0])
+```
