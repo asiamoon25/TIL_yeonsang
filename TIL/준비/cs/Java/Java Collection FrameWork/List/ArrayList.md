@@ -57,16 +57,45 @@ sticker: emoji//1f6a1
 ### 데이터 추가
 
 * **add(Object e)** : 지정된 요소를 리스트의 끝에 추가
+```java
+ArrayList<String> fruits = new ArrayListM<String>();
+fruits.add("Apple");
+```
 * **add(int index, Object e)** : 지정된 index 에 요소를 추가. 이 위치와 이후의 요소들은 오른쪽으로 한칸 씩 이동함.
+```java
+fruits.add(1, "Blueberry");
+```
 * **addAll(Collection c)** : 지정된 컬렉션의 모든 요소를 리스트의 끝에 추가
+```java
+ArrayList<String> colors = new ArrayList<String>();
+colors.add("Red");
+colors.add("Blue");
+
+fruits.addAll(colors);
+```
 * **addAll(int index, Collection c)** : 지정된 컬렉션의 모든 요소를 리스트의 특정 위치부터 추가
+```java
+fruit.addAll(2,colors);
+```
 * **set(int index, Object e)** : 리스트의 지정된 위치에 있는 요소를 지정된 요소로 대체함.
+```java
+fruits.set(2, "Blackberry");
+```
 
 ### 삭제
 
 * **remove(Object o)** : 지정된 요소를 리스트에서 첫 번째로 발견되는 인스턴스를 삭제
+```java
+fruits.remove("cherry");
+```
 * **remove(int index)** : 지정된 위치에 있는 요소를 리스트에서 삭제하고, 그 요소를 반환
+```java
+fruits.remove(2); 
+```
 * **clear()** : 리스트의 모든 요소를 삭제
+```java
+fruits.clear();
+```
 
 ### 검색
 
