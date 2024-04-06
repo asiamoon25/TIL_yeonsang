@@ -1,6 +1,8 @@
 ---
 sticker: emoji//1f3ea
 ---
+#JavaCollectionFramework #List
+
 **Vector**
 * JDK 1.0 부터 있었던 자료 구조, 호환성을 위해 남겨 놓은 레거시 클래스
 * Vector는 ArrayList와 기능상 거의 동일하지만, 다른점이 있음
