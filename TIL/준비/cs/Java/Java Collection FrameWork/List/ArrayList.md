@@ -53,3 +53,15 @@ sticker: emoji//1f6a1
 
 ---
 ## 메소드
+
+### 데이터 추가
+
+* **add(Object e)** : 지정된 요소를 리스트의 끝에 추가
+* **add(int index, Object e)** : 지정된 index 에 요소를 추가. 이 위치와 이후의 요소들은 오른쪽으로 한칸 씩 이동함.
+* **addAll(Collection c)** : 지정된 컬렉션의 모든 요소를 리스트의 끝에 추가
+* **addAll(int index, Collection c)** : 지정된 컬렉션의 모든 요소를 리스트의 특정 위치부터 추가
+* **set(int index, Object e)** : 리스트의 지정된 위치에 있는 요소를 지정된 요소로 대체함.
+
+### 삭제
+
+* remove(Object o)
