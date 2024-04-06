@@ -1,6 +1,7 @@
 ---
 sticker: lucide//hash
 ---
+#JavaCollectionFramework  #Set
 # HashSet
 
 ## 란?

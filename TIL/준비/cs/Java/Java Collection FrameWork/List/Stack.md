@@ -1,6 +1,8 @@
 ---
 sticker: emoji//1f929
 ---
+
+#JavaCollectionFramework #List
 * Vector 를 상속하여 사용하는 LIFO(Last In First Out) 방식의 클래스
 * Java 에서는 Stack 대신 Deque 를 사용하여 구현할 것을 권장함.
 	Stack 클래스를 까고 들어가보면

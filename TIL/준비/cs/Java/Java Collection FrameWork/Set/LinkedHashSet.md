@@ -1,6 +1,7 @@
 ---
 sticker: emoji//0023-fe0f-20e3
 ---
+#JavaCollectionFramework  #Set
 ## LinkedHashSet
 
 * HashSet 의 순서를 유지하는 버전
@@ -61,4 +62,25 @@ if(linkedHashSet.contains("Apple")) {
 #### 추가, 삭제, 검사
 * add(E e) : 지정된 요소를 세트에 추가. 요소가 세트에 이미 존재하지 않는 경우에만 추가되며, 추가 성공시 `true` 를 반환함.
 * remove(Object o) : 지정된 요소가 세트에 존재하는 경우, 그 요소를 세트에서 제거함. 제거 성공 시 `true` 를 반환함.
-* contains()
+* contains(Object o) : 세트가 지정된 요소를 포함하고 있는지 여부를 반환
+
+#### 크기 및 상태
+* size() : 세트의 요소 개수를 반환함.
+* isEmpty() : 세트가 비어 있는지 여부를 검사. 비어있으면 `true` 를 반환함.
+* clear() : 세트의 모든 요소를 제거함.
+
+
+#### 반복자 및 배열로 변환
+* iterator() : 세트의 요소에 접근할 수 있는 반복자(iterator) 를 반환함. 이 반복자는 세트의 요소를 추가된 순서대로 반복함.
+* toArray() : 세트의 모든 요소를 포함하는 배열을 반환함.
+* toArray(T\[\] a) : 세트의 모든 요소를 포함하는 배열을 반환. 이 메소드는 실행 시간 유형의 지정된 배열에 결과를 저장하고, 배열이 세트의 요소를 모두 담을 수 있을 만큼 충분히 큰 경우 해당 배열을 사용함.
+
+#### 대량 연산
+* addAll(Collection\<? extends E\> c) : 지정된 컬렉션의 모든 요소를 세트에 추가함. 최소 하나의 요소가 추가되면 `true` 를 반환함.
+* removeAll(Collection\<?\> c) : 지정된 컬렉션에 포함된 요소를 세트에서 모두 제거함. 세트가 변경되면 `true` 를 반환함.
+* retainAll(Collection\<?\> c) : 지정된 컬렉션에 포함된 요소만을 유지하고, 나머지 요소는 세트에서 제거함. 세트가 변경되면 `true` 를 반환함.
+* containsAll(Collection\<?\> c) : 세트가 지정된 컬렉션의 모든 요소를 포함하고 있는지 여부를 검사함.
+
+
+
+순서 유지가 되기 때문에 HashSet 과 유사해도 순서 유지 기능 덕분에 add 한 순서가 중요한 경우 LinkedHashSet 을 사용하면 된다.

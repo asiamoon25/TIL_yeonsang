@@ -1,6 +1,8 @@
 ---
 sticker: emoji//1f517
 ---
+
+#JavaCollectionFramework #List
 **LinkedList**
 * 노드(객체) 끼리의 주소 포인터를 서로 가리키며 링크(참조)함으로써 이어지는 구조를 가짐.
 * **종류**

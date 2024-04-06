@@ -1,6 +1,8 @@
 ---
 sticker: emoji//1f6a1
 ---
+#JavaCollectionFramework #List
+
 **ArrayList**
 * 크기가 가변적인 선형 리스트, 저장용량이 존재함.  
 	저장용량을 넘어서면 자동으로 증가시킴. 
