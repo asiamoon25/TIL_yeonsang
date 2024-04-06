@@ -50,3 +50,6 @@ sticker: emoji//1f6a1
 * 성능 : 배열은 크기가 고정되있고 메모리에 연속적으로 할당되기 때문에 데이터에 접근하는데 있어 ArrayList 보다 빠를 수 있음.
   
 * 편의성 : ArrayList 는 add, remove, contains 등 다양한 메서드를 제공함.
+
+---
+## 메소드
