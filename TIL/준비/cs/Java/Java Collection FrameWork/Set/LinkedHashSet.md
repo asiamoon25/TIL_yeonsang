@@ -24,3 +24,41 @@ sticker: emoji//0023-fe0f-20e3
 * null 값 허용
 	LinkedHashSet 은 하나의 null 값을 저장할 수 있음.
 
+**사용사례**
+	중복을 허용하지 않으면서도 요소의 추가 순서를 유지해야 할 때 유용함.
+	사용자가 입력한 고유한 데이터 항목의 순서를 유지하면서 처리해야할 경우가 있음.
+```java
+LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+
+linkedHashSet.add("Apple");
+linkedHashSet.add("Banana");
+linkedHashSet.add("Cherry");
+linkedHashSet.add("Apple"); // 중복 요소 무시
+
+System.out.println("LinkedHashSet : " + linkedHashSet);
+
+//요소 순서대로 출력
+for(String fruit : linkedHashSet) {
+	System.out.println(fruit);
+}
+
+linkedHashSet.remove("Banana");
+System.out.println("After removal: " + linkedHashSet);
+
+//요소의 존재 여부 확인
+if(linkedHashSet.contains("Apple")) {
+	System.out.println("LinkedHashSet contains Apple");
+}
+```
+이 부분에서 LinkedHashSet 에 여러 과일 이름을 추가하고, 중복된 요소 Apple 을 추가하려하지만, LinkedHashSet 은 중복을 허용하지 않기 때문에 중복 요소는 무시됨.
+
+추가된 순서대로 요소를 출력하면, LinkedHashSet 이 삽입 순서를 어떻게 유지하는지 확인 할 수 있음.
+
+---
+
+## 메서드
+
+#### 추가, 삭제, 검사
+* add(E e) : 지정된 요소를 세트에 추가. 요소가 세트에 이미 존재하지 않는 경우에만 추가되며, 추가 성공시 `true` 를 반환함.
+* remove(Object o) : 지정된 요소가 세트에 존재하는 경우, 그 요소를 세트에서 제거함. 제거 성공 시 `true` 를 반환함.
+* contains()
