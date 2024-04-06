@@ -100,20 +100,53 @@ fruits.clear();
 ### 검색
 
 * **get(int index)** : 지정된 위치에 있는 요소를 반환함.
+```java
+fruits.get(1); // 1 번 위치에 있는 요소 반환
+```
 * **indexOf(Object o)** : 지정된 요소가 리스트에 처음으로 나타나는 위치를 반환. 리스트의 요소가 없을 경우 -1 을 반환함.
+```java
+fruits.indexOf("Cherry");
+```
 * **lastIndexOf(Object o)** : 지정된 요소가 리스트에 마지막으로 나타나는 위치를 반환
+```java
+fruits.lastIndexOf("Cherry");
+```
 * **contains(Object o)** : 리스트가 지정된 요소를 포함하고 있는 경우 `true` 를 반환
-
+```java
+fruits.contais("Cherry");
+```
 ### 크기 및 상태
 
 * **size()** : 리스트에 있는 요소의 수를 반환
+```java
+fruits.size();
+```
 * **isEmpty()** :  리스트가 비어있는 경우 `true` 를 반환함.
-
+```java
+fruits.isEmpty();
+```
 ### Iterator
 
 * **iterator()** : 리스트의 요소에 대한 반복자를 반환
+```java
+Iterator<String> iterator = fruits.iterator();
+while(iterator.hasNex()) {
+	String fruit = iterator.next();
+	 System.out.println(fruit);
+}
+```
 * **listIterator()** : 리스트의 요소에 대한 리스트 반복자를 반환
+```java
+ListIterator<String> iter = fruits.listIterator();
+while(iter.hasNext()) {
+	System.out.print (iter.next() + " ");
+}
+// 1 2 3 4
+```
 * **listIterator(int index)** : 지정된 위치에서 시작하는 리스트의 요소에 대한 리스트 반복자를 반환
+```java
+ListIterator<String> ite
+```
 
 ### 자르기
 
