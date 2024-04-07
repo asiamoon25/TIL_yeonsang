@@ -5,7 +5,7 @@
 ## 이란?
 * Set 인터페이스를 확장하여 요소들이 정렬된 순서로 유지되는 집합
 * 중복을 허용하지 않으면서 모든 요소를 특정 정렬 순서대로 저장
-
+* TreeSet 처럼 레드-블랙 트리의 형태로 저장하고 관리함.
 
 ## 특징
 * 자동 정렬
@@ -22,9 +22,11 @@
 
 ## 메소드
 
-* first() : 
-* last() : 
-* headSet(E toElement) : 
-* tailSet(E fromElement) : 
-* subSet(E fromElement, E toElement) : 
-* comparato
+* first() : 정렬된 집합에서 가장 작은(첫 번째) 요소를 반환함.
+* last() : 정렬된 집합에서 가장 큰(마지막) 요소를 반환함.
+* headSet(E toElement) : 지정된 요소보다 작은 요소들의 뷰를 반환 
+* tailSet(E fromElement) : 지정된 요소 이상의 요소들의 뷰를 반환
+* subSet(E fromElement, E toElement) : 두 요소 사이의 요소들의 뷰를 반환
+* comparator() : 집합의 정렬에 사용된 `Comparator` 객체를 반환함. 자연 순서를 사용하는 경우 `null` 을 반환함.
+
+
