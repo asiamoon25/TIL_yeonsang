@@ -37,9 +37,26 @@ Red-Black Tree 에 관해서는 자세하게 다른 곳에다가 적음.
 TreeMap 은 Map 인터페이스의 구현이면서 NavigableMap 구현이기도 하다.
 
 ### 기본 `Map` 인터페이스 메서드
-* `put(K key, V value)` : 
-* `get(Object key)` : 
-* `remove(Object key)` : 
-* `containsKey(Object key)` : 
-* `containsValue(Object value)` : 
-* 
+* `put(K key, V value)` : 지정된 key 에 value 를 연결함. 이미 해당 key 값이 있으면, 그 값을 새값으로 대체
+* `get(Object key)` : 지정된 key 에 연결된 value 를 반환함. key가 Map 에 없으면 null 을반환함.
+* `remove(Object key)` : 지정된 key 와 그에 해당하는 값을 제거함.
+* `containsKey(Object key)` : 지정된 key 가 Map 에 있는지 확인함.
+* `containsValue(Object value)` : 지정된 값이 Map 에 있는지 확인함.
+* `size()` : 맵에 있는 key-value 쌍의 수를 반환
+* `isEmpty()` : Map 이 비어 있는지 확인함.
+* `clear()` : Map 에 모든 값을 제거함.
+
+### `NavigableMap` 인터페이스 메서드
+* `firstEntry()` : 맵에서 가장 작은 key 를 가진 Entry 를 반환함.
+* `lastEntry()` : 맵에서 가장 큰 key 를 가진 Entry 를 반환함.
+* `pollFirstEntry()` : 맵에서 가장 작은 키를 가진 엔트리를 제거하고 반환함.
+* `pollLastEntry()` : 맵에서 가장 큰 키를 가진 Entry 리를 제거하고 반환함.
+* `higherEntry(K key)` : 지정된 key 보다 바로 더 큰 key 를 가진 엔트리를 반환함.
+* `lowerEntry(K key)` : 지정된 키보다 바로 더 작은 key 를 가진 엔트리를 반환함.
+* `ceilingEntry(K key)` : 지정된 key 와 같거나 더 큰 key 중 가장 작은 key 를 가진 엔트리를 반환함.
+* `floorEntry(K key)` : 지정된 key 와 같거나 더 작은 key 중 가장 큰 key 를 가진 엔트리를 반환함.
+
+### 정렬과 관련된 메서드
+* `subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)` : 지정된 범위 내의 부분 Map 을 반환함.
+* `headMap(K toKey, boolean inclusive)` : 지정된 Key 보다 작은 key 들을 가진 부분 맵을 반환함.
+* `tailMap(K fromKey, boolean inclusive)` : 지정된 key 보다 크거나 같은 key 들을 가진 부분 Map 을 반환함.
