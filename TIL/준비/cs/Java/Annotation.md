@@ -95,6 +95,68 @@ public @interface MyAnnotation{
 * 배열은 선언할 수 있음. String[] arr();
 * default 값을 지정할 수 있음. null 제외 모든 리터럴 가능
 
+```java
+@interface ExAnnotation {
+	int number() default 100; // int type (기본형)
+	String value(); // String
+	String[] arr(); // array
+	Month month(); // Enum Type
+	Class exClass(); // class
+	Target tg(); // Tartget Annotation
+}
+```
+어노테이션의 요소는 return 값이 있고 매개변수는 없는 추상 메서드의 형태를 가짐.
+⬇️
+
+```java
+@ExAnnotation(
+	value = "java",
+	arr = {"hello", "world"},
+	month = Month.FEB,
+	exClass = MyClass.class
+	tg = @Target(ElementType.ANNOTATION_TYPE)
+)
+public void Class {
+	...
+}
+```
+
+
+----
+
+
+## JAVA 표준 어노테이션
+
+1. @Override
+	* 선언한 메서드가 오버라이드 됬다는 것을 나타냄.
+	* 만약 부모 클래스(또는 인터페이스) 에서 해당 메서드를 찾을 수 없다면 컴파일 에러를 발생시킴
+
+2. @Deprecated
+	* 해당 메서드가 더 이상 사용되지 않음을 표시함.
+	* 만약 사용할 경우 컴파일 경고를 발생시킴.
+
+3. @SuppressWarnings
+	* 선언한 곳의 컴파일 경고를 무시 하도록 함.
+
+4. @SafeVarargs
+	* JAVA 7 부터 지원, 제너릭 같은 가변 인자의 매개변수를 사용할 때의 경고를 무시
+
+5. @FunctionalInterface
+	* JAVA 8 부터 지원하며, 함수형 인터페이스를 지정하는 어노테이션
+	* 만약 메서드가 존재하지 않거나, 1개 이상의 메서드(default method 제외) 가 존재할 경우 컴파일 오류를 발생시킴.
+
+
+## 메타 어노테이션 (기타 어노테이션에 적용되는 어노테이션)
+
+1. @Retention
+	* 자바 컴파일러가 어노테이션을 다루는 방법을 기술하며, 특정 시점까지 영향을 미치는지를 결정함.
+	* **종류**
+		* RetentionPolicy.SOURCE : 컴파일 전까지만 유효(컴파일 이후 사라짐)
+		* RetentionPolicy.CLASS : 컴파일러가 클래스를 참조할 때까지 유효.
+		* RetentionPolicy.RUNTIME : 컴파일 이후에도 JVM에 의해 계속 참조가능(리플렉션 사용)
+
+2. @Documented
+	* 해당 어노테이션을 Javadoc 에 포함시ㅋ
 
 
 
