@@ -156,7 +156,31 @@ public void Class {
 		* RetentionPolicy.RUNTIME : 컴파일 이후에도 JVM에 의해 계속 참조가능(리플렉션 사용)
 
 2. @Documented
-	* 해당 어노테이션을 Javadoc 에 포함시ㅋ
+	* 해당 어노테이션을 Javadoc 에 포함시킴 
+
+3. @Target
+	* 어노테이션이 적용할 위치를 선택
+	* **종류**
+		- **ElementType.PACKAGE** : 패키지 선언
+		- **ElementType.TYPE** : 타입 선언
+		- **ElementType.ANNOTATION_TYPE** : 어노테이션 타입 선언
+		- **ElementType.CONSTRUCTOR** : 생성자 선언
+		- **ElementType.FIELD** : 멤버 변수 선언
+		- **ElementType.LOCAL_VARIABLE** : 지역 변수 선언
+		- **ElementType.METHOD** : 메서드 선언
+		- **ElementType.PARAMETER** : 전달인자 선언
+		- **ElementType.TYPE_PARAMETER** : 전달인자 타입 선언
+		- **ElementType.TYPE_USE** : 타입 선언
+
+4. @Inherited
+	* 어노테이션의 상속을 가능하게 함.
+
+5. @Repeatable
+	* JAVA 8 부터 지원하며, 연속적으로 어노테이션을 선언할 수 있게 해줌.
 
 
 
+---
+
+https://techblog.woowahan.com/2684/
+우아한 기술블로그에 있는 어노테이션..
