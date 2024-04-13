@@ -50,3 +50,26 @@ public interface interfaceName<> {...}
 	 static 변수의 데이터 타입으로 제네릭 타입 파라미터가 올수는 없다.
 	 왜냐하면 static 멤버는 클래스가 동일하게 공유하는 변수로서 제네릭 객체가 생성되기도 전에 이미 자료 타입이 정해져 있어야 하기 때문이다. 
 	 즉, 논리적인 오류인 것이다.
+
+
+3. 제네릭으로 배열 선언 주의
+	Generic Class 자체를 배열로 만들 수는 없음.
+	제네릭 타입의 배열 선언은 허용됨.
+```java
+class Sample<T> { 
+}
+
+public class Main {
+    public static void main(String[] args) {
+    	// new Sample<Integer>() 인스턴스만 저장하는 배열을 나타냄
+        Sample<Integer>[] arr2 = new Sample[10]; 
+        
+        // 제네릭 타입을 생략해도 위에서 이미 정의했기 때문에 Integer 가 자동으로 추론됨
+        arr2[0] = new Sample<Integer>(); 
+        arr2[1] = new Sample<>();
+        
+        // ! Integer가 아닌 타입은 저장 불가능
+        arr2[2] = new Sample<String>();
+    }
+}
+```
