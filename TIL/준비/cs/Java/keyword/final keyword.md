@@ -37,6 +37,32 @@ public class FinalKeyWordTest() {
 임이의 변수를 final 로 만들면 final variable 의 값을 변경할 수 없음. (상수가 됨.)
 
 **ex)**
+```java
+public class Bike9{
+	final int speedLimit = 90;   // final variable
+	
+	void run() {
+		speedLimit = 400;
+	}
+	public static void main(String args[]) {
+		Bike9 obj = new Bike9();
+		obj.run();
+	}
+}
+➡️ Output:Compile Time Error 이라는 에러가 남.
 ```
 
+
+### 2. Java final method
+메소드를 final 로 만들면 이를 재정의 할 수 없음 (@Override...)
+
+**ex)**
+```java
+public class Bike{
+	final void run() {System.out.println("running");}
+}
+
+public class Honda extends Bike{
+	void run(){System.out.println("running safely with 100kmph");}
+}
 ```
