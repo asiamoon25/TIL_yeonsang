@@ -112,11 +112,42 @@ public class StringUtils {
 #### 3. 싱글턴 패턴
 _최근에 DB Connection Pool 을 start up 되는 시점부터 잡아서 DB 점검일 때 DB 연결이 안되면 어플리케이션 전체가 실행 안되는 상황이 있었는데 기존  프레임워크에서 제공해주는 DataSource 를 지우고, Custom DataSource 를 만들어서 해결했는데 이렇게 싱글턴 패턴으로 만들어서 해결했음._
 ```java
-public class Singletom{
+public class Singleton{
 	private static Singleton instance;
 	privatet Singleton() {}
-
+	
+	public static Singleton getInstance() {
+		if(instance == null) {
+			instance = new Singleton();
+		}
+		return instance;
+	}
 }
 ```
 
 #### 4. 클래스 초기화 블록
+* 클래스 변수를 초기화할 때 복잡한 로직이 필요한 경우 `static` 초기화 블록을 사용할 수 있음. 이 블록은 클래스가 메모리에 로드될 때 한 번만 실행됨.
+```java
+public class Configuration {
+    public static int bufferSize;
+    static {
+        bufferSize = loadBufferSize();
+    }
+    private static int loadBufferSize() {
+        // 복잡한 로직을 통해 버퍼 사이즈를 계산
+        return 512;
+    }
+}
+```
+
+#### 5. 특정 리소스의 전역 접근
+* 애플리케이션 전반에서 공유되어야 하는 리소스나 서비스 객체 등을 관리할 때 사용됨.
+
+```java
+public class DatabaseConnection {
+	public static Connection connection = initializeDatabaseConnection();
+}
+```
+
+
+`static` 의 사용은 객체 지향적인 설계를 저해할 수 있기 때문에, 공통 리소스의 접근이나 상태가 변하지 않는 메서드에 국한하여 사용하는 것이 바람직함.
