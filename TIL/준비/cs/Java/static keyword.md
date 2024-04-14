@@ -11,7 +11,7 @@
 
 
 ### 메모리 할당?
-[JVM](obsidian://open?vault=TIL_yeonsang&file=TIL%2F%EC%A4%80%EB%B9%84%2Fcs%2FJava%2FJVM)
+[JVM](https://publish.obsidian.md/my-til/TIL/%EC%A4%80%EB%B9%84/cs/Java/JVM)
 위 글의 Runtime Data 영역을 보면 method area, heap area가 보이는데 method area 의 설명을 보면
 
 클래스 정보를 처음 메모리에 올릴 때 초기화 되는 대상을 저장하기 위한 영역
