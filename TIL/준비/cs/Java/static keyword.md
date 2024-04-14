@@ -81,3 +81,42 @@ public class TestClass {
 
 
 **메모리 관리**
+* **메모리 사용증가**
+	`static` 변수는 프로그램이 종료 될 때 까지 메모리에 남아 있음. 따라서, 많은 양의 데이터를 `static` 으로 관리하면서 메모리 사용량이 증가하고, 필요하지 않은 데이터도 계속 메모리를 차지하게 됨. ▶️ 장시간 실행되는 애플리케이션에서 문제가 될 수 있음.
+
+
+**동시성 문제**
+* **스레드 안전 문제**
+	멀티스레드 환경에서 `static` 변수에 여러 스레드가 동시에 접근하게 되면 동시성 문제가 발생할 수 잇음. ▶️ 데이터의 일관성과 정확성을 보장하기 어렵게 만들며, 추가적인 동기화 처리가 필요하게 됨.
+
+
+### 그럼 언제씀?
+
+#### 1. 공유된 상수
+* 여러 인스턴스에서 공통적으로 사용되는 상수 값은 `static final` 로 선언하여 사용함.
+```java
+public class MathConstants {
+	public static final double PI = 3.14159;
+}
+```
+
+#### 2. 유틸리티 메서드
+* 객체의 상태에 의존하지 않는 메서드, 즉 입력 값만으로 결과를 반환하는 순수 함수는 `static` 메서드로 선언이 됨.
+```java
+public class StringUtils {
+	public static boolean isEmpty(String s) {
+		return s == null || s.isEmpty();
+	}
+}
+```
+#### 3. 싱글턴 패턴
+_최근에 DB Connection Pool 을 start up 되는 시점부터 잡아서 DB 점검일 때 DB 연결이 안되면 어플리케이션 전체가 실행 안되는 상황이 있었는데 기존  프레임워크에서 제공해주는 DataSource 를 지우고, Custom DataSource 를 만들어서 해결했는데 이렇게 싱글턴 패턴으로 만들어서 해결했음._
+```java
+public class Singletom{
+	private static Singleton instance;
+	privatet Singleton() {}
+
+}
+```
+
+#### 4. 클래스 초기화 블록
