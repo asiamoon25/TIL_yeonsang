@@ -49,7 +49,7 @@ public class Bike9{
 		obj.run();
 	}
 }
-➡️ Output:Compile Time Error 이라는 에러가 남.
+➡️ Output:Compile Time Error
 ```
 
 
@@ -70,5 +70,8 @@ public class Honda extends Bike{
 		honda.run();
 	}
 }
-➡️ Output : Compile Time Error 남.
+➡️ Output : Compile Time Error
 ```
+
+### 3. Java final Class
+
