@@ -13,11 +13,30 @@ final keyword 는 변수와 함께 적용될 수 있는데, 값이 없는 final 
 이때 생성자에서만 초기화 할 수 있다.
 
 ```java
-public class MyClass {
-	final String uninitializedValue;
-	
-	MyClass(){
-		this.uninitializedValue = "Hello World";
-	}
+public class FinalKeyWord {  
+	final String uninitializedValue;  
+	  
+	FinalKeyWord(){  
+		this.uninitializedValue = "Hello World";  
+	}  
 }
+...
+public class FinalKeyWordTest() {
+	FinalKeyWord fkw = new FinalKeyWord();
+	System.out.println(fkw.uninitializedValue);
+}
+...
+
+➡️ Hello Wolrd
+```
+
+또한 공백 final 변수는 정적 블록에서만 초기화되는 정적 변수일 수도 있음. ⬇️자세하게 보도록 하자.
+
+
+### 1. Java final Variable
+임이의 변수를 final 로 만들면 final variable 의 값을 변경할 수 없음. (상수가 됨.)
+
+**ex)**
+```
+
 ```
