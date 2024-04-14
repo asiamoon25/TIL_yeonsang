@@ -75,3 +75,65 @@ public class Honda extends Bike{
 
 ### 3. Java final Class
 
+대충 상속 못함...
+```java
+final class Bike{}
+
+class Honda1 extends Bike{
+	void run() {System.out.println("running safely with 100kmph");}
+	
+	public	static void main(String args[]) {
+		Honda1 honda = new Honda1();
+		honda.run();
+	}
+}
+➡️ Output:Compile Time Error
+```
+
+#### 그러면 final method 는 상속됨?
+ㅇㅇ 됨.
+```java
+public class Bike{
+	final void run() {System.out.println("running...");}
+}
+class Honda2 extends Bike{
+	public static void main(String args[]) {
+		new Honda2().run();
+	}
+}
+➡️ Output: running...
+```
+
+
+#### 그러면 static final 도 공백 final 변수이면 초기화 가능?
+
+ㅇㅇ 가능함. 대신에 static 안에서 초기화 해야함.
+
+```java
+class A {
+	static final int data; // static blank final variable
+	static{data = 50;}
+	public static void main(String args[]) {
+		System.out.println(A.data);
+	}
+}
+```
+
+#### final parameter 라는 것도 있는데...
+
+파라미터를 final 로 하면, 변경할 수 없음...
+
+```java
+class Bike11{
+	int cute(final int n) {
+		n = n + 2; // c
+	}
+}
+```
+
+
+
+
+
+
+
