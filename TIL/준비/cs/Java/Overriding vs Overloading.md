@@ -1,7 +1,7 @@
 #Java 
 
 
-## Overriding
+## Overriding 과 super
 
 * 부모 클래스로부터 상속받은 메서드의 내용을 재정의(변경) 하는 것
 
@@ -40,8 +40,72 @@
 ### super
 스-파
 
-`super` 는 자식 클래스에서 부모 클래스의 멤버(변수,메소드) 에 접근
+`super` 는 자식 클래스에서 부모 클래스의 멤버(변수,메소드) 에 접근하거나, 부모 클래스의 생성자를 호출할 때 사용됨.
+
+**주요 사용방법**
+
+1. 부모 클래스의 생성자 호출
+	`super()` 는 자식 클래스의 생성자에서 사용되며, 부모 클래스의 생성자를 호출함. 이 호출은 자식 클래스의 생성자 내에서 가장 먼저 이루어져야 함. 부모 클래스에 매개변수가 필요한 생성자만 있는 경우, `super` 를 사용하여 필요한 값들을 전달해야함.
+```java
+public class Parent {
+	public Parent(String name) {
+		System.out.println("Parent Constructor: "+name);
+	}
+}
+...
+
+public class Child extends Parent {
+	public Child() {
+		super("Hello"); // 부모 클래스 생성자 호출
+		System.out.println("Child Constructor");
+	}
+}
+```
+
+2. 부모 클래스의 메소드 호출
+	자식 클래스에서는 `super` 키워드를 사용하여 부모 클래스에서 정의된 메소드에 접근할 수 있음. 특히 메소드 오버라이딩 상황에서 유용하며, 오버라이딩 된 메소드에서 원본 메소드의 기능을 확장하거나 재사용할 때 사용됨.
+```java
+public class Parent {
+	public void display() {
+		System.out.println("Parent display()");
+	}
+}
+
+public class Child extends Parent{
+	public void display() {
+		super.display();
+		System.out.println("Child display()");
+	}
+}
+```
+
+
+3. 부모 클래스의 필드 접근
+	자식 클래스에서 `super` 를 사용하여 부모 클래스의 필드(멤버 변수)에 접근할 수 있음. ▶️ 변수 이름이 중복될 때 유용함.
+```java
+public class Parent {
+	protected int number = 100;
+}
+...
+
+public class Child extends Parent {
+	private int number = 200;
+
+	public void showNumber() {
+		System.out.println(super.number);
+		System.out.println(this.number);
+	}
+}
+```
 
 
 ---
 
+## Overloading
+![[Pasted image 20240415154319.png]]
+
+### Overloading 이란?
+* 한 클래스 내에 같은 이름의 메서드를 여러 개 정의하는 것
+
+
+### 조건
