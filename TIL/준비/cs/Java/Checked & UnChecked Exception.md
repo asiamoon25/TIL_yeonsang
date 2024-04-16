@@ -8,3 +8,9 @@
 
 
 ## Checked Exception
+
+* RuntimeException 의 하위 클래스가 아니면서 Exception 클래스의 하위 클래스들임.
+
+
+
+
