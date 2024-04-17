@@ -46,8 +46,17 @@ public class UncheckedExceptionExample {
 		try{
 			int result = divide(10,0); // 이 줄에서 ArithmeticException 발생
 			System.out.println("Result : " + result);
+		}catch(ArithmeticException e) {
+			System.out.println("Cannot divide by zero!"); // 예외 처리
 		}
+	}
+	public static int divide(int dividend, int divisor) {
+		return dividend / divisor; // divisor 가 0 이면 ArithmeticException 발생
 	}
 }
 ```
 
+위 예제에서 `ArithmeticException`은 언체크 예외임. 
+이 예외는 프로그래머가 0으로 나누는 연산을 하지 않도록 주의해야 하며, 필요한 경우만 예외 처리를 하면 된다. 
+이 경우에는 0으로 나누기 시도가 프로그램 오류로 간주되며, 해당 예외는 강제로 처리하도록 요구하지 않는다. 
+따라서 개발자는 코드의 흐름을 방해하지 않으면서도 필요한 곳에서만 예외 처리를 할 수 있다.
