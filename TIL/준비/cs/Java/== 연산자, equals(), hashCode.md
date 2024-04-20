@@ -60,3 +60,14 @@ static class Obj {
 
 ## hashCode
 
+* Runtime 중에 객체의 유일한 Integer 값을 반환함.
+* Object 클래스에서는 heap 에 저장된 객체의 메모리 주소를 반환하도록 되어 있음.(항상은 아님)
+```java
+public native int hashCode();
+```
+
+
+
+
+---
+그리고 equals() 재정의 할 때 hashCode 도 재정의 해야함.
