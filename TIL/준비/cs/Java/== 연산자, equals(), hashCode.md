@@ -18,9 +18,6 @@ public boolean equals(Object object) {
 	if(this == anObject) {
 		return true;
 	}
-	return (anObject instanceof String aString)
-		&& (!COMPACT_STRINGS || this.coder == aString.coder)
-		&& StringLatin1.equals(value, aString.value);
 }
 ```
 
@@ -71,3 +68,29 @@ public native int hashCode();
 
 ---
 그리고 equals() 재정의 할 때 hashCode 도 재정의 해야함.
+
+```java
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+		Obj tha = (Obj) o;
+		return a == that.a;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.has(a);
+	}
+```
+
+만약 equals()와 hashcode() 중 하나만 재정의 하면 어떻게 될까?
+
+**equals()만 재정의하지 않으면** hashcode()가 만든 해시값을 이용해 객체가 저장된 버킷을 찾을 수는 있지만 해당 객체가 자신과 같은 객체인지 값을 비교할 수 없기 때문에 **null을 리턴하게 된다.** 따라서 원하는 객체를 찾을 수 없음.
+
+반대로 **hashcode()만 재정의 하지 않으면 위 예제를 해보면 알겠지만 같은 값 객체라도 hashcode값이 달라진다.** 따라서 HashTable 같은 자료구조에서 그 객체를 put한 상태에서 해당 객체가 저장된 버킷을 찾을 수 없다. (key값을 hashcode로 잡기 때문이다. `버킷`은 해쉬테이블에서 데이터가 저장된 곳이다.)
+
+이러한 이유로 객체의 **정확한 동등, 동일 비교를 위해서는** (특히 Hash 관련 컬렉션 프레임워크를 사용할때!)
+
+**Object의 equals() 메소드, hashCode()메소드 둘다 같이 재정의해야 한다.**
+
+
