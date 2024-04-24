@@ -20,6 +20,7 @@ public class SimpleMessageService implements MessageService {
 }
 ```
 
+위 `MessageService` 는 인터페이스이며, `SimpleMessageService` 는 이 인터페이스를 구현하는 POJO 임. `SimpleMessageService` 는 특별한 의존성이 없고, Spring의 API에 의존하지 않음.
 ## 왜 필요함?
 
 1. 단순성
