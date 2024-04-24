@@ -33,4 +33,8 @@ Spring은 다음과 같은 여러 기능을 통해 POJO 를 지원함.
 	
 	➡️ 코드의 결합도를 낮추고, 유연성과 테스트 용이성을 향상시킴.
 
-* 
+* Aspect-Oriented Programming(AOP)
+	AOP 를 사용하여 트랜잭션 관리나 보안과 같은 서비스를 POJO 에 적용할 수 있음.
+
+* Transaction Management
+	Spring 은 선언적 트랜잭션 관리를 제공하여 POJO 에 트랜잭션 관리 코드를 작성할 필요가 없도록 한다.
