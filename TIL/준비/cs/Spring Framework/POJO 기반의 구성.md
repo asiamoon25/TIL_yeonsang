@@ -7,7 +7,18 @@ sticker: emoji//1f4fd-fe0f
 * Plain Old Java Object 의 약자
 * 특정 규약이나 프레임워크, 클래스를 상속받지 않는 간단한 Java 객체를 말함.
 * Serializable 인터페이스 처럼 최소한의 Java 표준을 따르며, 특정 인터페이스를 구현하거나 클래스를 확장하지 않고도 자유롭게 작성될 수 있음.
+```java
+public interface MessageService {
+	String getMessage();
+}
 
+public class SimpleMessageService implements MessageService {
+	@Override
+	public String getMessage() {
+		return "Hello, Spring framework"
+	}
+}
+```
 
 ## 왜 필요함?
 
