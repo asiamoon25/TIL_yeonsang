@@ -13,11 +13,55 @@ sticker: emoji//2622-fe0f
 
 ### 제저의 역전의 구성 요소
 
-**의존성 주입**
-	객체가 필요로 하는 의존성 외부에서 주입받는 방식을 사용.
-	의존성 주입은 생성자 주입, 세터 주입, 필드 주입 등 다양한 방법으로 수행될 수 있음.
+#### 의존성 주입
+* 객체가 필요로 하는 의존성 외부에서 주입받는 방식을 사용.
+* 의존성 주입은 생성자 주입, 세터 주입, 필드 주입 등 다양한 방법으로 수행될 수 있음.
 
-**빈(Bean)**
+**생성자 주입**
+* 생성자 주입은 생성자를 통해 의존성을 주입받는 방법임. 이 방식은 의존성이 필수적일 때 주로 사용됨.
+
+```java
+import org.springframework.stereotype.Component;
+
+@Component
+public class BookService {
+	private final BookRepository bookRepository;
+	// 생성자를 통한 의존성 주입
+	public BookService(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
+	public void processBook() {
+		bookRepository.save(new Book());
+	}
+}
+```
+
+**Setter Injection(생성자 주입)**
+* Setter 주입은 객체 생성 후 세터 메서드를 통해 의존성을 주입받는 방식. 이 방식은 의존성이 선택적일 때 유용함.
+
+```java
+import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.stereotype.Component;
+
+@Component
+public class MemberService {
+	private MemberRepository memberRepository;
+	
+	//setter를 통한 의존성 주입
+	@Autowired
+	public void setMemberRepository(MemberRepository memberRepository){
+		this.memberRepository = memberRepository;
+	}
+	
+	public void registerMember() {
+		memberRepository.save(new Member());
+	}
+}
+```
+
+
+
+빈(Bean)
 	스프링에서 객체를 빈이라고 부르며, 스프링 IoC 컨테이너가 관리하는 객체임.
 	빈의 생명주기와 의존성은 컨테이너에 의해 관리됨.
 
