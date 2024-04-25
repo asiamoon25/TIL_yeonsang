@@ -93,6 +93,48 @@ public class UserService {
 * 스프링에서 객체를 빈이라고 부르며, 스프링 IoC 컨테이너가 관리하는 객체임.
 * 빈의 생명주기와 의존성은 컨테이너에 의해 관리됨.
 
+1. **어노테이션을 통한 빈 정의**
+	가장 흔이 사용되는 방법 중 하나는 컴포넌트 스캐닝 기능을 사용하는 것임.
+	`@Component` 및 이를 확장한 `@Service`, `@Repository`, `@Controller` 등의 어노테이션을 사용하여 클래스를 빈으로 등록할 수 있음.
+
+```java
+import org.springframework.stereotype.Component;
+
+@Component  // 빈 등록
+public class ExampleService {
+    public void serve() {
+        System.out.println("Service is running...");
+    }
+}
+```
+
+2. xml 을 통한 빈 정의
+	xml 파일 내에서 빈을 선언하면 스프링 컨테이너가 해당 빈을 인스턴스화 하고 관리함.
+
+```xml
+<beans ...>
+  <bean id="MyService"
+        class="com.example.my.MyService">
+    <property name="myRepository"
+              ref="myRepository"/>
+  </bean>
+  <bean id="MyRepository"
+        class="com.example.my.MyRepository">
+  </bean>
+</beans>
+```
+
+3. Java 기반 설정을 통한 빈 정의
+	스프링 3.0 부터는 자바 기반의 설정을 사용하여 빈을 정의할 수 있음.
+	이 방법은 `@Configuration` 어노테이션에 붙은 클래스 내에서 `@Bean` 어노테이션을 사용하여 메서드 레벨에서 빈을 정의함.
+
+```java
+
+```
+
+
+
+
 
 **컨테이너(Container)**
 	스프링 IoC 컨테이너는 설정 정보를 바탕으로 객체를 생성하고, 관리하며, 의존성을 주입하는 역할을 함. 컨테이너는 애플리케이션의 구성 요소들을 초기화, 생성, 조립하는 책임을 담당함.
