@@ -60,10 +60,39 @@ public class MemberService {
 ```
 
 
+**Field Injection 필드 주입**
+* 필드 주입은 필드 선언에 직접 `@Autowired` 어노테이션을 사용하여 의존성을 주입받는 방법임.
+* 간단하지만 테스트와 변경에 어려움이 있을 수 있음.
 
-빈(Bean)
-	스프링에서 객체를 빈이라고 부르며, 스프링 IoC 컨테이너가 관리하는 객체임.
-	빈의 생명주기와 의존성은 컨테이너에 의해 관리됨.
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    public void addUser() {
+        userRepository.save(new User());
+    }
+}
+```
+
+
+>의존성 주입이 제대로 이루어졌는지 확인하는 방법은 다양함.
+>
+일반적으로 스프링 애플리케이션을 실행하면서 해당 빈이 제대로 생성되고 주입되었는지 로그를 통해 확인 할 수 있음.
+>
+또한, 통합 테스트나 단위 테스트를 작성하여 의존성이 올바르게 주입되었는지 검증할 수 있음.
+>
+>단위 테스트에서는 Mockito 와 같은 모킹 툴을 사용하여 의존성을 명시적으로 주입하고 그 효과를 검증하기도 함.
+
+#### 빈(Bean)
+
+* 스프링에서 객체를 빈이라고 부르며, 스프링 IoC 컨테이너가 관리하는 객체임.
+* 빈의 생명주기와 의존성은 컨테이너에 의해 관리됨.
+
 
 **컨테이너(Container)**
 	스프링 IoC 컨테이너는 설정 정보를 바탕으로 객체를 생성하고, 관리하며, 의존성을 주입하는 역할을 함. 컨테이너는 애플리케이션의 구성 요소들을 초기화, 생성, 조립하는 책임을 담당함.
