@@ -129,12 +129,78 @@ public class ExampleService {
 	이 방법은 `@Configuration` 어노테이션에 붙은 클래스 내에서 `@Bean` 어노테이션을 사용하여 메서드 레벨에서 빈을 정의함.
 
 ```java
-
+@Configuration
+public class AppConfig {
+	@Bean
+	public UserService userService() {
+		return new UserService();
+	}
+}
 ```
 
 
 
 
 
-**컨테이너(Container)**
-	스프링 IoC 컨테이너는 설정 정보를 바탕으로 객체를 생성하고, 관리하며, 의존성을 주입하는 역할을 함. 컨테이너는 애플리케이션의 구성 요소들을 초기화, 생성, 조립하는 책임을 담당함.
+#### 컨테이너(Container)
+* 스프링 IoC 컨테이너는 설정 정보를 바탕으로 객체를 생성하고, 관리하며, 의존성을 주입하는 역할을 함. 
+* 컨테이너는 애플리케이션의 구성 요소들을 초기화, 생성, 조립하는 책임을 담당함.
+
+**주요 역할**
+
+1. 빈 인스턴스 생성
+	스프링 설정에 기술된 대로 빈 객체를 생성
+
+2. 의존성 관리
+	객체간의 의존성을 조정하고 의존성 주입을 통해 각 객체가 필요로 하는 다른 객체를 연결
+
+3. 빈 생명주기 관리
+	빈 객체의 생성부터 소멸까지의 생명주기를 관리함.
+
+4. 빈 설정
+	빈이 올바르게 작동할 수 있도록 필요한 정보를 제공함.
+
+
+**스프링 컨테이너의 종류**
+
+1. BeanFactory
+	기본적인 컨테이너 기능을 제공하며, 빈을 요청받으면 그 때 빈을 생성하고 의존성을 주입하는 지연 로딩 방식을 사용함
+
+2. ApplicationContext
+	BeanFactory 의 모든 기능을 포함하여, 더 많은 기능을 제공함. 국제화 처리, 이벤트 전파, 다양한 특정 컨테스 구현을 지원함.
+
+```java
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Application {
+    public static void main(String[] args) {
+        // ApplicationContext 생성, AppConfig 클래스를 설정 정보로 사용
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        // 빈 가져오기
+        UserService userService = context.getBean(UserService.class);
+        userService.performService();
+    }
+}
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public UserService userService() {
+        return new UserService();
+    }
+}
+
+@Service
+public class UserService {
+    public void performService() {
+        System.out.println("Performing service actions...");
+    }
+}
+
+```
+
+이처럼 스프링 컨테이너는 애플리케이션의 중앙 저장소 역할을 하면서, 객체의 생성과 관리, 의존성 주입 등을 캡슐화하여 처리함.
+
+이는 개발자가 복잡한 관리 작업에 신경 쓰지 않고, 비즈니스 로직 구현에 집중할 수 있게 돕는다.
