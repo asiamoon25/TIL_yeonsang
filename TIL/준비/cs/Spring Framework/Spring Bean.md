@@ -55,3 +55,27 @@ Spring Framework 의 핵심 기능인 의존성 주입(Dependency Injection, DI)
 
 
 ## Spring Bean Scope
+
+Bean 의 scope 는 해당 Bean 인스턴스의 생명 주기와 가시성을 정의함.
+
+* `Singleton` : 기본값으로, Spring IoC 컨테이너당 단 하나의 Bean 인스턴스만 생성됨.
+* `Prototype` : 요청할 때마다 새로운 Bean 인스턴스가 생성됨.
+* `Request` : HTTP 요청당 하나의 Bean 인스턴스가 생성됨. 주로 웹 애플리케이션에서 사용됨.
+* `Session`  : HTTP 세선당 하나의 Bean 인스턴스가 생성됨.
+* `Global Session` : 포털 애플리케이션에서 사용되며, 전역 HTTP 세션당 하나의 Bean 인스턴스가 생성됨.
+
+
+### Spring Bean LifeCycle
+
+Spring Bean 의 생명주기는 크게 생성 및 초기화 단계, 사용 및 호출 단계, 그리고 소멸단계로 나뉨.
+
+#### Bean LifeCycle
+1. `Bean 정의 읽기` : XML 파일, Java Config 등에서 Bean 정의를 로드함.
+2. `Bean 인스턴스화` : 정의된 클래스의 인스턴스를 생성함.
+3. `의존성 주입` : Bean 이 필요로 하는 의존성들을 주입함.
+4. `Bean 초기화` : Bean 이 생성되고, 의존성이 주입된 후에 초기화를 수행함. 여기서 사용자가 커스텀 초기화로 로직을 구현할 수 있음.
+5. `Bean 사용` : 애플리케이션에서 Bean 을 사용함.
+6. `Bean 소멸` : 컨테이너가 종료될 때 Bean 을 소멸 시키며, 여기서도 커스텀 소멸로 로직을 구현함.
+
+
+####
