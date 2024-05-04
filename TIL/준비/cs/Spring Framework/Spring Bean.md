@@ -78,4 +78,74 @@ Spring Bean 의 생명주기는 크게 생성 및 초기화 단계, 사용 및 �
 6. `Bean 소멸` : 컨테이너가 종료될 때 Bean 을 소멸 시키며, 여기서도 커스텀 소멸로 로직을 구현함.
 
 
-####
+#### Bean LifeCycle CallBack
+
+Bean 의 생명주기 중 특정 이벤트에 대해 커스텀 로직을 실행할 수 있는 방법
+
+* `InitializingBean / DisponsableBean` : 빈이 초기화 / 소멸될 때 `afterPropertiesSet()` 및 `destroy()` 메소드를 오버라이드해서 사용할 수 있음.
+* `@PostConstruct / @PreDestroy 어노테이션` : 이 어노테이션을 메소드에 적용하여 초기화 및 소멸 시 호출되도록 할 수 있음.
+* `xml 의 init-method / destroy-method` : XML 설정에서 직접 메소드를 지정하여 초기화 및 소멸 시 호출 되게 설정할 수 있음.
+
+
+
+**예시 코드**
+
+```java
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+public class ExampleBean implements InitializingBean, DisposableBean {
+    private String value;
+
+    // Constructor
+    public ExampleBean(String value) {
+        this.value = value;
+        System.out.println("Constructor called: Bean is created with value=" + value);
+    }
+
+    // PostConstruct
+    @PostConstruct
+    public void initPostConstruct() {
+        System.out.println("@PostConstruct: After properties are set");
+    }
+
+    // Implementing InitializingBean
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("InitializingBean: afterPropertiesSet method called");
+    }
+
+    // Custom init method
+    public void customInit() {
+        System.out.println("Custom INIT method called");
+    }
+
+    // PreDestroy
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("@PreDestroy: Before bean is destroyed");
+    }
+
+    // Implementing DisposableBean
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("DisposableBean: destroy method called");
+    }
+
+    // Custom destroy method
+    public void customDestroy() {
+        System.out.println("Custom DESTROY method called");
+    }
+}
+```
+
+
+XML 설정에서 init-method 와 destroy-method 를 사용하려면 다음과 같이 할 수 있음.
+
+```xml
+<bean id="exampleBean" class="ExampleBean" init-method="customInit" destroy-method="customDestroy">
+    <constructor-arg value="Initial value"/>
+</bean>
+```
