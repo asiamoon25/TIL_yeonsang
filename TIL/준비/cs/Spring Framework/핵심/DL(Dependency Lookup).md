@@ -60,4 +60,85 @@ public class MyComponent {
 ```
 
 
+### ObjectFactory
 
+`ObjectFactory` 는 간단한 팩토리 인터페이스로써, 요청 시 객체 인스턴스를 반환함. 
+`FactoryBean` 과 유사하지만, 보다 단순하고, 주로 단일 메소드 `getObject()` 를 통해 객체를 생성함.
+
+```java
+@Component
+public class MyBeanConsumer{
+	private final ObjectFactory<MyBean> myBeanFactory;
+	
+	@Autowired
+	public MyBeanConsumer(ObjectFactory<MyBean> myBeanFactory){
+		this.myBeanFactory = myBeanFactory;
+	}
+	
+	public void doSomething() {
+		MyBean myBean = myBeanFactory.getObject(); // 지연 로딩
+		myBean.performAction();
+	}
+}
+```
+
+
+### @Lookup
+
+`@Lookup` 은 메소드에 주석을 달아 해당 메소드가 호출될 때마다 새로운 빈 인스턴스를 동적으로 주입받도록 Spring 에 지시하는 어노테이션임.
+주로 싱글턴 빈 내에서 프로토타입 빈을 사용해야 할 경우에 활용됨.
+
+**특징**
+* **동적 빈 반환**
+	`@Lookup` 어노테이션이 붙은 메소드는 호출될 때마다 새로운 객체를 반환함.
+* **범용성**
+	다양한 스코프의 빈을 조합해서 사용할 때 유용함.
+
+```java
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.stereotype.Component;
+
+@Component
+public abstract class SingletonBean {
+    public void process() {
+        PrototypeBean prototypeBean = createPrototypeBean();
+        prototypeBean.doSomething();
+    }
+
+    @Lookup
+    public abstract PrototypeBean createPrototypeBean(); // 매 호출 시 새 인스턴스 제공
+}
+```
+
+### Provider
+`Provider` 는 JSR-330(Java Dependency Injection 표준) 에 정의된 인터페이스로, 객체의 생성을 지연시키고 사용자에게 객체를 제공하는 역할을 함.
+
+Spring의 `ObjectProvider` 와 유사한 역할을 하지만, 표준 Java 인터페이스를 사용함.
+
+**특징**
+* **표준화된 접근**
+	Java EE 및 다른 DI 프레임워크와의 호환성을 위해 설계됨.
+* **간단한 사용법**
+	`get()` 메소드 하나로 객체를 반환 받음.
+
+
+```java
+import javax.inject.Provider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ConsumerComponent {
+    private final Provider<MyBean> myBeanProvider;
+
+    @Autowired
+    public ConsumerComponent(Provider<MyBean> myBeanProvider) {
+        this.myBeanProvider = myBeanProvider;
+    }
+
+    public void doSomething() {
+        MyBean myBean = myBeanProvider.get(); // 필요할 때마다 새로운 인스턴스 제공
+        myBean.execute();
+    }
+}
+```
