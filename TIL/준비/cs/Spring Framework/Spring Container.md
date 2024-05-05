@@ -106,12 +106,25 @@ public class AppConfig {
 	@Bean
 	public HelloWorld() {
 		HelloWorld helloWorld = new HelloWorld();
-		hello
+		helloWorld.setMessage("Hello Spring!");
+		return hellWorld;
 	}
+}
+```
 
 
+**Main.java**
 
+```java
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        HelloWorld helloWorld = context.getBean(HelloWorld.class);
+        helloWorld.getMessage();
+    }
 }
 ```
 
