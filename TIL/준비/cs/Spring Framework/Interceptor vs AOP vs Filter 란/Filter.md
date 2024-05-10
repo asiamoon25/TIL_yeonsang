@@ -23,3 +23,91 @@ Servlet 필터는 DispatcherServlet 이전에 실행이 되는데 필터가 동�
 ### 예시
 
 #### log filter
+```java
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
+public class LoggingFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // 필터 초기화 로직
+        System.out.println("Initializing LoggingFilter");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        System.out.println("Request URI: " + httpRequest.getRequestURI());
+        
+        // 다음 필터 또는 서블릿으로 요청을 계속 전달
+        chain.doFilter(request, response);
+        
+        System.out.println("Response Status: " + response.getContentType());
+    }
+
+    @Override
+    public void destroy() {
+        // 필터 소멸 시 정리 로직
+        System.out.println("Destroying LoggingFilter");
+    }
+}
+```
+
+**filter 등록**
+1. web.xml
+```xml
+<filter>
+    <filter-name>loggingFilter</filter-name>
+    <filter-class>com.example.LoggingFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>loggingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
+2. Java Config
+```java
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class FilterConfig {
+    @Bean
+    public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+        FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new LoggingFilter());
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setOrder(1); // 필터 실행 순서 지정
+        return registrationBean;
+    }
+}
+```
+
+3. `@WebFilter` 어노테이션
+```java
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import java.io.IOException;
+
+@WebFilter(urlPatterns = "/*")
+public class AnnotationLoggingFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("Initializing AnnotationLoggingFilter");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("Filtering request in AnnotationLoggingFilter");
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("Destroying AnnotationLoggingFilter");
+    }
+}
+```
