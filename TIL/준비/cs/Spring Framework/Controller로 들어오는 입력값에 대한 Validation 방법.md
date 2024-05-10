@@ -40,6 +40,109 @@ public class UserRequest {
 	private String email;
 	
 	//Getter/Setter
-	public
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+}
+```
+
+3. Controller 에서 유효성 검증 적용
+	Controller 메서드에 `@Valid` 와 `BindingResult` 를 사용하여 검증 결과를 처리함.
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+	@PostMapping
+	public String createUser(@RequestBody @Valid UserRequest userRequest, BindingRequest result){
+		if(result.hassErrors()) {
+			return result.getFieldErrors().stream()
+			.map(fieldError -> fieldError.getField() + ":" + fieldError.getDefaultMessage())
+			.reduce((message1, message2) -> message1 + ", "+message2)
+			.orElse("Invalid input");
+		}
+		return "User created successfully!";
+	}
+
+}
+```
+
+
+## Spring Validator Interface
+
+1. Custom Validator 구현
+```java
+@Component
+public class UserRequestValidator implements Validator{
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return UserRequest.class.euquals(clazz);
+	}
+	
+	@Override
+	public void validate(Object target, Errros errors) {
+		UserRequest userRequest = (UserRequest) target;
+		
+		if(userRequest.getName() == null || userRequest.getName().isBlank()) {
+			errors.rejectValue("name", "name.required", "Name is required");
+		}
+		
+		if(userRequest.getAge() < 18 || userRequest.getAge() > 100){
+		errors.rejectValue("age", "age.invalid", "Age should be between 18 and 100");
+		}
+		
+		if(userRequest.getEmail() == null || !userRequest.getEmail().contains("@")){
+			errors.rejectValue("email","email.invalid", "Invalid email format");
+		}
+	}
+}
+```
+
+2. Controller 에서 사용
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserRequestValidator userRequestValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(userRequestValidator);
+    }
+
+    @PostMapping
+    public String createUser(@RequestBody UserRequest userRequest, BindingResult result) {
+        userRequestValidator.validate(userRequest, result);
+
+        if (result.hasErrors()) {
+            return result.getFieldErrors().stream()
+                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                .reduce((message1, message2) -> message1 + ", " + message2)
+                .orElse("Invalid input");
+        }
+        return "User created successfully!";
+    }
 }
 ```
