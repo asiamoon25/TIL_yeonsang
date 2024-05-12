@@ -55,3 +55,54 @@
 ```sql
 CREATE INDEX idx_column ON table_name (column);
 ```
+
+2. 복합 컬럼 인덱스 생성
+```sql
+CREATE INDEX idx_compound ON table_name (column1, colum2);
+```
+
+3. 유니크 인덱스 생성
+```sql
+CREATE UNIQUE INDEX ide_unique_column ON table_name (column);
+```
+
+### 인덱스 삭제
+
+```sql
+DROP INDEX idx_column ON table_name;
+```
+
+
+### 인덱스 성능 확인
+
+1. DB 쿼리 실행 성능 체크
+(PostgreSQL, MySQL)
+```sql
+EXPLAIN SELECT * FROM table_name WHERE column = 'value';
+```
+
+
+### 인덱스 관리 및 모니터링 도구
+
+* MySQL : `SHOW INDEX FROM table_name;` 명령어를 사용해 테이블의 인덱스 정보를 확인할 수 있음.
+* PostgreSQL : `pg_indexes` 뷰를 조회하거나 `EXPLAIN` 명령어로 실행 계획을 확인할 수 있음.
+* Oracle : Oracle Enterpise Manager 와 같은 GUI 도구를 사용해 인덱스 관리 및 성능 모니터링을 수행할 수 있음.
+* SQL Server : SQL Server Management Studio(SSMS) 에서 인덱스 성능을 분석하고 조정할 수 있음.
+
+
+
+### 인덱스 유지보수
+
+DB 에 데이터가 계속 추가되고 변경되면서 인덱스의 효율성이 저하될 수 있음.
+
+인덱스를 주기적으로 재구성하거나 재생성해야할 수 있음.
+
+1. 인덱스 재구성(SQL Server)
+```sql
+ALTER INDEX ALL ON table_name REORGANIZE;
+```
+
+2. 인덱스 재생성(SQL Server)
+```sql
+ALTER INDEX ALL ON table_name REBUILD;
+```
