@@ -2,6 +2,7 @@
 	* [[Index]]
 		* [[Index 작동 원리]]
 		* Index 종류
+			* [[B-Tree 인덱스]]
 	* [[영속성]]
 	* [[트랜잭션]]
 	* [[TIL/준비/DB/ORM|ORM]]
