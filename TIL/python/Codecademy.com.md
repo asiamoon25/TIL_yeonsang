@@ -77,4 +77,66 @@ print(my_string)
 Output : It's a lovely day!
 ```
 
-또는 홑따옴표가 들어가는 문자열이 있으면 쌍따옴표로 감싸서 해결할 수 
+또는 홑따옴표가 들어가는 문자열이 있으면 쌍따옴표로 감싸서 해결할 수 있음.
+
+```python
+my_string = "It's a lovely day!"
+
+print(my_string)
+```
+
+자바와 동일하게도 줄바꿈, 탭추가 처럼 \\n \\t 가 있음.
+
+```python
+note = "I am on top!\nI am on bottom. \n\tI am indented!"
+print(note)
+
+Output : 
+I am on top!
+I am on bottom.
+     I am indented!
+```
+
+
+## 문자열 수정
+
+특별한 연산자가 있음. 예를 들어서 + 는 문자열을 연결하고, * 는 문자열을 곱하는데 사용됨.
+
+```python
+string_one = "Hello, "
+string_two = "World! "
+combo = string_one + string_two
+
+print(combo)
+# Output : Hello, World!
+
+new_combo = combo * 2
+print(new_combo)
+# Output : Hello, World! Hello, World!
+
+
+if "World" in new_combo"
+	print("It's here!")
+# Output : It's here!
+```
+
+문자열은 아래와 같은걸로도 지정할 수 있음.
+* f\\F 플래그
+* .format()
+
+**f\\F 플래그**
+
+**.format()**
+```python
+something = '볼펜'
+EA = 2
+one_length = 5.343
+scale = 'cm'
+
+print('{} {}개의 길이는 {}{} 입니다.'.format(something, EA, one_length*EA, scale))
+
+#실수 포맷팅 소수점 반올림 하기
+print('{} {}개의 길이는 {:.2f}{} 입니다.'.format(something, EA, one_length*EA, scale))
+
+출처: [https://firedino.tistory.com/56](https://firedino.tistory.com/56) [F.I.R.E.를 꿈꾸는 공룡 _ FIRE DINO (파공):티스토리]
+```
