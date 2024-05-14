@@ -10,7 +10,7 @@ Spring 에서 Controller 로 들어오는 입력값에 대한 유효성 검증�
 1. 의존성 추가
 	`pom.xml` 또는 `build.gradle` 에 의존성을 추가함.
 
-**Maven(`pom.xml`)
+**Maven(`pom.xml`)**
 ```xml
 <dependency>
 	<groupId>org.springframework.boot</groupId>
