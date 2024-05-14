@@ -123,8 +123,26 @@ if "World" in new_combo"
 문자열은 아래와 같은걸로도 지정할 수 있음.
 * f\\F 플래그
 * .format()
+* %
 
 **f\\F 플래그**
+
+f-string formatting
+
+```python
+something = '볼펜'
+EA = 2
+one_length = 5.343
+scale = 'cm'
+
+print(f'{something} {EA} 개의 길이는 {one_length*EA}{scale} 입니다')
+print(f'{something} {EA} 개의 길이는 {one_length*EA:.1f}{scale} 입니다')
+# Output
+볼펜 2개의 길이는 10.686cm 입니다.
+볼펜 2개의 길이는 10.7cm 입니다.
+```
+
+
 
 **.format()**
 ```python
@@ -134,9 +152,41 @@ one_length = 5.343
 scale = 'cm'
 
 print('{} {}개의 길이는 {}{} 입니다.'.format(something, EA, one_length*EA, scale))
+# Output : 볼펜 2개의 길이는 10.686cm 입니다.
 
 #실수 포맷팅 소수점 반올림 하기
 print('{} {}개의 길이는 {:.2f}{} 입니다.'.format(something, EA, one_length*EA, scale))
-
-출처: [https://firedino.tistory.com/56](https://firedino.tistory.com/56) [F.I.R.E.를 꿈꾸는 공룡 _ FIRE DINO (파공):티스토리]
+# Output : 볼펜 2개의 길이는 10.69cm 입니다.
 ```
+
+```python
+print(1234567890) #자릿 수 표현 위함
+print('{:>3}'.format('5')) # >는 오른쪽정렬
+print('{:<3}'.format('5')) # <는 왼쪽정렬
+print('{:^3}'.format('5')) # ^는 가운데정렬
+print('{:0>3}'.format(5)) # 빈자리를 0으로 채울수도 있음
+```
+
+
+**% formatting**
+```python
+something = '볼펜'
+EA = 2
+one_length = 5.343
+scale = 'cm'
+
+print('%s %d개의 길이는 %f%s 입니다.' % (something, EA, one_length*EA, scale))
+# Output : 볼펜 2개의 길이는 10.686000cm 입니다.
+
+#실수 소수점 자릿 수 맞추기
+print('%s %d개의 길이는 %.2f%s 입니다.' % (something, EA, one_length*EA, scale))
+# Output : 볼펜 2개의 길이는 10.69cm 입니다.
+```
+
+%s는 문자열, %d 는 정수, %f는 실수
+
+그리고 **%f**와 **%.2f** 의 차이는 **%.2f**는 실수를 받아올 때 소수점 둘째자리까지만 표현되도록 (반올림)하라는 의미. 
+
+_즉, **%.3f**라고 되어있으면 소수점 셋째자리까지_
+
+## 문자열 비교
