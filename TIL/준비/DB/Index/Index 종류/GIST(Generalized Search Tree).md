@@ -64,4 +64,33 @@ CREATE INDEX ON points USING gist(p);
 SELECT * FROM points WHERE p <@ box '(2,1),(7,4)';
 ```
 
-##
+**ex) 내부구조 분석**
+`gevel` 확장을 사용하여 GiST 인덱스의 내부 구조를 분석할 수 있음. 예를 들어, 인덱스 트리의 통계를 확인할 수 있음.
+```sql
+SELECT * FROM gist_stat('points_p_idx');
+```
+
+
+**ed) 시간 간격 및 배타 제약 조건**
+
+GiST 는 시간간격(`tsrange` 타입) 및 배타 제약조건(`EXCLUDE`) 를 지원함.
+예를 들어, 예약 시스템에서 교차하는 시간 간격을 허용하지 않는 제약 조건을 추가할 수 있음.
+
+```sql
+CREATE TABLE reservations(during tsrange);
+INSERT INTO reservations(during) VALUES 
+  ('[2016-12-30, 2017-01-09)'), 
+  ('[2017-02-23, 2017-02-27)'), 
+  ('[2017-04-29, 2017-05-02)');
+CREATE INDEX ON reservations USING gist(during);
+ALTER TABLE reservations ADD EXCLUDE USING gist(during WITH &&);
+```
+
+교차하는 시간 간격을 삽입하려고 하면 오류 발생
+
+```sql
+INSERT INTO reservations(during) VALUES ('[2017-05-15, 2017-06-15)');
+```
+
+
+## 연산자
