@@ -112,4 +112,92 @@ INSERT INTO reservations(during) VALUES ('[2017-05-15, 2017-06-15)');
 |`|&>`|아래쪽 경계와 겹치지 않음 (does not extend downwards)|
 
 * **범위 데이터(Range)**
-* 
+
+| 연산자  | 설명                                              | 예시                 |
+| ---- | ----------------------------------------------- | ------------------ |
+| `@>` | 포함 (contains)                                   | `range @> value`   |
+| `<@` | 포함됨 (contained by)                              | `value <@ range`   |
+| `&&` | 겹침 (overlaps)                                   | `range1 && range2` |
+| `<<` | 좌측에 있음 (is left of)                             | `range1 << range2` |
+| `>>` | 우측에 있음 (is right of)                            | `range1 >> range2` |
+| `&<` | 우측 경계와 겹치지 않음 (does not extend to the right of) | `range1 &< range2` |
+| `&>` | 좌측 경계와 겹치지 않음 (does not extend to the left of)  | `range1 &> range2` |
+| `-   | -`                                              | 인접함 (adjacent to)  |
+| `=`  | 같음 (equals)                                     | `range1 = range2`  |
+
+* **텍스트 데이터(Full-text Search)**
+
+|연산자|설명|예시|
+|---|---|---|
+|`@@`|매치 (match)|`tsvector @@ tsquery`|
+
+* **IP 주소 데이터**
+
+| 연산자   | 설명                                              | 예시                |
+| ----- | ----------------------------------------------- | ----------------- |
+| `<<`  | 서브넷에 포함 (contained by subnet)                   | `inet << subnet`  |
+| `<<=` | 서브넷에 포함되거나 같음 (contained by or equal to subnet) | `inet <<= subnet` |
+| `>>`  | 서브넷 포함 (contains subnet)                        | `inet >> subnet`  |
+| `>>=` | 서브넷 포함하거나 같음 (contains or equal to subnet)      | `inet >>= subnet` |
+| `&&`  | 겹침 (overlaps)                                   | `inet && subnet`  |
+
+**예시**
+
+* 공간데이터 
+```sql
+-- 포인트 데이터에 대한 GiST 인덱스 생성
+CREATE TABLE points(p point);
+INSERT INTO points(p) VALUES 
+  (point '(1,1)'), (point '(3,2)'), (point '(6,3)'), 
+  (point '(5,5)'), (point '(7,8)'), (point '(8,6)');
+CREATE INDEX ON points USING gist(p);
+
+-- 특정 박스 내에 포함된 포인트 검색
+SELECT * FROM points WHERE p <@ box '(2,1),(7,4)';
+
+```
+
+* 범위 데이터
+
+```sql
+-- 범위 데이터에 대한 GiST 인덱스 생성
+CREATE TABLE reservations(during tsrange);
+INSERT INTO reservations(during) VALUES 
+  ('[2016-12-30, 2017-01-09)'), 
+  ('[2017-02-23, 2017-02-27)'), 
+  ('[2017-04-29, 2017-05-02)');
+CREATE INDEX ON reservations USING gist(during);
+
+-- 특정 범위와 겹치는 예약 검색
+SELECT * FROM reservations WHERE during && '[2017-01-01, 2017-04-01)';
+
+```
+
+* 풀 텍스트 검색
+```sql
+-- 텍스트 데이터에 대한 GiST 인덱스 생성
+CREATE TABLE documents(doc text, doc_tsv tsvector);
+INSERT INTO documents(doc) VALUES 
+  ('Can a sheet slitter slit sheets?'), 
+  ('How many sheets could a sheet slitter slit?');
+UPDATE documents SET doc_tsv = to_tsvector(doc);
+CREATE INDEX ON documents USING gist(doc_tsv);
+
+-- 특정 텍스트와 매치되는 문서 검색
+SELECT * FROM documents WHERE doc_tsv @@ to_tsquery('sheet & slitter');
+```
+
+* IP 주소 데이터
+```sql
+-- IP 주소 데이터에 대한 GiST 인덱스 생성
+CREATE TABLE networks(ip inet);
+INSERT INTO networks(ip) VALUES 
+  ('192.168.1.0/24'), 
+  ('10.0.0.0/8'), 
+  ('172.16.0.0/12');
+CREATE INDEX ON networks USING gist(ip);
+
+-- 특정 IP 주소와 겹치는 네트워크 검색
+SELECT * FROM networks WHERE ip && '192.168.1.128/25';
+
+```
