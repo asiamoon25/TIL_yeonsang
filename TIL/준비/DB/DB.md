@@ -4,8 +4,8 @@
 		* Index 종류
 			* [[B-Tree 인덱스]]
 			* [[Hash Indexes]]
-			* Bitmap Index
-			* GIST(Generalized Search Tree)
+			* [[Bitmap Index]]
+			* [[TIL/준비/DB/Index/Index 종류/GIST(Generalized Search Tree)|GIST(Generalized Search Tree)]]
 			* R-Tree
 			* Full Text Index
 			* Spatial Index
