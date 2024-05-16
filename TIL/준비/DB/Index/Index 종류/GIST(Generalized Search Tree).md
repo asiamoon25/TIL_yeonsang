@@ -94,3 +94,22 @@ INSERT INTO reservations(during) VALUES ('[2017-05-15, 2017-06-15)');
 
 
 ## 연산자
+
+* **공간 데이터 (Geometry)**
+
+|연산자|설명|예시|
+|---|---|---|
+|`@>`|포함 (contains)|`geom @> other_geom`|
+|`<@`|포함됨 (contained by)|`geom <@ other_geom`|
+|`&&`|겹침 (overlaps)|`geom && other_geom`|
+|`<<`|좌측에 있음 (is left of)|`geom << other_geom`|
+|`>>`|우측에 있음 (is right of)|`geom >> other_geom`|
+|`&<`|우측 경계와 겹치지 않음 (does not extend to the right of)|`geom &< other_geom`|
+|`&>`|좌측 경계와 겹치지 않음 (does not extend to the left of)|`geom &> other_geom`|
+|`<<|`|아래에 있음 (is below)|
+|`|>>`|위에 있음 (is above)|
+|`&<|`|위쪽 경계와 겹치지 않음 (does not extend upwards)|
+|`|&>`|아래쪽 경계와 겹치지 않음 (does not extend downwards)|
+
+* **범위 데이터(Range)**
+* 
