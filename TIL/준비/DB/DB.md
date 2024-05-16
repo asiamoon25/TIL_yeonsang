@@ -6,7 +6,7 @@
 			* [[Hash Indexes]]
 			* [[Bitmap Index]]
 			* [[TIL/준비/DB/Index/Index 종류/GiST(Generalized Search Tree)|GiST(Generalized Search Tree)]]
-			* R-Tree
+			* [[R-Tree]]
 			* Full Text Index
 			* Spatial Index
 			* Trie(Prefix Tree) Index
