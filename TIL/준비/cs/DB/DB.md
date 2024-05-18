@@ -9,7 +9,7 @@
 			* [[R-Tree]]
 			* [[Full Text Index]]
 			* [[Spatial Index]]
-			* Trie(Prefix Tree) Index
+			* [[Trie(Prefix Tree) Index]]
 			* Covering Index
 	* [[영속성]]
 	* [[트랜잭션]]
