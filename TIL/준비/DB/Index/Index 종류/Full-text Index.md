@@ -50,6 +50,54 @@ MySQL 에서의 풀텍스트 인덱스 사용
 1. 테이블 생성 및 풀텍스트 인덱스 추가
 ```sql
 CREATE TABLE articles(
-	id INT AUTO_INCREAMENT PRIMAR
+	id INT AUTO_INCREAMENT PRIMARY KEY,
+	title VARCHAR(255),
+	body TEXT,
+	FULLTEXT(title, body)
 )
 ```
+
+2. 데이터 삽입
+```sql
+INSERT INTO articles (title, body) VALUES
+('MySQL Full-Text Search', 'This is an article about MySQL full-text search.'),
+('Full-Text Search in Databases', 'Full-text search is essential for searching large text data.'),
+('Introduction to Databases', 'This article introduces the basics of databases.');
+```
+
+3. 풀 텍스트 검색
+```sql
+SELECT * FROM  articles
+WHERE MATCH(title, body) AGAINST('full-text search');
+```
+
+
+PostgreSQL 에서의 풀텍스트 인덱스 사용
+
+1. 테이블 생성
+```sql
+CREATE TABLE documents (
+    id SERIAL PRIMARY KEY,
+    content TEXT
+);
+```
+2. 데이터 삽입
+```sql
+INSERT INTO documents (content) VALUES
+('This is an article about PostgreSQL full-text search.'),
+('Full-text search is essential for searching large text data in databases.'),
+('This article introduces the basics of databases.');
+```
+
+3. 풀텍스트 인덱스 생성
+```sql
+CREATE INDEX idx_fts_content ON documents USING gin(to_tsvector('english', content));
+```
+
+4. 풀텍스트 검색
+```sql
+SELECT * FROM documents
+WHERE to_tsvector('english', content) @@ to_tsquery('full-text & search');
+```
+
+
