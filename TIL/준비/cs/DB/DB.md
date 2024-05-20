@@ -17,7 +17,7 @@
 	* [[ACID]]
 	* [[N+1 문제]]
 	* [[DB 정규화]]
-	* Data Replication
+	* [[Data Replication]]
 	* sharding 전략
 	* CAP 이론
 
