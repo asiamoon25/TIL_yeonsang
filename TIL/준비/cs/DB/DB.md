@@ -5,15 +5,15 @@
 			* [[B-Tree 인덱스]]
 			* [[Hash Indexes]]
 			* [[Bitmap Index]]
-			* [[TIL/준비/DB/Index/Index 종류/GiST(Generalized Search Tree)|GiST(Generalized Search Tree)]]
+			* [[GIST(Generalized Search Tree)|GIST(Generalized Search Tree)]]
 			* [[R-Tree]]
 			* [[Full Text Index]]
-			* Spatial Index
-			* Trie(Prefix Tree) Index
+			* [[Spatial Index]]
+			* [[Trie(Prefix Tree) Index]]
 			* Covering Index
 	* [[영속성]]
 	* [[트랜잭션]]
-	* [[TIL/준비/DB/ORM|ORM]]
+	* [[TIL/준비/cs/DB/ORM|ORM]]
 	* [[ACID]]
 	* N+1 문제
 	* DB 정규화

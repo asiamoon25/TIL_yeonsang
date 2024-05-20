@@ -21,11 +21,11 @@
 ## 인덱스 종류
 
 * [[B-Tree 인덱스]]
-* Hash 인덱스
-* Full-Text 인덱스
+* [[Hash Indexes]]
+* [[Full-text Index]]
 * Composite 인덱스(복합 인덱스)
-* Spatial 인덱스
-* Bitmap 인덱스
+* [[Spatial Index]]
+* [[Bitmap Index]]
 * Clustered 인덱스
 
 
