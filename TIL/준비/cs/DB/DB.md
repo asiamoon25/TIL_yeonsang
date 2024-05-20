@@ -10,7 +10,7 @@
 			* [[Full Text Index]]
 			* [[Spatial Index]]
 			* [[Trie(Prefix Tree) Index]]
-			* Covering Index
+			* [[Covering Index]]
 	* [[영속성]]
 	* [[트랜잭션]]
 	* [[TIL/준비/cs/DB/ORM|ORM]]
