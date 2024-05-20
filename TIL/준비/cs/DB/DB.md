@@ -18,7 +18,6 @@
 	* [[N+1 문제]]
 	* [[DB 정규화]]
 	* [[Data Replication]]
-	* Database Replication
-	* sharding 전략
+	* [[sharding 전략]]
 	* CAP 이론
 
