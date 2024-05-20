@@ -15,7 +15,7 @@
 	* [[트랜잭션]]
 	* [[TIL/준비/cs/DB/ORM|ORM]]
 	* [[ACID]]
-	* N+1 문제
+	* [[N+1 문제]]
 	* DB 정규화
 	* Data Replication
 	* sharding 전략
