@@ -65,7 +65,36 @@ CREATE TABLE orders(
 )
 ```
 
-다음과 같은 쿼리가 있다고 가정할 때
+위와 같은 쿼리가 있다고 가정할 때
 
 ```sql
+SELECT order_id, total_amount FROM orders WHERE customer_id = 123;
 ```
+
+위 쿼리를 최적화 하기 위해 covering index 를 생성할 수 있음.
+
+
+```sql
+CREATE INDEX ind_customer_order ON orders (customer_id, order_id, total_amount);
+```
+
+ 이 인덱스는 `customer_id` 로 먼저 정렬하고, 그 후에 `order_id` 와 `total_amount` 를 포함함.
+이 인덱스는 `customer_id` 를 조건으로 하고, `order_id` 와 `total_amount`를 반환하는 쿼리를 완전히 커버함. 
+
+쿼리 실행 시 테이블의 실제 데이터 페이지에 접근 할 필요 없이 인덱스만으로 결과를 반환할 수 있음.
+
+
+
+## Index Included Columns(인덱스 포함 컬럼)
+
+일부 DB 는 인덱스의 INCLUDE 기능을 제공함.
+
+이러한 Include 는 인덱스 트리의 리프 페이지에만 저장되며, 인덱스의 키의 일부로 간주되지 않음.
+
+예를 들어서 위의 예제에서 `order_date` 는 쿼리 조건에는 사용되지 않지만 반환될 수 있는 컬럼임.
+```sql
+CREATE INDEX idx_customer_order_include ON orders (customer_id) INCLUDE (order_id, total_amount, order_date);
+```
+
+이러한 인덱스를 사용하면 쿼리는 covering index 효과를 보면서 인덱스 키의 크기를 줄일 수 있음.
+
