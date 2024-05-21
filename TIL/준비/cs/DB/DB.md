@@ -19,5 +19,5 @@
 	* [[DB 정규화]]
 	* [[Data Replication]]
 	* [[sharding 전략]]
-	* CAP 이론
+	* [[CAP 이론]]
 
