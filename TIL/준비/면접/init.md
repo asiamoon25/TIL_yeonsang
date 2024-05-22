@@ -160,4 +160,42 @@ JAVA BE 면접 질문 정리
 	1. GitHub Action
 	2. Jenkins
 2. CD
-	1. 
+	1. 아르고 CD
+	2. Docker
+3. Container
+	1. Docker
+4. k8s
+
+# Cloud Service
+1. Azure
+
+# 보안 관련
+1. https
+2. cors
+3. owasp
+
+# Web Framework
+1. express
+2. NestJS
+3. Spring
+
+# Message broker
+1. RabbitMQ
+2. Kafka
+
+# 검색 엔진
+1. elasticsearch
+
+# 개발 방법론
+1. DDD
+2. TDD
+
+# TEST
+1. Unit Test
+2. 통합 테스트
+
+# Cache
+1. Local Cache
+2. 분산 캐시
+	1. Redis
+	2. memcached
