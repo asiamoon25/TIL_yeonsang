@@ -1,3 +1,6 @@
+---
+sticker: emoji//1f47f
+---
 JAVA BE 면접 질문 정리
 
 # JAVA
