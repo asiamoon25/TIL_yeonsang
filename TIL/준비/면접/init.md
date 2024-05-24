@@ -1,3 +1,6 @@
+---
+sticker: emoji//1f47f
+---
 JAVA BE 면접 질문 정리
 
 # JAVA
@@ -89,6 +92,8 @@ JAVA BE 면접 질문 정리
 	* Explain
 		* 실행 시 결과 값 중 어떤 값을 잘 봐야하는지?
 
+3. NoSQL
+	* MongoDB
 # NetWork
 
 1. HTTP Header
@@ -112,3 +117,88 @@ JAVA BE 면접 질문 정리
 * EDA (Event Driven Architecture)
 
 ---
+
+이 이후에도 공부할 것들...
+
+# Programming Language
+* JAVA
+* Python
+* JavaScript
+
+# Version Control
+* Git
+* GitHub
+
+# Internet
+* HTTP
+	* RESTful API
+* DNS
+
+# DB
+* RDB
+	* MySQL,MariaDB
+* NoSQL
+	* MongoDB
+
+* DB 기본 지시 
+	* ORM
+	* ACID
+	* N+1 문제
+
+# 인증 관련
+* 인증
+* 인가
+* OAuth
+
+# OS 관련
+* 터미널 사용방법
+
+# FrontEnd 기본 지식 
+* css
+* HTML
+* jQuery
+
+# 배포 관련
+1. CI
+	1. GitHub Action
+	2. Jenkins
+2. CD
+	1. 아르고 CD
+	2. Docker
+3. Container
+	1. Docker
+4. k8s
+
+# Cloud Service
+1. Azure
+
+# 보안 관련
+1. https
+2. cors
+3. owasp
+
+# Web Framework
+1. express
+2. NestJS
+3. Spring
+
+# Message broker
+1. RabbitMQ
+2. Kafka
+
+# 검색 엔진
+1. elasticsearch
+
+# 개발 방법론
+1. DDD
+2. TDD
+
+# TEST
+1. Unit Test
+2. 통합 테스트
+
+# Cache
+1. Local Cache
+2. 분산 캐시
+	1. Redis
+	2. memcached
