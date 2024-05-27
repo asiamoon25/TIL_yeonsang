@@ -1,3 +1,6 @@
+---
+sticker: emoji//1f47f
+---
 JAVA BE 면접 질문 정리
 
 # JAVA
@@ -89,6 +92,8 @@ JAVA BE 면접 질문 정리
 	* Explain
 		* 실행 시 결과 값 중 어떤 값을 잘 봐야하는지?
 
+3. NoSQL
+	* MongoDB
 # NetWork
 
 1. HTTP Header
@@ -113,60 +118,87 @@ JAVA BE 면접 질문 정리
 
 ---
 
+이 이후에도 공부할 것들...
 
+# Programming Language
+* JAVA
+* Python
+* JavaScript
 
-## JVM이 메모리를 관리하는 방식
+# Version Control
+* Git
+* GitHub
 
-### Heap 메모리의 구조
+# Internet
+* HTTP
+	* RESTful API
+* DNS
 
-Heap 영역은 처음 설계될 때 다음의 2가지를 전제로 설계 되었음.
-1. 대부분의 객체는 금방 접근 불가능한 상태가 된다.(Unreachable)
-2. 오래된 객체에서 새로운 객체로의 참조는 아주 적게 존재한다.
+# DB
+* RDB
+	* MySQL,MariaDB
+* NoSQL
+	* MongoDB
 
-➡️ 객체는 대부분 일회성이며, 메모리에 오래 남아있는 경우는 드물다.
+* DB 기본 지시 
+	* ORM
+	* ACID
+	* N+1 문제
 
-* ***대부분의 객체는 금방 접근 불가능한 상태가 된다.**
-![[Pasted image 20240402113722.png]]
-	해당 이미지를 보면 알 수 있듯이 Young Generation 에서 Old Generation 으로 가는 객체들은 별로 없는것을 알 수 있다.
-	이는 대부분의 객체는 금방 접근 불가능한 상태가 된다 라는 말과 같다.
+# 인증 관련
+* 인증
+* 인가
+* OAuth
 
+# OS 관련
+* 터미널 사용방법
 
-* ***오래된 객체에서 새로운 객체로의 참조가 적다**
-	위 전제는 GC가 효율적으로 메모리를 관리할 수 있도록 도와줌.
-	
-	오래된 객체가 새로운 객체로의 참조를 거의 가지지 않는다고 하면, Young Generation 에서 발생하는 대부분의 GC 는 Old Generation 의 객체들을 검사할 필요가 없다는 것을 의미한다. 이로 인해 GC 성능이 크게 향상됨.
+# FrontEnd 기본 지식 
+* css
+* HTML
+* jQuery
 
-이로 인해 Young Generation 과 Old Generation 으로 구분 된듯 하다.
+# 배포 관련
+1. CI
+	1. GitHub Action
+	2. Jenkins
+2. CD
+	1. 아르고 CD
+	2. Docker
+3. Container
+	1. Docker
+4. k8s
 
-### 구현과 최적화
-* Write Barrier : 위 가설을 실제 시스템에서 구현하기 위해, JVM 은 Write Barrier 를 사용하여 Old Generation의 객체가 Young Generation의 객체를 참조할 때 이를 추적함. 이는 Old Generation 에서 Young Generation 으로의 참조가 생성될 때마다 특정 조치를 취할 수 있게 해주며, 전체 Heap 을 스캔할 필요 없이 효율적으로 GC 를 수행할 수 있음.
-  
-* Card Marking
-	* Card Table : Old Generation 내 각 부분을 추적하기 위한 바이트 배열.
-	  각 원소는 Old Generation 의 512byte 크기 구역을 나타낸다. Card Table 은 Old Generation의 메모리를 작은 블록(카드) 로 나누고, 각 블록이 어떤 상태인지를 기록하는 지도 같은 역할
-	  Card Table 은 OG 를 512 바이트로 쪼갠 것 중 하나가 Card 임.
-	  
-	* Card Marking : Old Generation 의 객체가 YG 의 객체를 참조할 때, 해당 참조 정보를 카드 테이블에 기록함. 객체의 참조형 필드값이 변경되면, 해당 객체가 위치한 메모리 구역(카드)을 "Dirty(더러워졌다)"라고 표시함.
-	  
-	* 카드 마킹 과정
-		1. 참조 생성 : OG 의 객체가 YG의 객체를 처음 참조하게 되면, 이 관계는 카드 테이블에 "더러워짐" 으로 표시됨.
-		2. GC 시 : YG 에서 GC가 실행될 때, 전체 OG 를 검사할 필요 없이 "더러워진" 카드만 확인하면 됨. 이를 통해서 OG 객체가 YG 객체를 참조하고 있는지 빠르게 파악 가능
-		3. 효율적인 GC : 이 방식 덕분에, YG의 GC 속도가 크게 향상됨. 전체 OG 를 검사하는 대신, 변경된 참조만 확인함.
-	* 세부사항
-		* 카드 테이블 구현 : 카드 테이블의 각 항목은 OG의 512 바이트 영역을 나타냄. 객체의 참조형 필드가 변경될 때, 해당 객체가 속한 영역(카드)의 인덱스는 객체의 메모리 주소를 512(2^9)로 나눈 값에 해당함.
-		  이는 객체 주소를 오른쪽으로 9비트 시프트함으로써 계산됨.
-		* 더러움 표시 : 카드가 "더러워 졌다"고 표시되는 것은, 해당 영역에 있는 OG 객체가 YG 객체를 참조하고 있다는 뜻임. 이 표시를 통해 GC는 해당 영역만 검사하여 참조를 빠르게 파악할 수 있음.
+# Cloud Service
+1. Azure
 
-**아니 그러면 512바이트 영역을 벗어나서 카드 2개에 걸쳐서 있으면 어캄?**
-➡️ 일단 JAVA 의 객체가 512byte 를 넘어가는 경우는 거의 없음.
-그리고 객체의 참조가 변경되어 카드 테이블에 "더러워진" 표시를 해야 할 때, 실제 메모리 위치와는 무관하게 처리됨. 객체가 512byte 경계를 넘어서는 경우에도, 해당 객체의 시작 주소가 속한 카드만이 "더러워진" 상태로 마킹됨. 결국은 객체의 시작 주소만 조짐.
+# 보안 관련
+1. https
+2. cors
+3. owasp
 
-#### YG(young generation, not yg entertainment)
-* 새롭게 생성된 객체가 할당(Allocation) 되는 영역
-* 대부분의 객체가 금방 Unreachable 상태가 되기 때문에, 많은 객체가 Young 영역에 생성되었다가 사라짐.
-* Young 영역에 대한 GC를 Minor GC 라고 부름.
+# Web Framework
+1. express
+2. NestJS
+3. Spring
 
-#### OG(old generation, not original)
-* Young 영역에서 Reachable 상태를 유지하여 살아남은 객체가 복사되는 영역
-* Young 영역보다 크게 할당 되며, 영역의 크기가 큰 만큼 GC는 적게 발생
-* Old 영역에 대한 GC를 Major GC 또는 Full GC 라고 부름
+# Message broker
+1. RabbitMQ
+2. Kafka
+
+# 검색 엔진
+1. elasticsearch
+
+# 개발 방법론
+1. DDD
+2. TDD
+
+# TEST
+1. Unit Test
+2. 통합 테스트
+
+# Cache
+1. Local Cache
+2. 분산 캐시
+	1. Redis
+	2. memcached
