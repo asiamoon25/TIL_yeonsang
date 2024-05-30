@@ -12,3 +12,4 @@
 * 미로 탐색이나 트리 구조 분석 같은 문제에서 유용하게 사용됨.
 
 
+[https://aka.ms/vs/17/release/vc_redist.x64.exe](https://aka.ms/vs/17/release/vc_redist.x64.exe "https://aka.ms/vs/17/release/vc_redist.x64.exe")
