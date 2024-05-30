@@ -22,4 +22,10 @@
 * `Access-Control-Allow-Methods` : 사전 요청에서 사용, 서버가 허용하는 HTTP 메서드를 명시함.
 * `Access-Contro-Allow-Headers` : 사전 요청에서 사용, 서버가 허용하는 헤더를 명시함.
 * `Access-Control-Max-Age` : 사전 요청의 결과를 캐시할 시간(초 단위) 를 명시함.
-* `Access-Control-Allow-Credentials` : 쿠키나 인증 관련 헤더를 요청과 함께 보낼 수 있도록 허용할지의 여부를 
+* `Access-Control-Allow-Credentials` : 쿠키나 인증 관련 헤더를 요청과 함께 보낼 수 있도록 허용할지의 여부를 명시함.
+
+
+
+## 중요성
+CORS 는 보안과 유연성 사이의 균형을 제공함. 웹 개발에서 다양한 서비스와 자원을 통합하고, API 다른 도메인에서 안전하게 사용할 수 있도록 해줌.
+그러나 잘못 구성된 CORS 정책은 보안 취약점을 초래할 수 있기 때문에 설정에 주의가 필요함.
