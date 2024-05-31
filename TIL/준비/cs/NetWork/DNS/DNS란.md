@@ -90,3 +90,29 @@ Domain 체계에서 최상위는 루트(Root) 로써 인터넷 도메인의 시�
 TLD는 국가명을 나타내는 국가최상위도메인과 일반적으로 사용되는 일반최상위도메인으로 구분됨.
 
 
+
+### Second-level DNS Server(2차 도메인)
+
+TLD 서버에서 Second-level DNS 서버를 return 해줌.
+
+만약 naver.com 이나 google.com 을 요청했다면, TLD 서버에서 .com 을 파악하고 그 앞에 달린 문자열을 보고 네이버나 구글 서버에 요청을 함.
+
+Second-level DNS Server -> Sub DNS Server(최하위 서버)
+
+
+
+### Sub DNS Server
+
+서브 도메인 서버는 www, dev, mail, cafe 등을 구분하는 최하위 서버를 말함.
+
+naver 서버라도 그 안에서 네이버 홈, 메일, 블로그, 카페 등 여러 서비스가 있음. 이 서비스들을 구분하는 도메인 네임이라고 보면 됨.
+
+
+
+
+최종 DNS 의 끔찍한 모습
+
+![[Pasted image 20240531161057.png]]
+
+
+## DNS 문자열 구조
