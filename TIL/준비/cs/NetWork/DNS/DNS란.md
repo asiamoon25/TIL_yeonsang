@@ -126,4 +126,6 @@ naver 서버라도 그 안에서 네이버 홈, 메일, 블로그, 카페 등 �
 
 예를들어 `www.example.com` 의 경우
 * `.com` 은 최상위 도메인 
-* `example`은 두 번째 레벨 도메인(Second-Lve)
+* `example`은 두 번째 레벨 도메인(Second-Level Domain, SLD)
+* `www` 은 세 번째 레벨 또는 서브 도메인
+
