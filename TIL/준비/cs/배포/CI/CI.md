@@ -8,5 +8,5 @@ _sort:
   group: false
 _template: ""
 _templateName: ""
+sticker: emoji//1f62c
 ---
-![[Pasted image 20240522180111.png]]

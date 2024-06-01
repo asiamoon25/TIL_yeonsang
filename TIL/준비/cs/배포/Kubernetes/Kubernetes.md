@@ -9,4 +9,3 @@ _sort:
 _template: ""
 _templateName: ""
 ---
-![[Pasted image 20240522180111.png]]
