@@ -34,7 +34,33 @@ Actions 는 워크플로우를 단순화할 수 있는 재사용 가능한 확�
 
 **예제**
 
-다음은 `push` 이벤트가 발새
+다음은 `push` 이벤트가 발생할 때 Node.js 애플리케이션을 빌드하고 테스트하는 간단한 워크플로우임.
+
+```yaml
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm test
+      env:
+        CI: true
+```
 
 
 ## 특징
