@@ -32,6 +32,15 @@ Jenkins 의 가장 큰 강점 중 하나는 확장성에 있음. Jenkins 는 수
 
 
 **Credentials Plugin**
-
 * Jenkins 는 서버이기 때문에 ssh 와 같은 key 가 필요함.
-* 
+* AWS Token, Git Access Token, Secret Key, ssh 등을 저장해주는 플러그인임.
+
+**Git Plugin**
+* Jenkins 에서 git 에 대한 소스코드를 가져와서 빌드할 수 있게 도와주는 플러그인
+
+**PipeLine**
+* 연속적인 작업들을 젠킨스에서 하나의 파이프라인(작업) 으로 묶어서 관리할수 있게 만드는 플러그인임.
+
+**Docker Plugin and Docker PipeLine**
+* Docker Agent를 사용하고 Jenkins 에서 Docker 를 사용하기 위한 플러그인
+
