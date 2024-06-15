@@ -36,3 +36,128 @@
 
 4. Docker Hub
 	* Docker 이미지를 공유하고 저장하는 중앙 저장소
+
+
+
+## 사용법
+
+Docker 는 Window, macOS, Linux 에서 사용할 수 있음. 공식 사이트에서 설치 프로그램을 다운로드 하여 설치하면 됨.
+
+Window 는 BIOS 에서 Hyper-V 옵션이 켜져있는지 확인해야함.
+
+
+
+## 기본 명령어
+
+1. 이미지 검색 및 다운로드
+
+```bash
+docker pull <image-name>
+```
+
+ex) `docker pull nginx`
+
+
+2. 컨테이너 실행
+
+```bash
+docker run -d -p <hostPort>:<containerPort> <image-name>
+```
+
+hostPort : 컴퓨터 호스트
+containerPort : 컨테이너 내부 호스트
+
+ex) `docker run -d -p 80:80 nginx`
+
+3. 실행 중인 컨테이너 목록 보기
+
+```bash
+docker ps
+```
+
+4. 컨테이너 정지
+
+```bash
+docker stop <Container ID>
+```
+
+5. 이미지 목록 보기
+
+```bash
+docker image
+```
+
+6. 이미지 삭제
+
+```bash
+docker rmi <Image ID>
+```
+
+
+## Dockerfile 작성 및 이미지 빌드
+
+1. Dockerfile 작성
+
+```Dockerfile
+# base image setting
+FROM ubuntu:latest
+
+# 필요한 패키지 설치
+RUN apt-get update && apt-get install -y python3
+
+# 애플리케이션 복사
+COPY . /app
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 애플리케이션 실행 명령어 설정
+CMD ["python3", "app.py"]
+```
+
+2. image build
+
+```bash
+docker build -t <image-name>
+```
+
+ex) `docker build -t my-python-app`
+
+3. image 로 컨테이너 실행
+
+```bash
+docker run -d -p 5000:5000 my-python-app
+```
+
+
+## Docker Compose 사용
+
+Docker Compose 는 다중 컨테이너 애플리케이션을 정의하고 실행하기 위한 도구
+
+1. docker-compose.yml 작성
+
+```yml
+version: '3'
+services:
+	web:
+		image: nginx
+		ports:
+			- "80:80"
+	app:
+		build: .
+		ports:
+			- "5000:5000"
+```
+
+2. Compose 로 애플리케이션 실행
+
+```bash
+docker-compose up
+```
+
+3. Compose 로 애플리케이션 중지
+
+```bash
+docker-compose down
+```
+
