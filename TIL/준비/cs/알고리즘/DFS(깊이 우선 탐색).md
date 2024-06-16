@@ -70,4 +70,50 @@ DFS(Depth-First Search) 는 그래프 또는 트리의 모든 정점을 방문�
 2가지
 
 ### 재귀
-* 재귀적 DFS 는 간단하고 직관적임. 현재 정점에서 시작하여 인접한 정점들을 재구
+
+* 재귀적 DFS 는 간단하고 직관적임. 현재 정점에서 시작하여 인접한 정점들을 재귀적으로 방문함.
+
+```java
+import java.util.*;
+public class DFSRecursive{
+	public static void main(String[] args) {
+		// 그래프를 인접 리스트로 표현
+		Map<Integer, List<Integer>> graph = new HashMap<>();
+		graph.put(0, Arrays.asList(1,2));
+		graph.put(1, Arrays.asList(0,3,4));
+		graph.put(2, Arrays.asList(0,5,6));
+		graph.put(3, Arrays.asList(1));
+		graph.put(4, Arrays.asList(1));
+		graph.put(5, Arrays.asList(2));
+		graph.put(6, Arrays.asList(2));
+		
+		//방문한 정점을 기록하기 위한 배열
+		boolean[] visited = new boolean[graph.size()];
+		
+		// DFS 탐색 시작(시작 정점은 0)
+		dfs(graph, 0, visited);
+	}
+	
+	public static void dfs(Map<Integer, List<Integer>> graph, int v, boolean[] visited) {
+		//현재 정점을 방문했다고 표시
+		visited[v] = true;
+		System.out.println(v + " ");
+		
+		// 현재 정점에 연결된 모든 정점을 가져와서
+		for(int neighbor : graph.get(v)) {
+			//방문하지 않은 정점에 대해 재귀적으로 DFS 수행
+			if(!visited[neighbor]) {
+				dfs(graph, neighbor, visited);
+			}
+		}
+	}
+}
+```
+
+위 코드는 그래프를 인접 리스트로 표현하고, 재귀적으로 DFS 를 수행하여 모든 정점을 방문함.
+
+
+### 스택
+
+* 스택을 사용하여 DFS 를 구현하면 재귀 호출의 깊이 제한을 피할 수 있음. 스택을 사용하여 명시적으로 탐색 경로를 관리함.
+
