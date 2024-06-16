@@ -1,3 +1,5 @@
+https://school.programmers.co.kr/learn/courses/30/lessons/43165
+
 ```java
 package sail_phase2;
 public class TargetNumber {
