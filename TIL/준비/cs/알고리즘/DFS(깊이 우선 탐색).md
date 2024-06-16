@@ -117,3 +117,47 @@ public class DFSRecursive{
 
 * 스택을 사용하여 DFS 를 구현하면 재귀 호출의 깊이 제한을 피할 수 있음. 스택을 사용하여 명시적으로 탐색 경로를 관리함.
 
+```java
+import java.util.*;
+
+public class DFSIterative {
+    public static void main(String[] args) {
+        // 그래프를 인접 리스트로 표현
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        graph.put(0, Arrays.asList(1, 2));
+        graph.put(1, Arrays.asList(0, 3, 4));
+        graph.put(2, Arrays.asList(0, 5, 6));
+        graph.put(3, Arrays.asList(1));
+        graph.put(4, Arrays.asList(1));
+        graph.put(5, Arrays.asList(2));
+        graph.put(6, Arrays.asList(2));
+
+        // 방문한 정점을 기록하기 위한 배열
+        boolean[] visited = new boolean[graph.size()];
+
+        // DFS 탐색 시작 (시작 정점은 0)
+        dfs(graph, 0, visited);
+    }
+
+    public static void dfs(Map<Integer, List<Integer>> graph, int start, boolean[] visited) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(start);
+
+        while (!stack.isEmpty()) {
+            int v = stack.pop();
+
+            if (!visited[v]) {
+                visited[v] = true;
+                System.out.print(v + " ");
+
+                // 스택에 인접한 정점들을 추가 (방문하지 않은 정점만)
+                for (int neighbor : graph.get(v)) {
+                    if (!visited[neighbor]) {
+                        stack.push(neighbor);
+                    }
+                }
+            }
+        }
+    }
+}
+```
