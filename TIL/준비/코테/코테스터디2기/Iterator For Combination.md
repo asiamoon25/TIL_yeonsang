@@ -56,3 +56,61 @@ public class CombinationIterator {
 }
 ```
 
+
+
+1. 필드 선언
+```java
+private List<String> combinations;
+private int index;
+```
+
+* `combinations` : 생성된 조합을 저장할 리스트
+* `index` : 현재 반환할 조합의 인덱스
+
+
+2. 생성자
+
+```java
+public CombinationIterator(String characters, int combinationLength) {
+	this.combinations = new ArrayList<>();
+	this.index = 0;
+	generateCombinations(characters, combinationLength, 0, new StringBuilder());
+}
+```
+
+* 문자열 `characters` 와 조합의 길이 `combinationLength` 를 인수로 받아 초기화함.
+* `generateCombination` 메서드를 호출하여 모든 조합을 생성함.
+
+3. 조합 메서드 (DFS 사용)
+```java
+private void generateCombinations(String characters, int combinationLength, int start, StringBuilder current) {
+	if(current.length() == combinationLength) {
+		combinations.add(current.toString());
+		return;
+	}
+	for(int i = start; i < characters.length(); i++) {
+		// 현재 문자를 추가
+		current.append(characters.charAt(i));
+		// 재귀 호출
+		generateCombinations(characters, combinationLength, i+1, current);
+		//백트래킹
+		current.deleteCharAt(current.length() -1);
+	}
+}
+```
+
+* `current.length()` 가 `combinationLength` 와 같아지면 현재 조합을 리스트에 추가하고 종료함.
+* 그렇지 않으면, 시작 인덱스부터 문자를 하나씩 추가하고, 재귀적으로 다음 문자를 처리함.
+* 추가한 문자를 제거(백트래킹)하여 다음 조합을 생성할 준비를 함.
+
+4. 다음 조합 반환
+```java
+public String next() {
+	if(hasNext()){
+		return combination.get(index++);
+	}
+	return null;
+}
+```
+
+* `has`
