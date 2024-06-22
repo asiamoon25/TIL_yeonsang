@@ -98,4 +98,4 @@ public class CASExample{
 * **비차단 알고리즘**
 	* 락을 사용하지 않는 비차단 알고리즘(Non-blocking Algorithms) 을 구현때 핵심적으로 사용됨.
 * **Concurrent Collections**
-	* Java 의 `ConcurrentHashMap`, `ConcurrentHashMap`
+	* Java 의 `ConcurrentHashMap`, `ConcurrentLinkedQueue` 등 동시성 컬렉션에서 내부적으로 사용이됨.
