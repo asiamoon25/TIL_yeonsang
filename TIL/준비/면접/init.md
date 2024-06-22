@@ -202,3 +202,10 @@ JAVA BE 면접 질문 정리
 2. 분산 캐시
 	1. Redis
 	2. memcached
+
+
+
+JPA , QUERYDSL 공부...
+
+JAVA 11, -> for 문 없이 stream() 
+
