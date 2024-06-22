@@ -24,7 +24,7 @@
 
 3. **삭제(Dequeue)**
 	* 요소를 큐에서 삭제할 때 `Front` 포인터를 증가시키고, 해당 위치의 요소를 제거함.
-	* 만약 `Front` 가 배열의 끝에 도달했다면, `Front` 는 0으로 설정ㅚㅁ.
+	* 만약 `Front` 가 배열의 끝에 도달했다면, `Front` 는 0으로 설정됨.
 
 4. **빈 큐 확인**
 	* `Front` 와 `Rear` 가 동일한 큐가 비어있음을 의미함.(초기 상태 혹은 모든 요소가 삭제된 상태)
@@ -69,5 +69,35 @@ public class CircularQueue {
 		rear = (rear + 1) % size;
 		queue[rear] = item;
 	}
+	
+	// 요소 삭제
+	public int dequeue() {
+		if(isEmpty()){
+			throw new RuntimeException("Queue is empty");
+		}
+		int item = queue[front];
+		if(front == rear) {
+			front = rear = -1); // 큐가 비어버림
+		}else{
+			front = (front + 1) % size;
+		}
+		return item;
+	}
+	// 큐 내용 표시
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+        } else {
+            int i = front;
+            while (true) {
+                System.out.print(queue[i] + " ");
+                if (i == rear) {
+                    break;
+                }
+                i = (i + 1) % size;
+            }
+            System.out.println();
+        }
+    }
 }
 ```
