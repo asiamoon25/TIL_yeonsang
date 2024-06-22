@@ -58,3 +58,55 @@
 
 ## 언제 써야함?
 
+* **멀티스레드 환경**
+	* 여러 스레드가 동시에 맵에 접근하고 수정하는 경우
+* **고성능이 필요한 경우**
+	* 동기화가 필요한 경우 성능 저하를 최소화해야 할 때
+* **원자적 연산이 필요한 경우**
+	* 복잡한 동기화 코드를 작성하지 않고도 원자적 연산을 수행해야 할 때.
+
+
+## 시간복잡도
+* **삽입,삭제 조회**
+	* 평균적으로 O(1) 임. 트리로 변환된 경우 최악의 경우 O(log n) 임.
+
+
+
+## 내부 메서드
+
+* `put(K key, V value)`
+	* 지정된 키와 값을 맵에 삽입함.
+* `get(Object key)` 
+	* 지정된 키에 대응하는 값을 반환함.
+* `remove(Object key)`
+	* 지정된 키가 맵에 없을 경우에만 값을 삽입함.
+* `replace(K key, V oldValue, V newValue)`
+	* 지정된 키와 기존 값을 새로운 값으로 교체함.
+* `computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction)`
+	* 지정된 키가 맵에 없을 경우 주어진 함수에 따라 값을 계산하고 삽입함.
+* `computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction)`
+	* 지정된 키가 맵에 존재할 경우 주어진 함수에 따라 값을 재계산하고 업데이트함.
+* `compute(K key, BitFunction<? super K, ? super V, ? extends V> remappingFunction)`
+	* 지정된 키에 대해 주어진 함수에 따라 값을 계산하고 업데이트함.
+
+**예제**
+```java
+public class ConcurrentHashMapExample {
+	public static void main(String[] args) {
+		ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+		
+		//값을 삽입
+		map.put("key1", "value1");
+		map.put("key2", "value2");
+		
+		// 기존 키가 없으면 값을 삽입
+		map.putIfAbsent("key3", "value3");
+		
+		//값 가져오기
+		System.out.println("key1: " + map.get("key1"));
+		
+		//값 교체
+		m
+	}
+}
+```
