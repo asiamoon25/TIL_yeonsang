@@ -106,7 +106,13 @@ public class ConcurrentHashMapExample {
 		System.out.println("key1: " + map.get("key1"));
 		
 		//값 교체
-		m
+		map.replace("key2", "value2", "newValue2");
+		
+		//값 제거
+		map.remove("key3");
+		
+		// 최종 맵 출력
+		map.forEach((key,value) -> System.out.println(key + ": " + value));
 	}
 }
 ```
