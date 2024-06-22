@@ -30,4 +30,44 @@
 	* `Front` 와 `Rear` 가 동일한 큐가 비어있음을 의미함.(초기 상태 혹은 모든 요소가 삭제된 상태)
 
 5. **포화 큐 확인**
-	* `Rear` 가 `Front-1` 에 위치하거나, `Front` 가 0이고 `Rear` 가 배열의 끝에 있는 경우 큐가 포화 상태임을 읨
+	* `Rear` 가 `Front-1` 에 위치하거나, `Front` 가 0이고 `Rear` 가 배열의 끝에 있는 경우 큐가 포화 상태임을 의미함.
+
+
+```java
+public class CircularQueue {
+	private int size;
+	private int front;
+	private int rear;
+	private int[] queue;
+	
+	//Circular Queue 초기화
+	public CircularQueue(int size) {
+		this.size = size;
+		this.front = -1;
+		this.rear = -1;
+		this.queue = new int[size];
+	}
+	
+	// 큐가 비어 있는지 확인
+	public boolean isEmpty() {
+		retur front == -1;
+	}
+	
+	// 큐가 가득 찼는지 확인
+	public boolean isFull() {
+		return (rear + 1) % size == front;
+	}
+	
+	// 요소 삽입
+	public void enqueue(int item) {
+		if(isFull()) {
+			throw new RuntimeException("Queue is full");
+		}
+		if(isEmpty()) {
+			front = 0;
+		}
+		rear = (rear + 1) % size;
+		queue[rear] = item;
+	}
+}
+```
