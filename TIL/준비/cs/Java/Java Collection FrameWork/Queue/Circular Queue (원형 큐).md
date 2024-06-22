@@ -50,7 +50,7 @@ public class CircularQueue {
 	
 	// 큐가 비어 있는지 확인
 	public boolean isEmpty() {
-		retur front == -1;
+		return front == -1;
 	}
 	
 	// 큐가 가득 찼는지 확인
