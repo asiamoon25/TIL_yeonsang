@@ -159,3 +159,97 @@ class Ostrich extends Bird {
 
 
 ### 4. Interface Segregation Principle(ISP)
+
+* 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 낫다는 원칙
+```java
+// 잘못된 예시
+interface Worker {
+    void work();
+    void eat();
+}
+
+// ISP 적용
+interface Workable {
+    void work();
+}
+
+interface Eatable {
+    void eat();
+}
+
+class Employee implements Workable, Eatable {
+    @Override
+    public void work() {
+        // 업무 수행 로직
+    }
+
+    @Override
+    public void eat() {
+        // 식사 로직
+    }
+}
+
+class Robot implements Workable {
+    @Override
+    public void work() {
+        // 로봇 업무 수행 로직
+    }
+}
+```
+
+➡️ 로봇은 `eat` 메서드를 필요로 하지 않기 때문에 `Worker` 인터페이스를 `Workable` 과 `Eatable` 로 분리하여 로봇과 인간 직원 모두 필요한 인터페이스만 구현하도록 함.
+
+
+### 5. Dependency Inversion Principle(DIP)
+
+* 고수준 모듈은 저수준 모듈에 의존해서는 안 되며, 둘 다 추상화에 의존해야 한다는 원칙
+
+```java
+// 잘못된 예시
+class LightBulb {
+    public void turnOn() {
+        // 전구 켜기 로직
+    }
+}
+
+class Switch {
+    private LightBulb lightBulb;
+    
+    public Switch(LightBulb lightBulb) {
+        this.lightBulb = lightBulb;
+    }
+    
+    public void operate() {
+        lightBulb.turnOn();
+    }
+}
+
+// DIP 적용
+interface Switchable {
+    void turnOn();
+}
+
+class LightBulb implements Switchable {
+    @Override
+    public void turnOn() {
+        // 전구 켜기 로직
+    }
+}
+
+class Switch {
+    private Switchable device;
+    
+    public Switch(Switchable device) {
+        this.device = device;
+    }
+    
+    public void operate() {
+        device.turnOn();
+    }
+}
+```
+
+➡️ `Switch` 클래스가 `LightBulb` 와 같은 구체적인 클래스에 의존하지 않고, `Switchable` 인터페이스에 의존하도록 하여, 다양한 종류의 전기 기기를 사용할 수 있도록 함.
+
+
+이와 같이 SOLID 원칙을 적용하면 코드의 유연성, 유지보수성, 확장성이 크게 향상됨.
