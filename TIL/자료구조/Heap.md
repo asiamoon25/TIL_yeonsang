@@ -40,5 +40,33 @@
 * **효율적인 정렬 방법(Heap Sort)**
 	* 힙을 사용하여 배열을 정렬할 수 있는데, 이 방법은 힙 속성을 활용하여 최대값 또는 최소값을 빠르게 찾아내고 배열의 정렬된 부분으로 이동시키는 과정을 반복함.
 * **그래프 알고리즘**
-	* 다익스트라 알고리즘과 프림 알고리즘과 같은 최단 경로 및 최소 신장 트리 알고리즘에서 ㅎ비은 노드의 우선순위를 관리하는 데 사용됨.
+	* 다익스트라 알고리즘과 프림 알고리즘과 같은 최단 경로 및 최소 신장 트리 알고리즘에서 힙은 노드의 우선순위를 관리하는 데 사용됨.
 
+힙은 그 구조와 특성으로 인해 데이터를 효율적으로 관리하고, 빠른 접근 및 수정이 필요한 다양한 애플리케이션에 널리 사용됨.
+
+
+
+## 구현
+
+**최소 힙 클래스**
+
+```java
+public class MinHeap {
+	private int[] heap;
+	private int size;
+	private int capacity;
+	
+	public MinHeap(int capacity) {
+		this.capacity = capacity;
+		this.size = 0;
+		heap = new int[this.capacity];
+	}
+	private int parent(int i) {return (i-1)/2;}
+	private int leftChild(int i) {return 2*i + 1};
+	private int rightChild(int i) {return 2*i + 2};
+	
+	public void insert(int key) {
+		if(size == c)
+	}
+}
+```
