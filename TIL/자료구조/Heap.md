@@ -66,7 +66,8 @@ public class MinHeap {
 	private int rightChild(int i) {return 2*i + 2};
 	
 	public void insert(int key) {
-		if(size == c)
+		if(size == capacity) {
+		}
 	}
 }
 ```
