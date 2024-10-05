@@ -8,5 +8,4 @@ _sort:
   group: false
 _template: ""
 _templateName: ""
-color: var(--mk-color-red)
 ---
