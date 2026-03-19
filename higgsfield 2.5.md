@@ -22,3 +22,10 @@ Location 생성 : only prompt
 
 
 SCENES 생성 : Character 와 Location 을 설정 후 prompt 로 처리.
+
+---
+## Step
+
+1. Character 생성 : 내가 공유한 SCENE 설정 등을 기반으로 주인공 및 등장인물 Character 옵션들을 알려줘.
+2. Location 생성 : SCENE 에 맞는 장소를 프롬프트로 알려줘
+3. SCENE 생성 : 내가 공유한 sCENE 에 맞춰서 들어갈 캐릭터(1명), 장소(1개) 로 해서 프롬프트 알려줘
