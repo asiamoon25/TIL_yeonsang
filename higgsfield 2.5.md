@@ -44,3 +44,27 @@ SCENES 생성 : Character 와 Location 을 설정 후 prompt 로 처리.
   
 
 이렇게 알려줘야돼
+
+---
+Character 생성 : 
+* 장르 : Action, Adventure, Comedy, Drama, Thriller, Horror, Detective, Romance, Sci-Fi, Fantasy, War, Western, Historical, Sitcom
+* Budget In Millions : $10M ~ $500M
+* Era : 1900s ~ 2010s
+* Archetype : Innocent, Everyman, Hero, Caregiver, Explorer, Rebel, Lover, Creator, Jester, Sage, Magician, Ruler
+* Identity : 
+	* Gender : Male, Female
+	* Race : White, Black, Asian, Latino, Indigenous, Mixed
+	*  Age : 20yo ~ 70yo
+* Physical Appearance : 
+	* Build : slim, Average, Athletic, Muscular, Stocky, plus-size
+	* Height : Very short (short, average, tall) Very Tall
+	* eye color : Custom, Brown, Blue, Green, Hazel, Gray, Aamber
+	* Hair Style : Short, Medium, Long, Very Long, Ponytail, Bun, Braids, Dreadlocks, Afro, Fringe/Bangs, Undercut, Slick back, Messy, Shaved sides, Balds
+	* Hair Texture : Straight, Wavy, Curly, Coily
+	* Hair Color : Custom, Black, Brown, Blonde, Red, Gray, White, Auburn
+	* Facial Hair : Clean-shaven, Stubble, Beard, Short Beard, Mustache, Long beard
+* Details : Custom, Facial scar, Freckles, Tattoos, Eye patch
+* Outfit : Custom, Formal, High Fashion, Military, Sporty, Workwear, Vintage, Punk
+이게 캐릭터 선택 옵션이고 Custom 은 프롬프트를 넣어줘야되고
+
+마지막에 옵션 다 고르고 Character 의 프롬프트를 넣어주면 된다.
