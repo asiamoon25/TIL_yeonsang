@@ -35,7 +35,7 @@ SCENES 생성 : Character 와 Location 을 설정 후 prompt 로 처리.
 
   
 
-* character :
+* character [K, 미아]:
 
 * Location :
 
